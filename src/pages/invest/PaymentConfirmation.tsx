@@ -37,7 +37,7 @@ const PaymentConfirmation = () => {
       toast({
         title: "Payment Successful",
         description: "Your investment has been processed successfully",
-        variant: "success"
+        variant: "default" // Changed from "success" to "default" to match accepted variants
       });
       
       navigate("/payment-success", { 
