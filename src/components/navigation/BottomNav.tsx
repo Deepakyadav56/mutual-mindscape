@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Home, Search, PieChart, Clock, User } from "lucide-react";
 
 const BottomNav = () => {
@@ -50,28 +50,41 @@ const BottomNav = () => {
               to={item.path}
               className="relative flex flex-col items-center py-2 px-3"
             >
-              <motion.div
-                initial={false}
-                animate={{
-                  scale: active ? 1.1 : 1,
-                  y: active ? -2 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className={`flex items-center justify-center ${
-                  active ? "text-app-primary-blue" : "text-gray-500"
-                }`}
-              >
-                {item.icon}
-                {active && (
-                  <motion.div
-                    layoutId="navIndicator"
-                    className="absolute -bottom-1 w-5 h-1 bg-app-primary-blue rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </motion.div>
-              <span className={`text-xs mt-1 ${
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{
+                    scale: active ? 1.1 : 1,
+                    opacity: 1,
+                    y: active ? -4 : 0,
+                  }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 500, 
+                    damping: 30,
+                    bounce: 0.3
+                  }}
+                  className={`flex items-center justify-center ${
+                    active ? "text-app-primary-blue" : "text-gray-500"
+                  }`}
+                >
+                  {item.icon}
+                  {active && (
+                    <motion.div
+                      layoutId="navIndicator"
+                      className="absolute -bottom-1 w-6 h-1.5 bg-app-primary-blue rounded-full"
+                      initial={false}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 500, 
+                        damping: 30 
+                      }}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+              <span className={`text-xs mt-1 transition-colors ${
                 active ? "font-medium text-app-primary-blue" : "text-gray-500"
               }`}>
                 {item.name}
