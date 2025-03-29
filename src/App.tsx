@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,40 +19,45 @@ import Portfolio from "./pages/portfolio/Portfolio";
 import Transactions from "./pages/transactions/Transactions";
 import Profile from "./pages/profile/Profile";
 
+// Create a client
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* Onboarding Routes */}
-          <Route path="/" element={<Index />} />
-          <Route path="/splash" element={<SplashScreen />} />
-          <Route path="/onboarding" element={<OnboardingScreen />} />
-          
-          {/* Authentication Routes */}
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/kyc" element={<KycVerification />} />
-          
-          {/* App Routes */}
-          <Route path="/" element={<AppLayout />}>
-            <Route path="/dashboard" element={<Home />} />
-            <Route path="/explore" element={<FundsExplore />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
-          
-          {/* 404 Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Onboarding Routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/splash" element={<SplashScreen />} />
+              <Route path="/onboarding" element={<OnboardingScreen />} />
+              
+              {/* Authentication Routes */}
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/signup" element={<Signup />} />
+              <Route path="/kyc" element={<KycVerification />} />
+              
+              {/* App Routes */}
+              <Route path="/" element={<AppLayout />}>
+                <Route path="/dashboard" element={<Home />} />
+                <Route path="/explore" element={<FundsExplore />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
+};
 
 export default App;
