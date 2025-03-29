@@ -15,9 +15,14 @@ import KycVerification from "./pages/kyc/KycVerification";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/dashboard/Home";
 import FundsExplore from "./pages/explore/FundsExplore";
+import FundDetails from "./pages/explore/FundDetails";
+import InvestFund from "./pages/invest/InvestFund";
+import PaymentConfirmation from "./pages/invest/PaymentConfirmation";
+import PaymentSuccess from "./pages/invest/PaymentSuccess";
 import Portfolio from "./pages/portfolio/Portfolio";
 import Transactions from "./pages/transactions/Transactions";
 import Profile from "./pages/profile/Profile";
+import BankAccounts from "./pages/profile/BankAccounts";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -49,6 +54,15 @@ const App = () => {
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/profile" element={<Profile />} />
               </Route>
+              
+              {/* Fund Details & Investment Flow */}
+              <Route path="/funds/:fundId" element={<FundDetails />} />
+              <Route path="/invest/:fundId" element={<InvestFund />} />
+              <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              
+              {/* Profile Subroutes */}
+              <Route path="/profile/bank-accounts" element={<BankAccounts />} />
               
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />

@@ -1,12 +1,15 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 
 const FundsExplore = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   // Mock data for funds
   const allFunds = [
@@ -108,9 +111,18 @@ const FundsExplore = () => {
     );
   };
 
+  const handleFundClick = (fundId: number) => {
+    navigate(`/funds/${fundId}`);
+  };
+  
+  const handleInvest = (e: React.MouseEvent, fundId: number) => {
+    e.stopPropagation();
+    navigate(`/invest/${fundId}`);
+  };
+
   return (
     <div className="pb-20">
-      <h1 className="text-2xl font-bold text-finance-primary mb-6">Explore Funds</h1>
+      <h1 className="text-2xl font-bold text-app-charcoal mb-6">Explore Funds</h1>
       
       <div className="mb-6">
         <div className="relative">
@@ -156,43 +168,56 @@ const FundsExplore = () => {
               filteredFunds.length > 0 ? (
                 <div className="space-y-4">
                   {filteredFunds.map((fund) => (
-                    <Card key={fund.id} className="fund-card">
+                    <Card 
+                      key={fund.id} 
+                      className="fund-card border-app-light-mint hover:border-app-charcoal transition-colors cursor-pointer"
+                      onClick={() => handleFundClick(fund.id)}
+                    >
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium text-finance-primary">{fund.name}</h3>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          fund.riskLevel === "Low" ? "bg-green-100 text-green-800" :
-                          fund.riskLevel === "Moderate" ? "bg-yellow-100 text-yellow-800" :
-                          "bg-orange-100 text-orange-800"
-                        }`}>
+                        <h3 className="font-medium text-app-charcoal">{fund.name}</h3>
+                        <Badge variant={
+                          fund.riskLevel === "Low" ? "success" :
+                          fund.riskLevel === "Moderate" ? "warning" :
+                          "outline"
+                        }>
                           {fund.riskLevel}
-                        </span>
+                        </Badge>
                       </div>
                       
                       <div className="flex justify-between items-center text-sm mb-2">
-                        <span className="text-finance-muted">{fund.category}</span>
-                        <span className="text-finance-muted">{fund.aum}</span>
+                        <span className="text-app-charcoal opacity-70">{fund.category}</span>
+                        <span className="text-app-charcoal opacity-70">{fund.aum}</span>
                       </div>
                       
                       <div className="flex justify-between items-center mb-3">
                         <div>
-                          <p className="text-xs text-finance-muted">1Y Returns</p>
-                          <p className="text-finance-success font-medium">{fund.returnPercentage}%</p>
+                          <p className="text-xs text-app-charcoal opacity-70">1Y Returns</p>
+                          <p className="text-green-600 font-medium">{fund.returnPercentage}%</p>
                         </div>
                         <div>
-                          <p className="text-xs text-finance-muted">Min. Investment</p>
+                          <p className="text-xs text-app-charcoal opacity-70">Min. Investment</p>
                           <p className="font-medium">₹{fund.minInvestment}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-finance-muted mb-1">Rating</p>
+                          <p className="text-xs text-app-charcoal opacity-70 mb-1">Rating</p>
                           {renderRatingStars(fund.rating)}
                         </div>
                       </div>
                       
                       <div className="flex space-x-3 mt-2">
-                        <Button className="bg-finance-accent hover:bg-finance-accent/90 flex-1">
+                        <Button 
+                          className="bg-app-charcoal hover:bg-app-charcoal/90 text-app-mint flex-1"
+                          onClick={(e) => handleInvest(e, fund.id)}
+                        >
                           Invest
                         </Button>
-                        <Button className="bg-transparent border border-finance-primary text-finance-primary hover:bg-finance-primary/10 flex-1">
+                        <Button 
+                          className="bg-transparent border border-app-charcoal text-app-charcoal hover:bg-app-charcoal/10 flex-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleFundClick(fund.id);
+                          }}
+                        >
                           Details
                         </Button>
                       </div>
@@ -201,12 +226,12 @@ const FundsExplore = () => {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-finance-muted">No funds found matching your search.</p>
+                  <p className="text-app-charcoal opacity-70">No funds found matching your search.</p>
                 </div>
               )
             ) : (
               <div className="text-center py-8">
-                <p className="text-finance-muted">
+                <p className="text-app-charcoal opacity-70">
                   {category.name} funds will appear here.
                 </p>
               </div>
@@ -215,19 +240,19 @@ const FundsExplore = () => {
         ))}
       </Tabs>
       
-      <Card className="mb-6">
+      <Card className="mb-6 border-app-light-mint">
         <CardContent className="py-4">
           <div className="flex space-x-4 overflow-x-auto pb-2">
-            <Button className="bg-finance-primary hover:bg-finance-primary/90 flex-shrink-0">
+            <Button className="bg-app-charcoal hover:bg-app-charcoal/90 text-app-mint flex-shrink-0">
               Top Rated
             </Button>
-            <Button className="bg-transparent border border-gray-300 text-finance-muted hover:bg-gray-100 flex-shrink-0">
+            <Button className="bg-transparent border border-app-light-mint text-app-charcoal hover:bg-app-light-mint flex-shrink-0">
               High Returns
             </Button>
-            <Button className="bg-transparent border border-gray-300 text-finance-muted hover:bg-gray-100 flex-shrink-0">
+            <Button className="bg-transparent border border-app-light-mint text-app-charcoal hover:bg-app-light-mint flex-shrink-0">
               Low Risk
             </Button>
-            <Button className="bg-transparent border border-gray-300 text-finance-muted hover:bg-gray-100 flex-shrink-0">
+            <Button className="bg-transparent border border-app-light-mint text-app-charcoal hover:bg-app-light-mint flex-shrink-0">
               Popular
             </Button>
           </div>
