@@ -67,6 +67,18 @@ export default {
 					red: '#FF6B6B',
 					yellow: '#FFD166',
 					blue: '#118AB2',
+					// New modern UI colors (similar to Google Pay & Groww)
+					'primary-blue': '#2C5CF6',
+					'primary-green': '#00D09C',
+					'primary-purple': '#8250DF',
+					'light-blue': '#E6F3FF',
+					'light-purple': '#F2EBFF',
+					'light-green': '#E6FFF7',
+					'gray-50': '#F9FAFB',
+					'gray-100': '#F3F4F6',
+					'gray-200': '#E5E7EB',
+					'gray-300': '#D1D5DB',
+					'gray-900': '#111827',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -77,6 +89,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				finance: {
+					primary: '#22AD78',  // Same as app-green
+					secondary: '#118AB2', // Same as app-blue
+					accent: '#22AD78',
+					muted: '#6B7280',
+					light: '#F9FAFB',
 				}
 			},
 			borderRadius: {
@@ -116,6 +135,10 @@ export default {
 				'pulse-gentle': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' }
+				},
+				'scale-in': {
+					'0%': { transform: 'scale(0.9)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
 				}
 			},
 			animation: {
@@ -124,8 +147,15 @@ export default {
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-up': 'fade-up 0.4s ease-out',
 				'slide-in': 'slide-in 0.3s ease-out',
-				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out'
-			}
+				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out',
+				'scale-in': 'scale-in 0.3s ease-out'
+			},
+			boxShadow: {
+				'card': '0 4px 12px rgba(0, 0, 0, 0.05)',
+				'card-hover': '0 8px 20px rgba(0, 0, 0, 0.08)',
+				'button': '0 2px 6px rgba(0, 0, 0, 0.1)',
+				'nav': '0 -2px 10px rgba(0, 0, 0, 0.05)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

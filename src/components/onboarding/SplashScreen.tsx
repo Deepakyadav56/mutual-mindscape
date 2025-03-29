@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const SplashScreen = () => {
   const navigate = useNavigate();
@@ -9,15 +10,25 @@ const SplashScreen = () => {
     // Simulate loading time before redirecting
     const timer = setTimeout(() => {
       navigate("/onboarding");
-    }, 2000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-app-mint p-6">
-      <div className="animate-fade-in flex flex-col items-center">
-        <div className="w-24 h-24 rounded-full bg-app-charcoal flex items-center justify-center mb-8 shadow-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-app-mint to-white p-6">
+      <motion.div 
+        className="flex flex-col items-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <motion.div 
+          className="w-28 h-28 rounded-full bg-app-charcoal flex items-center justify-center mb-8 shadow-xl"
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 24 24" 
@@ -26,14 +37,41 @@ const SplashScreen = () => {
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round" 
-            className="w-12 h-12 text-app-mint"
+            className="w-14 h-14 text-app-mint"
           >
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
           </svg>
-        </div>
-        <h1 className="text-4xl font-bold text-app-charcoal mb-2 font-sf-pro">WealthWise</h1>
-        <p className="text-app-charcoal opacity-80 font-medium">Your smart investment partner</p>
-      </div>
+        </motion.div>
+        <motion.h1 
+          className="text-5xl font-bold text-app-charcoal mb-2 font-sf-pro"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          WealthWise
+        </motion.h1>
+        <motion.p 
+          className="text-app-charcoal opacity-80 font-medium"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+        >
+          Your smart investment partner
+        </motion.p>
+        
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.5 }}
+        >
+          <div className="flex gap-2">
+            <div className="h-2 w-2 bg-app-green rounded-full animate-pulse"></div>
+            <div className="h-2 w-2 bg-app-green rounded-full animate-pulse" style={{ animationDelay: "300ms" }}></div>
+            <div className="h-2 w-2 bg-app-green rounded-full animate-pulse" style={{ animationDelay: "600ms" }}></div>
+          </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
