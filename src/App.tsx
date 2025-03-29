@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SplashScreen from "./components/onboarding/SplashScreen";
@@ -25,7 +25,14 @@ import Profile from "./pages/profile/Profile";
 import BankAccounts from "./pages/profile/BankAccounts";
 
 // Create a client
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => {
   return (
@@ -33,20 +40,18 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
-          <Sonner />
+          <Sonner position="top-right" closeButton />
           <BrowserRouter>
             <Routes>
-              {/* Onboarding Routes */}
-              <Route path="/" element={<Index />} />
+              {/* Onboarding & Auth Flow */}
+              <Route path="/" element={<Navigate to="/splash" replace />} />
               <Route path="/splash" element={<SplashScreen />} />
               <Route path="/onboarding" element={<OnboardingScreen />} />
-              
-              {/* Authentication Routes */}
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/signup" element={<Signup />} />
               <Route path="/kyc" element={<KycVerification />} />
               
-              {/* App Routes */}
+              {/* Main App Routes */}
               <Route path="/" element={<AppLayout />}>
                 <Route path="/dashboard" element={<Home />} />
                 <Route path="/explore" element={<FundsExplore />} />

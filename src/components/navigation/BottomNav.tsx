@@ -40,7 +40,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="fixed-bottom bg-white border-t border-gray-100 py-2 pt-3 px-4 shadow-nav z-50">
+    <div className="fixed-bottom bg-white border-t border-gray-100 py-1 pt-1 px-4 shadow-nav z-50">
       <div className="flex justify-between items-center">
         {navItems.map((item) => {
           const active = isActive(item.path);
@@ -48,31 +48,31 @@ const BottomNav = () => {
             <Link
               key={item.name}
               to={item.path}
-              className="relative flex flex-col items-center py-1 px-3"
+              className="relative flex flex-col items-center py-2 px-3"
             >
               <motion.div
                 initial={false}
                 animate={{
                   scale: active ? 1.1 : 1,
-                  y: active ? -5 : 0,
+                  y: active ? -2 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className={`flex items-center justify-center ${
-                  active ? "text-app-green" : "text-gray-500"
+                  active ? "text-app-primary-blue" : "text-gray-500"
                 }`}
               >
                 {item.icon}
                 {active && (
                   <motion.div
                     layoutId="navIndicator"
-                    className="absolute -bottom-1 w-5 h-1 bg-app-green rounded-full"
+                    className="absolute -bottom-1 w-5 h-1 bg-app-primary-blue rounded-full"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
               </motion.div>
               <span className={`text-xs mt-1 ${
-                active ? "font-medium text-app-green" : "text-gray-500"
+                active ? "font-medium text-app-primary-blue" : "text-gray-500"
               }`}>
                 {item.name}
               </span>
