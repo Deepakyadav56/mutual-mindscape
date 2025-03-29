@@ -19,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sf-pro': ['"SF Pro Display"', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -53,17 +56,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Custom finance app colors
-				finance: {
-					primary: '#1A2B49',
-					secondary: '#00BFA5',
-					accent: '#4A80F0',
-					success: '#00C48C',
-					warning: '#FFB74D',
-					danger: '#FF647C',
-					light: '#F7FAFC',
-					dark: '#2C3E50',
-					muted: '#94A3B8'
+				// Custom app theme colors based on the reference
+				app: {
+					mint: '#CEEDE3',
+					'light-mint': '#EBF1EE',
+					charcoal: '#282C2A',
+					white: '#F2F2F2',
+					green: '#22ad78',
+					'dark-green': '#1A8A61',
+					red: '#FF6B6B',
+					yellow: '#FFD166',
+					blue: '#118AB2',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

@@ -10,6 +10,7 @@ import SplashScreen from "./components/onboarding/SplashScreen";
 import OnboardingScreen from "./components/onboarding/OnboardingScreen";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import KycVerification from "./pages/kyc/KycVerification";
 import AppLayout from "./components/layout/AppLayout";
 import Home from "./pages/dashboard/Home";
 import FundsExplore from "./pages/explore/FundsExplore";
@@ -34,6 +35,7 @@ const App = () => (
           {/* Authentication Routes */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/kyc" element={<KycVerification />} />
           
           {/* App Routes */}
           <Route path="/" element={<AppLayout />}>

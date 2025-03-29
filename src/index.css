@@ -2,39 +2,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 150 45% 93%;  /* #CEEDE3 */
+    --foreground: 160 5% 17%;   /* #282C2A */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 160 5% 17%;  /* #282C2A */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 160 5% 17%;  /* #282C2A */
 
-    --primary: 210 64% 20%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 160 5% 17%;   /* #282C2A */
+    --primary-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --secondary: 174 100% 37%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 150 25% 40%;  /* Slightly darker mint */
+    --secondary-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 160 13% 94%;  /* #EBF1EE */
+    --muted-foreground: 160 5% 35%;  /* Lighter charcoal */
 
-    --accent: 217 88% 62%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 153 54% 41%;  /* Green accent color */
+    --accent-foreground: 160 5% 17%;  /* #282C2A */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 160 13% 94%;  /* #EBF1EE */
+    --input: 160 13% 94%;  /* #EBF1EE */
+    --ring: 160 5% 17%;  /* #282C2A */
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -47,33 +47,33 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 160 5% 17%;  /* #282C2A */
+    --foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 160 5% 17%;  /* #282C2A */
+    --card-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 160 5% 17%;  /* #282C2A */
+    --popover-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 150 45% 93%;  /* #CEEDE3 */
+    --primary-foreground: 160 5% 17%;  /* #282C2A */
 
-    --secondary: 174 100% 37%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 153 54% 41%;  /* Green accent color */
+    --secondary-foreground: 160 5% 17%;  /* #282C2A */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 160 5% 25%;  /* Darker charcoal */
+    --muted-foreground: 160 13% 80%;  /* Light mint */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 153 54% 41%;  /* Green accent color */
+    --accent-foreground: 150 45% 93%;  /* #CEEDE3 */
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 150 45% 93%;  /* #CEEDE3 */
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 160 5% 25%;  /* Darker charcoal */
+    --input: 160 5% 25%;  /* Darker charcoal */
+    --ring: 160 13% 94%;  /* #EBF1EE */
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -92,8 +92,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground font-sf-pro;
+    font-family: 'SF Pro Display', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -115,27 +115,27 @@
 
 @layer components {
   .finance-card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-4 transition-all hover:shadow-md;
+    @apply bg-white rounded-2xl shadow-sm border border-app-light-mint p-4 transition-all hover:shadow-md;
   }
   
   .fund-card {
-    @apply flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 p-4 transition-all hover:shadow-md;
+    @apply flex flex-col bg-white rounded-2xl shadow-sm border border-app-light-mint p-4 transition-all hover:shadow-md;
   }
   
   .btn-primary {
-    @apply bg-finance-primary text-white rounded-lg px-4 py-2 hover:bg-opacity-90 transition-colors;
+    @apply bg-app-charcoal text-app-mint rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-secondary {
-    @apply bg-finance-secondary text-white rounded-lg px-4 py-2 hover:bg-opacity-90 transition-colors;
+    @apply bg-app-green text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-outline {
-    @apply border border-finance-primary text-finance-primary rounded-lg px-4 py-2 hover:bg-finance-primary hover:bg-opacity-10 transition-colors;
+    @apply border-2 border-app-charcoal text-app-charcoal rounded-full px-6 py-3 hover:bg-app-charcoal hover:text-app-mint transition-colors text-base font-medium;
   }
   
   .input-field {
-    @apply w-full border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-finance-accent focus:border-transparent;
+    @apply w-full border border-app-light-mint rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-app-green focus:border-transparent bg-white;
   }
   
   .app-container {
@@ -143,11 +143,11 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-finance-primary to-finance-accent text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-app-charcoal to-app-green text-transparent bg-clip-text;
   }
   
   .onboarding-container {
-    @apply flex flex-col items-center justify-center h-screen p-6 text-center;
+    @apply flex flex-col items-center justify-center min-h-screen p-6 text-center bg-app-mint;
   }
   
   .page-container {
@@ -155,10 +155,43 @@
   }
   
   .page-title {
-    @apply text-2xl font-bold mb-6;
+    @apply text-2xl font-bold mb-6 text-app-charcoal;
   }
   
   .fixed-bottom {
     @apply fixed bottom-0 left-0 right-0 max-w-lg mx-auto;
   }
+
+  .status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-badge-success {
+    @apply status-badge bg-green-100 text-green-800;
+  }
+
+  .status-badge-pending {
+    @apply status-badge bg-yellow-100 text-yellow-800;
+  }
+
+  .status-badge-error {
+    @apply status-badge bg-red-100 text-red-800;
+  }
+
+  .stat-card {
+    @apply bg-white rounded-2xl p-4 shadow-sm border border-app-light-mint;
+  }
+
+  .tab-button {
+    @apply px-4 py-2 font-medium text-sm rounded-full;
+  }
+
+  .tab-button-active {
+    @apply bg-app-charcoal text-app-mint;
+  }
+
+  .tab-button-inactive {
+    @apply text-app-charcoal hover:bg-app-light-mint;
+  }
 }
+

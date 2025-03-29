@@ -5,8 +5,8 @@ import BottomNav from "../navigation/BottomNav";
 
 const AppLayout = () => {
   return (
-    <div className="app-container">
-      <div className="page-container">
+    <div className="app-container bg-app-mint">
+      <div className="page-container min-h-screen pb-20">
         <Outlet />
       </div>
       <BottomNav />
