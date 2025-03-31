@@ -23,6 +23,7 @@ import Portfolio from "./pages/portfolio/Portfolio";
 import Transactions from "./pages/transactions/Transactions";
 import Profile from "./pages/profile/Profile";
 import BankAccounts from "./pages/profile/BankAccounts";
+import InvestmentGoals from "./pages/goals/InvestmentGoals";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -65,6 +66,9 @@ const App = () => {
               <Route path="/invest/:fundId" element={<InvestFund />} />
               <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
+              
+              {/* Investment Goals */}
+              <Route path="/goals" element={<InvestmentGoals />} />
               
               {/* Profile Subroutes */}
               <Route path="/profile/bank-accounts" element={<BankAccounts />} />
