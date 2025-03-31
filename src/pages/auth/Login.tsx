@@ -69,7 +69,7 @@ const Login = () => {
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           <Tabs defaultValue="email" className="mb-8" onValueChange={(value) => setLoginMethod(value as "email" | "mobile")}>
-            <TabsList className="grid grid-cols-2 w-full">
+            <TabsList className="grid grid-cols-2 w-full bg-app-light-blue">
               <TabsTrigger value="email">Email</TabsTrigger>
               <TabsTrigger value="mobile">Mobile</TabsTrigger>
             </TabsList>
@@ -85,7 +85,7 @@ const Login = () => {
                       name="email"
                       type="email"
                       placeholder="name@example.com"
-                      className="pl-10 py-6 border-gray-200"
+                      className="pl-10 py-6 border-gray-200 input-modern"
                       value={formData.email}
                       onChange={handleInputChange}
                       required
@@ -107,7 +107,7 @@ const Login = () => {
                       name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
-                      className="pl-10 py-6 border-gray-200"
+                      className="pl-10 py-6 border-gray-200 input-modern"
                       value={formData.password}
                       onChange={handleInputChange}
                       required
@@ -133,7 +133,7 @@ const Login = () => {
                       name="mobile"
                       type="tel"
                       placeholder="10-digit mobile number"
-                      className="pl-10 py-6 border-gray-200"
+                      className="pl-10 py-6 border-gray-200 input-modern"
                       value={formData.mobile}
                       onChange={handleInputChange}
                       required
@@ -155,7 +155,7 @@ const Login = () => {
                       name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
-                      className="pl-10 py-6 border-gray-200"
+                      className="pl-10 py-6 border-gray-200 input-modern"
                       value={formData.password}
                       onChange={handleInputChange}
                       required
@@ -186,7 +186,7 @@ const Login = () => {
 
               <Button
                 type="submit"
-                className="w-full mt-6 bg-app-primary-blue hover:bg-app-primary-blue/90 py-6 rounded-xl"
+                className="w-full mt-6 bg-app-primary-blue hover:bg-app-primary-blue/90 py-6 rounded-xl btn-primary-modern"
                 disabled={isLoading}
               >
                 {isLoading ? "Logging in..." : "Login"}

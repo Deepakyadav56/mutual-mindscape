@@ -24,6 +24,9 @@ import Transactions from "./pages/transactions/Transactions";
 import Profile from "./pages/profile/Profile";
 import BankAccounts from "./pages/profile/BankAccounts";
 import InvestmentGoals from "./pages/goals/InvestmentGoals";
+import RedeemFund from "./pages/portfolio/RedeemFund";
+import ManageSIP from "./pages/portfolio/ManageSIP";
+import SipCalculator from "./pages/tools/SipCalculator";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -66,6 +69,13 @@ const App = () => {
               <Route path="/invest/:fundId" element={<InvestFund />} />
               <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
+              
+              {/* Portfolio Management Routes */}
+              <Route path="/portfolio/redeem/:fundId" element={<RedeemFund />} />
+              <Route path="/portfolio/manage-sip/:fundId" element={<ManageSIP />} />
+              
+              {/* Tools */}
+              <Route path="/tools/sip-calculator" element={<SipCalculator />} />
               
               {/* Investment Goals */}
               <Route path="/goals" element={<InvestmentGoals />} />
