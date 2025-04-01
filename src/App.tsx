@@ -32,6 +32,7 @@ import ManageSIP from "./pages/portfolio/ManageSIP";
 import SipCalculator from "./pages/tools/SipCalculator";
 import TaxCalculator from "./pages/tools/TaxCalculator";
 import NotificationCenter from "./pages/notifications/NotificationCenter";
+import Search from "./pages/search/Search";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -68,6 +69,7 @@ const App = () => {
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/search" element={<Search />} />
               </Route>
               
               {/* Explore Routes */}
