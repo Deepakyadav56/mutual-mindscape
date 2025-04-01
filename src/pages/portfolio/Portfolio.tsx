@@ -18,7 +18,13 @@ import {
   Calendar,
   Clock,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  Pause,
+  Play,
+  XCircle,
+  RefreshCw,
+  Download,
+  MoreHorizontal
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +35,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "@/components/ui/use-toast";
 
 const Portfolio = () => {
   const [timeRange, setTimeRange] = useState("1Y");
@@ -48,6 +63,8 @@ const Portfolio = () => {
       nav: 188.76,
       sipActive: true,
       sipAmount: 5000,
+      sipStartDate: "15 Jan 2023",
+      nextSipDate: "15 Jul 2023",
       logo: "https://groww.in/images/partners/HDFC_Groww.svg"
     },
     {
@@ -61,6 +78,8 @@ const Portfolio = () => {
       nav: 272.04,
       sipActive: true,
       sipAmount: 8000,
+      sipStartDate: "10 Feb 2023",
+      nextSipDate: "10 Jul 2023",
       logo: "https://groww.in/images/partners/Axis_Groww.svg"
     },
     {
@@ -74,6 +93,8 @@ const Portfolio = () => {
       nav: 342.55,
       sipActive: false,
       sipAmount: 0,
+      sipStartDate: "",
+      nextSipDate: "",
       logo: "https://groww.in/images/partners/ICICI_Groww.svg"
     },
   ];
@@ -99,6 +120,34 @@ const Portfolio = () => {
     { name: "Debt", value: 20, color: "#6366f1" },
     { name: "ELSS", value: 10, color: "#f59e0b" },
   ];
+
+  const handlePauseSIP = (id: number) => {
+    toast({
+      title: "SIP Paused",
+      description: "Your SIP has been paused. You can resume it anytime.",
+    });
+  };
+
+  const handleResumeSIP = (id: number) => {
+    toast({
+      title: "SIP Resumed",
+      description: "Your SIP has been resumed successfully.",
+    });
+  };
+
+  const handleCancelSIP = (id: number) => {
+    toast({
+      title: "SIP Cancelled",
+      description: "Your SIP has been cancelled successfully. Your invested amount remains in the fund.",
+    });
+  };
+
+  const handleStartSIP = (id: number) => {
+    toast({
+      title: "Start SIP",
+      description: "Redirecting you to start a new SIP...",
+    });
+  };
 
   return (
     <div className="pb-20">
@@ -273,7 +322,7 @@ const Portfolio = () => {
         <TabsContent value="all">
           <div className="space-y-4">
             {filteredInvestments.map((investment) => (
-              <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+              <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow">
                 <CardContent className="p-4">
                   <div className="flex items-start">
                     <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
@@ -286,14 +335,60 @@ const Portfolio = () => {
                     
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium text-zinc-800 line-clamp-1">{investment.name}</h3>
-                        <Badge variant="outline" className={`text-xs ${
-                          investment.category === "Equity" ? "text-green-600 bg-green-50" :
-                          investment.category === "Debt" ? "text-blue-600 bg-blue-50" :
-                          "text-amber-600 bg-amber-50"
-                        }`}>
-                          {investment.category}
-                        </Badge>
+                        <Link to={`/funds/${investment.id}`}>
+                          <h3 className="font-medium text-zinc-800 line-clamp-1 hover:text-blue-600">{investment.name}</h3>
+                        </Link>
+                        <div className="flex items-center">
+                          <Badge variant="outline" className={`text-xs mr-2 ${
+                            investment.category === "Equity" ? "text-green-600 bg-green-50" :
+                            investment.category === "Debt" ? "text-blue-600 bg-blue-50" :
+                            "text-amber-600 bg-amber-50"
+                          }`}>
+                            {investment.category}
+                          </Badge>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-56">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <Link to={`/portfolio/redeem/${investment.id}`}>
+                                <DropdownMenuItem>
+                                  <Download className="mr-2 h-4 w-4" />
+                                  <span>Redeem Fund</span>
+                                </DropdownMenuItem>
+                              </Link>
+                              {investment.sipActive ? (
+                                <>
+                                  <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                    <DropdownMenuItem>
+                                      <RefreshCw className="mr-2 h-4 w-4" />
+                                      <span>Modify SIP</span>
+                                    </DropdownMenuItem>
+                                  </Link>
+                                  <DropdownMenuItem onClick={() => handlePauseSIP(investment.id)}>
+                                    <Pause className="mr-2 h-4 w-4" />
+                                    <span>Pause SIP</span>
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => handleCancelSIP(investment.id)}>
+                                    <XCircle className="mr-2 h-4 w-4" />
+                                    <span>Cancel SIP</span>
+                                  </DropdownMenuItem>
+                                </>
+                              ) : (
+                                <Link to={`/invest/${investment.id}`}>
+                                  <DropdownMenuItem>
+                                    <Play className="mr-2 h-4 w-4" />
+                                    <span>Start SIP</span>
+                                  </DropdownMenuItem>
+                                </Link>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                       </div>
                       
                       <div className="flex justify-between mb-3">
@@ -309,7 +404,7 @@ const Portfolio = () => {
                       
                       <div className="flex justify-between items-end">
                         <div className="flex items-center">
-                          <p className="text-xs text-zinc-500 mr-2">Units: {investment.units}</p>
+                          <p className="text-xs text-zinc-500 mr-2">Units: {investment.units.toFixed(3)}</p>
                           <p className="text-xs text-zinc-500">NAV: ₹{investment.nav}</p>
                         </div>
                         <div className="text-right">
@@ -326,16 +421,36 @@ const Portfolio = () => {
                       
                       {investment.sipActive && (
                         <div className="bg-gray-50 -mx-4 -mb-4 mt-3 px-4 py-2 border-t border-gray-100">
-                          <div className="flex justify-between items-center">
+                          <div className="flex flex-wrap justify-between items-center">
                             <div className="flex items-center">
                               <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-                              <p className="text-xs text-zinc-700">SIP Active</p>
+                              <p className="text-xs text-zinc-700 mr-3">SIP Active</p>
+                              <p className="text-xs text-zinc-600">Next: {investment.nextSipDate}</p>
                             </div>
-                            <div className="flex items-center">
-                              <p className="text-xs font-medium text-zinc-800">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
-                              <ChevronRight size={14} className="ml-1 text-zinc-400" />
+                            <div className="flex items-center mt-1 sm:mt-0">
+                              <p className="text-xs font-medium text-zinc-800 mr-3">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
+                              <div className="flex space-x-1">
+                                <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs" onClick={() => handlePauseSIP(investment.id)}>
+                                  <Pause className="h-3 w-3 mr-1" /> Pause
+                                </Button>
+                                <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                  <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs">
+                                    <RefreshCw className="h-3 w-3 mr-1" /> Modify
+                                  </Button>
+                                </Link>
+                              </div>
                             </div>
                           </div>
+                        </div>
+                      )}
+
+                      {!investment.sipActive && (
+                        <div className="mt-3 pt-2 border-t border-gray-100">
+                          <Link to={`/invest/${investment.id}`}>
+                            <Button size="sm" variant="outline" className="text-xs">
+                              <Play size={14} className="mr-1" /> Start SIP
+                            </Button>
+                          </Link>
                         </div>
                       )}
                     </div>
@@ -369,7 +484,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "Equity")
               .map((investment) => (
-                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-start">
                       <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
@@ -382,10 +497,56 @@ const Portfolio = () => {
                       
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-medium text-zinc-800 line-clamp-1">{investment.name}</h3>
-                          <Badge variant="outline" className="text-xs text-green-600 bg-green-50">
-                            {investment.category}
-                          </Badge>
+                          <Link to={`/funds/${investment.id}`}>
+                            <h3 className="font-medium text-zinc-800 line-clamp-1 hover:text-blue-600">{investment.name}</h3>
+                          </Link>
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="text-xs text-green-600 bg-green-50 mr-2">
+                              {investment.category}
+                            </Badge>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-56">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <Link to={`/portfolio/redeem/${investment.id}`}>
+                                  <DropdownMenuItem>
+                                    <Download className="mr-2 h-4 w-4" />
+                                    <span>Redeem Fund</span>
+                                  </DropdownMenuItem>
+                                </Link>
+                                {investment.sipActive ? (
+                                  <>
+                                    <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                      <DropdownMenuItem>
+                                        <RefreshCw className="mr-2 h-4 w-4" />
+                                        <span>Modify SIP</span>
+                                      </DropdownMenuItem>
+                                    </Link>
+                                    <DropdownMenuItem onClick={() => handlePauseSIP(investment.id)}>
+                                      <Pause className="mr-2 h-4 w-4" />
+                                      <span>Pause SIP</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleCancelSIP(investment.id)}>
+                                      <XCircle className="mr-2 h-4 w-4" />
+                                      <span>Cancel SIP</span>
+                                    </DropdownMenuItem>
+                                  </>
+                                ) : (
+                                  <Link to={`/invest/${investment.id}`}>
+                                    <DropdownMenuItem>
+                                      <Play className="mr-2 h-4 w-4" />
+                                      <span>Start SIP</span>
+                                    </DropdownMenuItem>
+                                  </Link>
+                                )}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </div>
                         
                         <div className="flex justify-between mb-3">
@@ -401,7 +562,7 @@ const Portfolio = () => {
                         
                         <div className="flex justify-between items-end">
                           <div className="flex items-center">
-                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units}</p>
+                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units.toFixed(3)}</p>
                             <p className="text-xs text-zinc-500">NAV: ₹{investment.nav}</p>
                           </div>
                           <div className="text-right">
@@ -418,16 +579,36 @@ const Portfolio = () => {
                         
                         {investment.sipActive && (
                           <div className="bg-gray-50 -mx-4 -mb-4 mt-3 px-4 py-2 border-t border-gray-100">
-                            <div className="flex justify-between items-center">
+                            <div className="flex flex-wrap justify-between items-center">
                               <div className="flex items-center">
                                 <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-                                <p className="text-xs text-zinc-700">SIP Active</p>
+                                <p className="text-xs text-zinc-700 mr-3">SIP Active</p>
+                                <p className="text-xs text-zinc-600">Next: {investment.nextSipDate}</p>
                               </div>
-                              <div className="flex items-center">
-                                <p className="text-xs font-medium text-zinc-800">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
-                                <ChevronRight size={14} className="ml-1 text-zinc-400" />
+                              <div className="flex items-center mt-1 sm:mt-0">
+                                <p className="text-xs font-medium text-zinc-800 mr-3">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
+                                <div className="flex space-x-1">
+                                  <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs" onClick={() => handlePauseSIP(investment.id)}>
+                                    <Pause className="h-3 w-3 mr-1" /> Pause
+                                  </Button>
+                                  <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                    <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs">
+                                      <RefreshCw className="h-3 w-3 mr-1" /> Modify
+                                    </Button>
+                                  </Link>
+                                </div>
                               </div>
                             </div>
+                          </div>
+                        )}
+
+                        {!investment.sipActive && (
+                          <div className="mt-3 pt-2 border-t border-gray-100">
+                            <Link to={`/invest/${investment.id}`}>
+                              <Button size="sm" variant="outline" className="text-xs">
+                                <Play size={14} className="mr-1" /> Start SIP
+                              </Button>
+                            </Link>
                           </div>
                         )}
                       </div>
@@ -461,7 +642,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "Debt")
               .map((investment) => (
-                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-start">
                       <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
@@ -474,10 +655,56 @@ const Portfolio = () => {
                       
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-medium text-zinc-800 line-clamp-1">{investment.name}</h3>
-                          <Badge variant="outline" className="text-xs text-blue-600 bg-blue-50">
-                            {investment.category}
-                          </Badge>
+                          <Link to={`/funds/${investment.id}`}>
+                            <h3 className="font-medium text-zinc-800 line-clamp-1 hover:text-blue-600">{investment.name}</h3>
+                          </Link>
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="text-xs text-blue-600 bg-blue-50 mr-2">
+                              {investment.category}
+                            </Badge>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-56">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <Link to={`/portfolio/redeem/${investment.id}`}>
+                                  <DropdownMenuItem>
+                                    <Download className="mr-2 h-4 w-4" />
+                                    <span>Redeem Fund</span>
+                                  </DropdownMenuItem>
+                                </Link>
+                                {investment.sipActive ? (
+                                  <>
+                                    <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                      <DropdownMenuItem>
+                                        <RefreshCw className="mr-2 h-4 w-4" />
+                                        <span>Modify SIP</span>
+                                      </DropdownMenuItem>
+                                    </Link>
+                                    <DropdownMenuItem onClick={() => handlePauseSIP(investment.id)}>
+                                      <Pause className="mr-2 h-4 w-4" />
+                                      <span>Pause SIP</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleCancelSIP(investment.id)}>
+                                      <XCircle className="mr-2 h-4 w-4" />
+                                      <span>Cancel SIP</span>
+                                    </DropdownMenuItem>
+                                  </>
+                                ) : (
+                                  <Link to={`/invest/${investment.id}`}>
+                                    <DropdownMenuItem>
+                                      <Play className="mr-2 h-4 w-4" />
+                                      <span>Start SIP</span>
+                                    </DropdownMenuItem>
+                                  </Link>
+                                )}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </div>
                         
                         <div className="flex justify-between mb-3">
@@ -493,7 +720,7 @@ const Portfolio = () => {
                         
                         <div className="flex justify-between items-end">
                           <div className="flex items-center">
-                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units}</p>
+                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units.toFixed(3)}</p>
                             <p className="text-xs text-zinc-500">NAV: ₹{investment.nav}</p>
                           </div>
                           <div className="text-right">
@@ -507,6 +734,16 @@ const Portfolio = () => {
                             </p>
                           </div>
                         </div>
+                        
+                        {!investment.sipActive && (
+                          <div className="mt-3 pt-2 border-t border-gray-100">
+                            <Link to={`/invest/${investment.id}`}>
+                              <Button size="sm" variant="outline" className="text-xs">
+                                <Play size={14} className="mr-1" /> Start SIP
+                              </Button>
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -538,7 +775,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "ELSS")
               .map((investment) => (
-                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-start">
                       <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
@@ -551,10 +788,56 @@ const Portfolio = () => {
                       
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-medium text-zinc-800 line-clamp-1">{investment.name}</h3>
-                          <Badge variant="outline" className="text-xs text-amber-600 bg-amber-50">
-                            {investment.category}
-                          </Badge>
+                          <Link to={`/funds/${investment.id}`}>
+                            <h3 className="font-medium text-zinc-800 line-clamp-1 hover:text-blue-600">{investment.name}</h3>
+                          </Link>
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="text-xs text-amber-600 bg-amber-50 mr-2">
+                              {investment.category}
+                            </Badge>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-56">
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <Link to={`/portfolio/redeem/${investment.id}`}>
+                                  <DropdownMenuItem>
+                                    <Download className="mr-2 h-4 w-4" />
+                                    <span>Redeem Fund</span>
+                                  </DropdownMenuItem>
+                                </Link>
+                                {investment.sipActive ? (
+                                  <>
+                                    <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                      <DropdownMenuItem>
+                                        <RefreshCw className="mr-2 h-4 w-4" />
+                                        <span>Modify SIP</span>
+                                      </DropdownMenuItem>
+                                    </Link>
+                                    <DropdownMenuItem onClick={() => handlePauseSIP(investment.id)}>
+                                      <Pause className="mr-2 h-4 w-4" />
+                                      <span>Pause SIP</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleCancelSIP(investment.id)}>
+                                      <XCircle className="mr-2 h-4 w-4" />
+                                      <span>Cancel SIP</span>
+                                    </DropdownMenuItem>
+                                  </>
+                                ) : (
+                                  <Link to={`/invest/${investment.id}`}>
+                                    <DropdownMenuItem>
+                                      <Play className="mr-2 h-4 w-4" />
+                                      <span>Start SIP</span>
+                                    </DropdownMenuItem>
+                                  </Link>
+                                )}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </div>
                         
                         <div className="flex justify-between mb-3">
@@ -570,7 +853,7 @@ const Portfolio = () => {
                         
                         <div className="flex justify-between items-end">
                           <div className="flex items-center">
-                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units}</p>
+                            <p className="text-xs text-zinc-500 mr-2">Units: {investment.units.toFixed(3)}</p>
                             <p className="text-xs text-zinc-500">NAV: ₹{investment.nav}</p>
                           </div>
                           <div className="text-right">
@@ -587,16 +870,36 @@ const Portfolio = () => {
                         
                         {investment.sipActive && (
                           <div className="bg-gray-50 -mx-4 -mb-4 mt-3 px-4 py-2 border-t border-gray-100">
-                            <div className="flex justify-between items-center">
+                            <div className="flex flex-wrap justify-between items-center">
                               <div className="flex items-center">
                                 <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-                                <p className="text-xs text-zinc-700">SIP Active</p>
+                                <p className="text-xs text-zinc-700 mr-3">SIP Active</p>
+                                <p className="text-xs text-zinc-600">Next: {investment.nextSipDate}</p>
                               </div>
-                              <div className="flex items-center">
-                                <p className="text-xs font-medium text-zinc-800">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
-                                <ChevronRight size={14} className="ml-1 text-zinc-400" />
+                              <div className="flex items-center mt-1 sm:mt-0">
+                                <p className="text-xs font-medium text-zinc-800 mr-3">₹{investment.sipAmount.toLocaleString('en-IN')}/month</p>
+                                <div className="flex space-x-1">
+                                  <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs" onClick={() => handlePauseSIP(investment.id)}>
+                                    <Pause className="h-3 w-3 mr-1" /> Pause
+                                  </Button>
+                                  <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                                    <Button size="sm" variant="ghost" className="h-7 px-1.5 text-xs">
+                                      <RefreshCw className="h-3 w-3 mr-1" /> Modify
+                                    </Button>
+                                  </Link>
+                                </div>
                               </div>
                             </div>
+                          </div>
+                        )}
+
+                        {!investment.sipActive && (
+                          <div className="mt-3 pt-2 border-t border-gray-100">
+                            <Link to={`/invest/${investment.id}`}>
+                              <Button size="sm" variant="outline" className="text-xs">
+                                <Play size={14} className="mr-1" /> Start SIP
+                              </Button>
+                            </Link>
                           </div>
                         )}
                       </div>
@@ -628,7 +931,7 @@ const Portfolio = () => {
         <TabsContent value="sip">
           <div className="space-y-4">
             {activeSips.map((investment) => (
-              <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+              <Card key={investment.id} className="overflow-hidden hover:shadow-md transition-shadow">
                 <CardContent className="p-4">
                   <div className="flex items-start">
                     <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
@@ -641,7 +944,9 @@ const Portfolio = () => {
                     
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium text-zinc-800 line-clamp-1">{investment.name}</h3>
+                        <Link to={`/funds/${investment.id}`}>
+                          <h3 className="font-medium text-zinc-800 line-clamp-1 hover:text-blue-600">{investment.name}</h3>
+                        </Link>
                         <Badge variant="outline" className={`text-xs ${
                           investment.category === "Equity" ? "text-green-600 bg-green-50" :
                           investment.category === "Debt" ? "text-blue-600 bg-blue-50" :
@@ -658,32 +963,42 @@ const Portfolio = () => {
                         </div>
                         <div className="text-right">
                           <p className="text-xs text-zinc-500">Next Date</p>
-                          <p className="font-medium text-zinc-800">15 Jul, 2023</p>
+                          <p className="font-medium text-zinc-800">{investment.nextSipDate}</p>
                         </div>
                       </div>
                       
                       <div className="flex justify-between mb-2">
                         <div>
+                          <p className="text-xs text-zinc-500">Started On</p>
+                          <p className="font-medium text-zinc-800">{investment.sipStartDate}</p>
+                        </div>
+                        <div className="text-right">
                           <p className="text-xs text-zinc-500">Current Value</p>
                           <p className="font-medium text-zinc-800">₹{investment.currentValue.toLocaleString('en-IN')}</p>
                         </div>
-                        <div className="text-right">
-                          <p className="text-xs text-zinc-500">Total Invested</p>
-                          <p className="font-medium text-zinc-800">₹{investment.invested.toLocaleString('en-IN')}</p>
-                        </div>
                       </div>
                       
-                      <div className="flex mt-3 pt-3 border-t border-gray-100">
-                        <Link to={`/portfolio/manage-sip/${investment.id}`} className="mr-2">
-                          <Button size="sm" variant="outline">
-                            Modify SIP
+                      <div className="flex justify-between mt-3 pt-3 border-t border-gray-100">
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline" onClick={() => handlePauseSIP(investment.id)}>
+                            <Pause size={14} className="mr-1" /> Pause
                           </Button>
-                        </Link>
-                        <Link to={`/portfolio/redeem/${investment.id}`}>
-                          <Button size="sm" variant="ghost" className="text-zinc-600">
-                            Redeem
+                          <Button size="sm" variant="outline" onClick={() => handleCancelSIP(investment.id)}>
+                            <XCircle size={14} className="mr-1" /> Cancel
                           </Button>
-                        </Link>
+                        </div>
+                        <div className="flex gap-2">
+                          <Link to={`/portfolio/manage-sip/${investment.id}`}>
+                            <Button size="sm" variant="outline">
+                              <RefreshCw size={14} className="mr-1" /> Modify
+                            </Button>
+                          </Link>
+                          <Link to={`/portfolio/redeem/${investment.id}`}>
+                            <Button size="sm" variant="ghost" className="text-zinc-600">
+                              <Download size={14} className="mr-1" /> Redeem
+                            </Button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
