@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
@@ -18,14 +17,12 @@ const FundsExplore = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Mock data for funds with extended information
   const allFunds = [
     {
       id: 1,
@@ -189,13 +186,11 @@ const FundsExplore = () => {
     },
   ];
 
-  // Filter based on search and selected category
   const filteredFunds = allFunds.filter((fund) =>
     fund.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     fund.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Categories for tabs
   const categories = [
     { id: "all", name: "All" },
     { id: "equity", name: "Equity" },
@@ -204,7 +199,6 @@ const FundsExplore = () => {
     { id: "hybrid", name: "Hybrid" },
   ];
 
-  // Filter options
   const filterOptions = [
     { id: "topRated", name: "Top Rated", icon: <Star className="w-4 h-4" /> },
     { id: "highReturns", name: "High Returns", icon: <TrendingUp className="w-4 h-4" /> },
@@ -365,7 +359,6 @@ const FundsExplore = () => {
 
   return (
     <div className="pb-24">
-      {/* Header with search */}
       <div className="sticky top-0 bg-white z-10 pt-2 pb-3 px-1">
         <h1 className="text-2xl font-bold text-app-gray-900 mb-4">Explore Funds</h1>
         
@@ -383,7 +376,6 @@ const FundsExplore = () => {
         </div>
       </div>
       
-      {/* Category tabs */}
       <Tabs defaultValue="all" className="mb-6">
         <TabsList className="w-full flex overflow-x-auto space-x-2 pb-2 no-scrollbar bg-transparent">
           {categories.map((category) => (
@@ -397,7 +389,6 @@ const FundsExplore = () => {
           ))}
         </TabsList>
         
-        {/* Filters */}
         <div className="mb-6 mt-4">
           <div className="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar">
             {filterOptions.map((filter) => (
@@ -427,7 +418,6 @@ const FundsExplore = () => {
         {categories.map((category) => (
           <TabsContent key={category.id} value={category.id} className="mt-2">
             {isLoading ? (
-              // Skeleton loading state
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
                   <Card key={i} className="border-0 shadow-sm">

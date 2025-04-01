@@ -114,49 +114,49 @@ const NotificationCenter = () => {
             <TabsTrigger value="portfolio" className="rounded-md">Portfolio</TabsTrigger>
             <TabsTrigger value="offers" className="rounded-md">Offers</TabsTrigger>
           </TabsList>
+        
+          <div className="p-4">
+            <TabsContent value="all" className="mt-0 space-y-4">
+              {notificationData.all.length > 0 ? (
+                notificationData.all.map((notification) => (
+                  <NotificationCard key={notification.id} notification={notification} />
+                ))
+              ) : (
+                <EmptyState type="all" />
+              )}
+            </TabsContent>
+            
+            <TabsContent value="transactions" className="mt-0 space-y-4">
+              {notificationData.transactions.length > 0 ? (
+                notificationData.transactions.map((notification) => (
+                  <NotificationCard key={notification.id} notification={notification} />
+                ))
+              ) : (
+                <EmptyState type="transactions" />
+              )}
+            </TabsContent>
+            
+            <TabsContent value="portfolio" className="mt-0 space-y-4">
+              {notificationData.portfolio.length > 0 ? (
+                notificationData.portfolio.map((notification) => (
+                  <NotificationCard key={notification.id} notification={notification} />
+                ))
+              ) : (
+                <EmptyState type="portfolio" />
+              )}
+            </TabsContent>
+            
+            <TabsContent value="offers" className="mt-0 space-y-4">
+              {notificationData.offers.length > 0 ? (
+                notificationData.offers.map((notification) => (
+                  <NotificationCard key={notification.id} notification={notification} />
+                ))
+              ) : (
+                <EmptyState type="offers" />
+              )}
+            </TabsContent>
+          </div>
         </Tabs>
-      </div>
-
-      <div className="p-4">
-        <TabsContent value="all" className="mt-0 space-y-4">
-          {notificationData.all.length > 0 ? (
-            notificationData.all.map((notification) => (
-              <NotificationCard key={notification.id} notification={notification} />
-            ))
-          ) : (
-            <EmptyState type="all" />
-          )}
-        </TabsContent>
-        
-        <TabsContent value="transactions" className="mt-0 space-y-4">
-          {notificationData.transactions.length > 0 ? (
-            notificationData.transactions.map((notification) => (
-              <NotificationCard key={notification.id} notification={notification} />
-            ))
-          ) : (
-            <EmptyState type="transactions" />
-          )}
-        </TabsContent>
-        
-        <TabsContent value="portfolio" className="mt-0 space-y-4">
-          {notificationData.portfolio.length > 0 ? (
-            notificationData.portfolio.map((notification) => (
-              <NotificationCard key={notification.id} notification={notification} />
-            ))
-          ) : (
-            <EmptyState type="portfolio" />
-          )}
-        </TabsContent>
-        
-        <TabsContent value="offers" className="mt-0 space-y-4">
-          {notificationData.offers.length > 0 ? (
-            notificationData.offers.map((notification) => (
-              <NotificationCard key={notification.id} notification={notification} />
-            ))
-          ) : (
-            <EmptyState type="offers" />
-          )}
-        </TabsContent>
       </div>
     </div>
   );

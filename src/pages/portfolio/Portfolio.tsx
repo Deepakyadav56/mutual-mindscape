@@ -159,8 +159,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "Equity")
               .map((investment) => (
-                <Card key={investment.id} className="finance-card">
-                  {/* Same card content as above */}
+                <Card key={investment.id} className="finance-card overflow-hidden">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-finance-primary">{investment.name}</h3>
                     <span className="text-xs px-2 py-1 rounded-full bg-gray-100">
@@ -187,6 +186,8 @@ const Portfolio = () => {
                       </p>
                     </div>
                   </div>
+                  
+                  <div className="absolute top-0 left-0 w-1 h-full bg-finance-accent"></div>
                 </Card>
               ))}
           </div>
@@ -197,8 +198,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "Debt")
               .map((investment) => (
-                <Card key={investment.id} className="finance-card">
-                  {/* Same card content as above */}
+                <Card key={investment.id} className="finance-card overflow-hidden">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-finance-primary">{investment.name}</h3>
                     <span className="text-xs px-2 py-1 rounded-full bg-gray-100">
@@ -225,6 +225,8 @@ const Portfolio = () => {
                       </p>
                     </div>
                   </div>
+                  
+                  <div className="absolute top-0 left-0 w-1 h-full bg-finance-success"></div>
                 </Card>
               ))}
           </div>
@@ -235,8 +237,7 @@ const Portfolio = () => {
             {investments
               .filter((investment) => investment.category === "ELSS")
               .map((investment) => (
-                <Card key={investment.id} className="finance-card">
-                  {/* Same card content as above */}
+                <Card key={investment.id} className="finance-card overflow-hidden">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-finance-primary">{investment.name}</h3>
                     <span className="text-xs px-2 py-1 rounded-full bg-gray-100">
@@ -263,47 +264,13 @@ const Portfolio = () => {
                       </p>
                     </div>
                   </div>
+                  
+                  <div className="absolute top-0 left-0 w-1 h-full bg-finance-warning"></div>
                 </Card>
               ))}
           </div>
         </TabsContent>
       </Tabs>
-      
-      <div className="flex space-x-4 mb-6">
-        <Button className="flex-1 bg-finance-accent hover:bg-finance-accent/90">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-4 h-4 mr-2"
-          >
-            <path d="M5 12h14" />
-            <path d="M12 5v14" />
-          </svg>
-          New Investment
-        </Button>
-        <Button variant="outline" className="flex-1 border-finance-primary text-finance-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-4 h-4 mr-2"
-          >
-            <rect width="18" height="18" x="3" y="3" rx="2" />
-            <path d="M8 12h8" />
-            <path d="M12 8v8" />
-          </svg>
-          Manage SIPs
-        </Button>
-      </div>
     </div>
   );
 };
