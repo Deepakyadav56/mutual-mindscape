@@ -66,6 +66,12 @@ module.exports = {
         "app-charcoal": "#44475b",
         "app-mint": "#f5fffe",
         "app-light-mint": "#e9f9f7",
+        "app-gray-50": "#F9FAFB",
+        "app-gray-100": "#F3F4F6",
+        "app-gray-200": "#E5E7EB",
+        "app-gray-300": "#D1D5DB",
+        "app-primary-green": "#00D09C",
+        "app-primary-purple": "#8250DF",
       },
       borderRadius: {
         lg: "var(--radius)",
