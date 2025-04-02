@@ -88,6 +88,9 @@ module.exports = {
       },
       boxShadow: {
         "nav": "0 -1px 10px rgba(0, 0, 0, 0.2)",
+        "card": "0 4px 12px rgba(0, 0, 0, 0.05)",
+        "card-hover": "0 8px 20px rgba(0, 0, 0, 0.08)",
+        "button": "0 2px 6px rgba(0, 0, 0, 0.1)",
       },
     },
   },
