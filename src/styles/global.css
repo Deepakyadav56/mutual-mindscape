@@ -1,0 +1,35 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Groww App-inspired Styles */
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.shadow-nav {
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.input-modern {
+  @apply h-12 rounded-xl bg-app-dark-blue border-gray-800 focus:border-app-green focus:ring-app-green text-white;
+}
+
+.card-modern {
+  @apply rounded-xl shadow-sm hover:shadow-md transition-all duration-200;
+}
