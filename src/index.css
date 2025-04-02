@@ -8,83 +8,83 @@
 
 @layer base {
   :root {
-    --background: 150 45% 93%;  /* #CEEDE3 */
-    --foreground: 160 5% 17%;   /* #282C2A */
+    --background: 0 0% 100%;  /* White background */
+    --foreground: 220 10% 15%;   /* Dark text for readability */
 
-    --card: 0 0% 100%;
-    --card-foreground: 160 5% 17%;  /* #282C2A */
+    --card: 0 0% 100%;  /* White cards */
+    --card-foreground: 220 10% 15%;  /* Dark text */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 5% 17%;  /* #282C2A */
+    --popover-foreground: 220 10% 15%;
 
-    --primary: 160 5% 17%;   /* #282C2A */
-    --primary-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --primary: 212 96% 57%;   /* App primary blue #2C5CF6 */
+    --primary-foreground: 0 0% 100%;  /* White text on primary */
 
-    --secondary: 150 25% 40%;  /* Slightly darker mint */
-    --secondary-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --secondary: 162 100% 41%;  /* App green #00D09C */
+    --secondary-foreground: 0 0% 100%;  /* White text on secondary */
 
-    --muted: 160 13% 94%;  /* #EBF1EE */
-    --muted-foreground: 160 5% 35%;  /* Lighter charcoal */
+    --muted: 220 10% 96%;  /* Light gray for muted areas */
+    --muted-foreground: 220 10% 40%;  /* Darker text for muted areas */
 
-    --accent: 153 54% 41%;  /* Green accent color */
-    --accent-foreground: 160 5% 17%;  /* #282C2A */
+    --accent: 272 59% 53%;  /* Purple accent color #8250DF */
+    --accent-foreground: 0 0% 100%;  /* White text on accent */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --destructive: 0 84% 60%;  /* Red for errors/warnings */
+    --destructive-foreground: 0 0% 100%;  /* White text on destructive */
 
-    --border: 160 13% 94%;  /* #EBF1EE */
-    --input: 160 13% 94%;  /* #EBF1EE */
-    --ring: 160 5% 17%;  /* #282C2A */
+    --border: 220 10% 92%;  /* Light border color */
+    --input: 220 10% 92%;  /* Light input borders */
+    --ring: 212 96% 57%;  /* Primary blue for focus rings */
 
-    --radius: 1rem;
+    --radius: 0.75rem;  /* Slightly reduced for more modern feel */
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 10% 15%;
+    --sidebar-primary: 212 96% 57%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 10% 96%;
+    --sidebar-accent-foreground: 220 10% 15%;
+    --sidebar-border: 220 10% 92%;
+    --sidebar-ring: 212 96% 57%;
   }
 
   .dark {
-    --background: 160 5% 17%;  /* #282C2A */
-    --foreground: 150 45% 93%;  /* #CEEDE3 */
+    --background: 220 10% 8%;  /* Dark mode background */
+    --foreground: 0 0% 95%;  /* Light text for dark mode */
 
-    --card: 160 5% 17%;  /* #282C2A */
-    --card-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --card: 220 10% 12%;  /* Slightly lighter cards in dark mode */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 160 5% 17%;  /* #282C2A */
-    --popover-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --popover: 220 10% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 150 45% 93%;  /* #CEEDE3 */
-    --primary-foreground: 160 5% 17%;  /* #282C2A */
+    --primary: 212 96% 57%;  /* Keep primary color consistent */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 153 54% 41%;  /* Green accent color */
-    --secondary-foreground: 160 5% 17%;  /* #282C2A */
+    --secondary: 162 100% 41%;  /* Keep secondary color consistent */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 160 5% 25%;  /* Darker charcoal */
-    --muted-foreground: 160 13% 80%;  /* Light mint */
+    --muted: 220 10% 20%;  /* Darker muted areas */
+    --muted-foreground: 0 0% 70%;  /* Lighter text on muted areas */
 
-    --accent: 153 54% 41%;  /* Green accent color */
-    --accent-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --accent: 272 59% 53%;  /* Keep accent color consistent */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 150 45% 93%;  /* #CEEDE3 */
+    --destructive: 0 62% 50%;  /* Slightly darker red for dark mode */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 160 5% 25%;  /* Darker charcoal */
-    --input: 160 5% 25%;  /* Darker charcoal */
-    --ring: 160 13% 94%;  /* #EBF1EE */
+    --border: 220 10% 20%;  /* Darker borders for dark mode */
+    --input: 220 10% 20%;
+    --ring: 212 96% 57%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 220 10% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 212 96% 57%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 10% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 10% 20%;
+    --sidebar-ring: 212 96% 57%;
   }
 }
 
@@ -117,35 +117,35 @@
 
 @layer components {
   .finance-card {
-    @apply bg-white rounded-2xl shadow-sm border border-app-light-mint p-4 transition-all hover:shadow-md;
+    @apply bg-white rounded-lg shadow-card border border-gray-100 p-4 transition-all hover:shadow-card-hover;
   }
   
   .fund-card {
-    @apply flex flex-col bg-white rounded-2xl shadow-sm border border-app-light-mint p-5 transition-all hover:shadow-md;
+    @apply flex flex-col bg-white rounded-lg shadow-card border border-gray-100 p-5 transition-all hover:shadow-card-hover;
   }
   
   .btn-primary {
-    @apply bg-app-charcoal text-app-mint rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
+    @apply bg-app-primary-blue text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-secondary {
-    @apply bg-app-green text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
+    @apply bg-app-primary-green text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-outline {
-    @apply border-2 border-app-charcoal text-app-charcoal rounded-full px-6 py-3 hover:bg-app-charcoal hover:text-app-mint transition-colors text-base font-medium;
+    @apply border-2 border-gray-300 text-gray-800 rounded-full px-6 py-3 hover:bg-gray-50 hover:text-app-primary-blue transition-colors text-base font-medium;
   }
   
   .input-field {
-    @apply w-full border border-app-light-mint rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-app-green focus:border-transparent bg-white;
+    @apply w-full border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-app-primary-blue focus:border-transparent bg-white;
   }
   
   .app-container {
-    @apply max-w-lg mx-auto bg-gradient-to-b from-app-mint to-white min-h-screen;
+    @apply max-w-lg mx-auto bg-white min-h-screen;
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-app-charcoal to-app-green text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-app-primary-blue to-app-primary-green text-transparent bg-clip-text;
   }
   
   .onboarding-container {
@@ -157,7 +157,7 @@
   }
   
   .page-title {
-    @apply text-2xl font-bold mb-6 text-app-charcoal;
+    @apply text-2xl font-bold mb-6 text-gray-900;
   }
   
   .fixed-bottom {
@@ -181,7 +181,7 @@
   }
 
   .stat-card {
-    @apply bg-white rounded-2xl p-4 shadow-sm border border-app-light-mint;
+    @apply bg-white rounded-lg p-4 shadow-card border border-gray-100;
   }
 
   .tab-button {
@@ -189,43 +189,43 @@
   }
 
   .tab-button-active {
-    @apply bg-app-charcoal text-app-mint;
+    @apply bg-app-primary-blue text-white;
   }
 
   .tab-button-inactive {
-    @apply text-app-charcoal hover:bg-app-light-mint;
+    @apply text-gray-700 hover:bg-gray-100;
   }
   
-  /* New modern components inspired by Google Pay & Groww */
+  /* Modern components inspired by Groww */
   .card-modern {
-    @apply bg-white rounded-2xl shadow-card p-5 border-0 transition-all duration-200 hover:shadow-card-hover;
+    @apply bg-white rounded-lg shadow-card p-5 border border-gray-100 transition-all duration-200 hover:shadow-card-hover;
   }
   
   .card-accent {
-    @apply bg-gradient-to-br from-app-primary-blue to-app-primary-purple/90 text-white rounded-2xl shadow-card p-5 border-0;
+    @apply bg-gradient-to-br from-app-primary-blue to-app-primary-purple/90 text-white rounded-lg shadow-card p-5 border-0;
   }
   
   .card-green {
-    @apply bg-gradient-to-br from-app-primary-green to-app-green/90 text-white rounded-2xl shadow-card p-5 border-0;
+    @apply bg-gradient-to-br from-app-primary-green to-app-secondary-green/90 text-white rounded-lg shadow-card p-5 border-0;
   }
   
   .glassmorphism {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-2xl shadow-md;
+    @apply bg-white/70 backdrop-blur-md border border-gray-100 rounded-lg shadow-card;
   }
   
   .btn-primary-modern {
-    @apply bg-app-primary-blue text-white font-medium py-3 px-6 rounded-xl shadow-button hover:shadow-none transition-all duration-200;
+    @apply bg-app-primary-blue text-white font-medium py-3 px-6 rounded-lg shadow-button hover:shadow-none transition-all duration-200;
   }
   
   .btn-secondary-modern {
-    @apply bg-app-primary-green text-white font-medium py-3 px-6 rounded-xl shadow-button hover:shadow-none transition-all duration-200;
+    @apply bg-app-primary-green text-white font-medium py-3 px-6 rounded-lg shadow-button hover:shadow-none transition-all duration-200;
   }
   
   .btn-outline-modern {
-    @apply border border-app-gray-300 bg-white text-app-gray-900 font-medium py-3 px-6 rounded-xl hover:bg-app-gray-50 transition-all duration-200;
+    @apply border border-gray-300 bg-white text-gray-900 font-medium py-3 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200;
   }
   
   .input-modern {
-    @apply w-full bg-app-gray-50 border border-app-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-app-primary-blue/30 focus:border-app-primary-blue transition-all duration-200;
+    @apply w-full bg-gray-50 border border-gray-200 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-app-primary-blue/30 focus:border-app-primary-blue transition-all duration-200;
   }
 }

@@ -23,13 +23,58 @@
 }
 
 .shadow-nav {
-  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.05);
 }
 
 .input-modern {
-  @apply h-12 rounded-xl bg-app-dark-blue border-gray-800 focus:border-app-green focus:ring-app-green text-white;
+  @apply h-12 rounded-lg bg-gray-50 border-gray-200 focus:border-app-primary-blue focus:ring-app-primary-blue text-gray-900;
 }
 
 .card-modern {
-  @apply rounded-xl shadow-sm hover:shadow-md transition-all duration-200;
+  @apply rounded-lg shadow-card hover:shadow-card-hover transition-all duration-200;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

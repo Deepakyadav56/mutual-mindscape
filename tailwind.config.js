@@ -55,6 +55,9 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         // Groww app colors
+        "app-white": "#FFFFFF",
+        "app-off-white": "#F9FAFB",
+        "app-light-gray": "#F3F4F6",
         "app-navy": "#121212",
         "app-dark-blue": "#1e1e1e",
         "app-card-hover": "#2d2d2d",
@@ -70,8 +73,19 @@ module.exports = {
         "app-gray-100": "#F3F4F6",
         "app-gray-200": "#E5E7EB",
         "app-gray-300": "#D1D5DB",
+        "app-gray-400": "#9CA3AF",
+        "app-gray-500": "#6B7280",
+        "app-gray-600": "#4B5563",
+        "app-gray-700": "#374151",
+        "app-gray-800": "#1F2937",
         "app-primary-green": "#00D09C",
+        "app-secondary-green": "#10B981",
         "app-primary-purple": "#8250DF",
+        "app-light-purple": "#F2EBFF",
+        "app-amber": "#F59E0B",
+        "app-light-amber": "#FEF3C7",
+        "app-red": "#EF4444",
+        "app-light-red": "#FEE2E2",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -87,10 +101,20 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" }
+        },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
+        "fade-up": "fade-up 0.4s ease-out",
       },
       boxShadow: {
         "nav": "0 -1px 10px rgba(0, 0, 0, 0.2)",

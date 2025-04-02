@@ -6,9 +6,9 @@ import { AppHeader } from "./AppHeader";
 
 const AppLayout = () => {
   return (
-    <div className="app-container bg-app-navy min-h-screen">
+    <div className="app-container bg-white min-h-screen">
       <AppHeader />
-      <div className="page-container max-w-lg mx-auto bg-app-navy min-h-screen pb-20 pt-2">
+      <div className="page-container max-w-lg mx-auto bg-white min-h-screen pb-20 pt-2">
         <Outlet />
       </div>
       <BottomNav />
