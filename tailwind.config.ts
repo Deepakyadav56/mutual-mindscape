@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'sf-pro': ['"SF Pro Display"', 'sans-serif'],
+				'inter': ['"Inter"', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -67,18 +68,20 @@ export default {
 					red: '#FF6B6B',
 					yellow: '#FFD166',
 					blue: '#118AB2',
-					// New modern UI colors (similar to Google Pay & Groww)
-					'primary-blue': '#2C5CF6',
-					'primary-green': '#00D09C',
-					'primary-purple': '#8250DF',
-					'light-blue': '#E6F3FF',
-					'light-purple': '#F2EBFF',
-					'light-green': '#E6FFF7',
-					'gray-50': '#F9FAFB',
-					'gray-100': '#F3F4F6',
-					'gray-200': '#E5E7EB',
-					'gray-300': '#D1D5DB',
-					'gray-900': '#111827',
+					// New Groww-like colors
+					'groww-blue': '#5367FF',
+					'groww-green': '#00D09C',
+					'groww-purple': '#8250DF',
+					'groww-light-blue': '#E6F3FF',
+					'groww-light-purple': '#F2EBFF',
+					'groww-light-green': '#E6FFF7',
+					'groww-bg-dark': '#121212',
+					'groww-card-dark': '#1E1E1E',
+					'groww-border-dark': '#2D2D2D',
+					'groww-text-primary': '#FFFFFF',
+					'groww-text-secondary': '#A0A0A0',
+					'groww-positive': '#00D09C',
+					'groww-negative': '#FF5353',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -91,10 +94,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				finance: {
-					primary: '#22AD78',  // Same as app-green
-					secondary: '#118AB2', // Same as app-blue
-					accent: '#22AD78',
-					muted: '#6B7280',
+					primary: '#5367FF',  // Changed to Groww blue
+					secondary: '#00D09C', // Changed to Groww green
+					accent: '#00D09C',
+					muted: '#A0A0A0',
 					light: '#F9FAFB',
 				}
 			},

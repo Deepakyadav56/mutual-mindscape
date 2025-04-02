@@ -2,340 +2,403 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   TrendingUp, 
   TrendingDown, 
-  PlusCircle, 
+  Plus, 
   ArrowRight, 
-  Calendar, 
-  ArrowUpRight, 
+  Download, 
+  FileText, 
+  Calculator, 
+  GitCompare,
+  ShoppingCart,
   ChevronRight,
-  Bell,
-  CircleDollarSign,
-  Wallet,
-  PieChart,
-  BarChart3
+  Filter,
+  ToggleRight
 } from "lucide-react";
-import { PortfolioChart } from "@/components/dashboard/PortfolioChart";
-import { AssetAllocation } from "@/components/dashboard/AssetAllocation";
-import { QuickActions } from "@/components/dashboard/QuickActions";
-import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
-import { MarketInsights } from "@/components/dashboard/MarketInsights";
-import { UpcomingSips } from "@/components/dashboard/UpcomingSips";
+import FundLogo from "@/components/funds/FundLogo";
+import StarRating from "@/components/funds/StarRating";
 
 const Home = () => {
-  const [timeRange, setTimeRange] = useState("1Y");
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("explore");
   
-  // Mock data for portfolio value
-  const portfolioValue = 125750.75;
-  const returnPercentage = 12.4;
-  const isPositiveReturn = returnPercentage > 0;
-  const todayChange = 1250.50;
-  const isTodayPositive = true;
-  
-  // Total invested amount
-  const totalInvested = 105000;
-  
-  // SIP information
-  const monthlySIP = 13000;
-  const nextSIPDate = "15 Jul, 2023";
-  
-  // Asset allocation data
-  const assetAllocation = [
-    { type: "Equity", percentage: 62, value: 77965.47 },
-    { type: "Debt", percentage: 30, value: 37725.22 },
-    { type: "Gold", percentage: 8, value: 10060.06 },
-  ];
-  
-  // Mock data for recommended funds
-  const recommendedFunds = [
+  // Mock data for popular funds
+  const popularFunds = [
     {
       id: 1,
-      name: "HDFC Mid-Cap Opportunities",
-      category: "Equity",
-      returnPercentage: 15.8,
+      name: "Motilal Oswal Midcap Fund",
+      category: "Equity Mid Cap",
+      returnPercentage: 28.13,
+      period: "3Y",
       rating: 5,
-      aum: "₹26,293 Cr",
     },
     {
       id: 2,
-      name: "SBI Blue Chip Fund",
-      category: "Equity",
-      returnPercentage: 12.3,
+      name: "Parag Parikh Flexi Cap Fund",
+      category: "Equity Flexi Cap",
+      returnPercentage: 17.76,
+      period: "3Y",
+      rating: 5,
+    },
+  ];
+  
+  // Mock data for Groww funds
+  const growwFunds = [
+    {
+      id: 101,
+      name: "Groww Value Fund",
+      returnPercentage: 14.22,
+      period: "3Y",
+    },
+    {
+      id: 102,
+      name: "Groww Large Cap Fund",
+      returnPercentage: 12.09,
+      period: "3Y",
+    },
+  ];
+  
+  // Mock data for all mutual funds
+  const allMutualFunds = [
+    {
+      id: 1,
+      name: "Motilal Oswal Midcap Fund",
+      category: "Equity Mid Cap",
+      returnPercentage: 28.13,
+      period: "3Y",
+      rating: 5,
+    },
+    {
+      id: 3,
+      name: "SBI PSU Fund",
+      category: "Equity Thematic",
+      returnPercentage: 31.37,
+      period: "3Y",
       rating: 4,
-      aum: "₹30,123 Cr",
     },
     {
-      id: 3,
-      name: "Axis Long Term Equity Fund",
-      category: "ELSS",
-      returnPercentage: 14.5,
+      id: 2,
+      name: "Parag Parikh Flexi Cap Fund",
+      category: "Equity Flexi Cap",
+      returnPercentage: 17.76,
+      period: "3Y",
       rating: 5,
-      aum: "₹29,675 Cr",
+    },
+    {
+      id: 4,
+      name: "HDFC Flexi Cap Fund",
+      category: "Equity Flexi Cap",
+      returnPercentage: 21.81,
+      period: "3Y",
+      rating: 5,
+    },
+    {
+      id: 5,
+      name: "Quant Small Cap Fund",
+      category: "Equity Small Cap",
+      returnPercentage: 20.67,
+      period: "3Y",
+      rating: 5,
     },
   ];
-
-  // Mock data for market insights
-  const marketInsights = [
+  
+  // Collection categories
+  const collections = [
     {
       id: 1,
-      title: "Nifty 50",
-      value: "22,402.40",
-      change: "+0.82%",
-      isPositive: true,
+      name: "High return",
+      icon: <TrendingUp className="h-6 w-6 text-app-groww-green" />,
     },
     {
       id: 2,
-      title: "Sensex",
-      value: "73,648.62",
-      change: "+0.74%",
-      isPositive: true,
+      name: "SIP with ₹500",
+      icon: <Plus className="h-6 w-6 text-app-groww-green" />,
     },
     {
       id: 3,
-      title: "Bank Nifty",
-      value: "48,150.65",
-      change: "-0.21%",
-      isPositive: false,
+      name: "Tax Saving",
+      icon: <FileText className="h-6 w-6 text-app-groww-green" />,
+    },
+    {
+      id: 4,
+      name: "Large Cap",
+      icon: <TrendingUp className="h-6 w-6 text-app-groww-green" />,
+    },
+    {
+      id: 5,
+      name: "Mid Cap",
+      icon: <TrendingUp className="h-6 w-6 text-app-groww-green" />,
+    },
+    {
+      id: 6,
+      name: "Small Cap",
+      icon: <TrendingUp className="h-6 w-6 text-app-groww-green" />,
     },
   ];
-
-  // Upcoming SIPs
-  const upcomingSips = [
+  
+  // Products & tools
+  const tools = [
     {
       id: 1,
-      name: "HDFC Mid-Cap Opportunities",
-      date: "15 Jul, 2023",
-      amount: 5000,
+      name: "Import",
+      icon: <Download className="h-6 w-6 text-app-groww-green" />,
+      path: "/import-funds",
     },
     {
       id: 2,
-      name: "Axis Long Term Equity Fund",
-      date: "15 Jul, 2023",
-      amount: 8000,
+      name: "NFOs",
+      icon: <FileText className="h-6 w-6 text-app-groww-green" />,
+      path: "/nfos",
+      badgeCount: 3,
+    },
+    {
+      id: 3,
+      name: "SIP calculator",
+      icon: <Calculator className="h-6 w-6 text-app-groww-green" />,
+      path: "/tools/sip-calculator",
+    },
+    {
+      id: 4,
+      name: "Compare funds",
+      icon: <GitCompare className="h-6 w-6 text-app-groww-green" />,
+      path: "/compare-funds",
     },
   ];
 
   return (
     <div className="pb-20">
-      {/* Header with User Info and Notifications */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Hello, Rahul</h1>
-          <p className="text-gray-600">Welcome back!</p>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link to="/notifications" className="relative">
-            <Bell className="h-6 w-6 text-gray-700" />
-            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-          </Link>
-          <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center justify-center">
-              <span className="font-medium">R</span>
-            </div>
-            <span className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
-          </div>
-        </div>
+      {/* Top Navigation Tabs */}
+      <div className="flex justify-between items-center p-4 space-x-2">
+        {["explore", "dashboard", "sips", "watchlist"].map((tab) => (
+          <button
+            key={tab}
+            className={`groww-tab ${
+              activeTab === tab ? "groww-tab-active" : "groww-tab-inactive"
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          </button>
+        ))}
       </div>
 
-      {/* Portfolio Summary Card */}
-      <Card className="mb-6 bg-gradient-to-r from-emerald-500 to-teal-500 border-0 shadow-lg overflow-hidden">
-        <CardContent className="py-6">
-          <div className="text-white">
-            <div className="flex justify-between items-start mb-2">
-              <p className="text-sm font-medium opacity-80">Portfolio Value</p>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
-                {timeRange}
-              </div>
-            </div>
-            
-            <div className="flex items-end gap-3 mb-3">
-              <h2 className="text-3xl font-bold">₹{portfolioValue.toLocaleString('en-IN')}</h2>
-              <div className={`flex items-center text-sm ${isPositiveReturn ? 'text-green-200' : 'text-red-200'}`}>
-                {isPositiveReturn ? <TrendingUp className="h-4 w-4 mr-1" /> : <TrendingDown className="h-4 w-4 mr-1" />}
-                {isPositiveReturn ? '+' : ''}{returnPercentage}%
-              </div>
-            </div>
-            
-            <div className="flex justify-between items-center mb-4">
-              <div>
-                <p className="text-xs opacity-80">Today's Change</p>
-                <p className={`text-sm font-medium ${isTodayPositive ? 'text-green-200' : 'text-red-200'}`}>
-                  {isTodayPositive ? '+' : '-'}₹{todayChange.toLocaleString('en-IN')}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs opacity-80">Total Invested</p>
-                <p className="text-sm font-medium">₹{totalInvested.toLocaleString('en-IN')}</p>
-              </div>
-              <div>
-                <p className="text-xs opacity-80">Monthly SIP</p>
-                <p className="text-sm font-medium">₹{monthlySIP.toLocaleString('en-IN')}</p>
-              </div>
-            </div>
-            
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1 opacity-80" />
-                <span className="text-xs">Next SIP: {nextSIPDate}</span>
-              </div>
-              
-              <div className="flex space-x-2">
-                <Button size="sm" variant="outline" className="bg-white/10 border-0 text-white hover:bg-white/20">
-                  History
-                </Button>
-                <Button size="sm" variant="outline" className="bg-white/10 border-0 text-white hover:bg-white/20">
-                  Analysis
-                </Button>
-              </div>
-            </div>
+      {/* Main Content */}
+      <div className="p-4">
+        {/* Popular Funds Section */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="groww-section-title">Popular Funds</h2>
+            <Link to="/explore" className="groww-view-all">All Mutual Funds</Link>
           </div>
-        </CardContent>
-      </Card>
-      
-      {/* Portfolio Chart */}
-      <Card className="mb-6">
-        <CardContent className="py-6">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-gray-900">Portfolio Performance</h3>
-            <div className="flex bg-gray-100 rounded-full p-1">
-              {["1M", "3M", "6M", "1Y", "All"].map((range) => (
-                <button
-                  key={range}
-                  className={`text-xs px-3 py-1 rounded-full ${
-                    timeRange === range 
-                      ? "bg-finance-primary text-white" 
-                      : "text-gray-600 hover:bg-gray-200"
-                  }`}
-                  onClick={() => setTimeRange(range)}
-                >
-                  {range}
-                </button>
-              ))}
+          
+          <div className="grid grid-cols-2 gap-3">
+            {popularFunds.map((fund) => (
+              <Link key={fund.id} to={`/funds/${fund.id}`}>
+                <div className="groww-card h-full">
+                  <div className="flex items-center mb-2">
+                    <FundLogo fundName={fund.name} className="mr-2" />
+                    <div>
+                      <p className="text-sm font-medium text-app-groww-text-primary line-clamp-1">
+                        {fund.name.split(' ').slice(0, 2).join(' ')}
+                      </p>
+                      <p className="text-xs text-app-groww-text-secondary mt-1">
+                        {fund.category}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <StarRating rating={fund.rating} />
+                    <div className="text-right">
+                      <p className="text-app-groww-positive font-medium text-sm">
+                        {fund.returnPercentage}%
+                      </p>
+                      <p className="text-xs text-app-groww-text-secondary">
+                        {fund.period}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        
+        {/* Collections Section */}
+        <div className="mb-6">
+          <h2 className="groww-section-title">Collections</h2>
+          <div className="grid grid-cols-3 gap-4">
+            {collections.map((collection) => (
+              <Link key={collection.id} to={`/collections/${collection.id}`}>
+                <div className="groww-icon-container h-full">
+                  <div className="bg-app-groww-card-dark p-2 rounded-lg mb-2">
+                    {collection.icon}
+                  </div>
+                  <p className="text-xs text-app-groww-text-secondary text-center">
+                    {collection.name}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        
+        {/* Funds by Groww */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="groww-section-title">Funds by Groww</h2>
+            <Link to="/groww-funds" className="groww-view-all">View all</Link>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3">
+            {growwFunds.map((fund) => (
+              <Link key={fund.id} to={`/funds/${fund.id}`}>
+                <div className="groww-card h-full">
+                  <div className="flex items-center mb-3">
+                    <div className="fund-logo w-10 h-10 bg-app-groww-blue rounded-full mr-2">
+                      <div className="w-full h-full rounded-full bg-gradient-to-r from-app-groww-blue to-app-groww-green"></div>
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-app-groww-text-primary mb-1">
+                    {fund.name}
+                  </p>
+                  <div className="flex">
+                    <p className="text-app-groww-positive font-medium text-sm">
+                      {fund.returnPercentage}%
+                    </p>
+                    <p className="text-xs text-app-groww-text-secondary ml-1 mt-0.5">
+                      {fund.period}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        
+        {/* Products & Tools */}
+        <div className="mb-6">
+          <h2 className="groww-section-title">Products & tools</h2>
+          <div className="grid grid-cols-4 gap-3">
+            {tools.map((tool) => (
+              <Link key={tool.id} to={tool.path}>
+                <div className="groww-icon-container h-full relative">
+                  {tool.badgeCount && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-app-groww-negative rounded-full text-white text-xs flex items-center justify-center">
+                      {tool.badgeCount}
+                    </span>
+                  )}
+                  <div className="bg-app-groww-card-dark p-2 rounded-lg mb-1">
+                    {tool.icon}
+                  </div>
+                  <p className="text-[10px] text-app-groww-text-secondary text-center">
+                    {tool.name}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        
+        {/* Cart */}
+        <Link to="/cart" className="groww-card flex justify-between items-center p-3 mb-6">
+          <div className="flex items-center">
+            <ShoppingCart className="h-5 w-5 text-app-groww-green mr-2" />
+            <p className="text-sm text-app-groww-text-primary">Cart</p>
+          </div>
+          <div className="flex items-center">
+            <span className="text-xs text-app-groww-text-secondary mr-2">1</span>
+            <ChevronRight className="h-4 w-4 text-app-groww-text-secondary" />
+          </div>
+        </Link>
+        
+        {/* All Mutual Funds */}
+        <div>
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="groww-section-title">All Mutual Funds</h2>
+          </div>
+          
+          {/* Filters row */}
+          <div className="flex items-center space-x-3 mb-4 overflow-x-auto scrollbar-none pb-2">
+            <div className="p-1.5 border border-app-groww-border-dark rounded-md">
+              <Filter className="h-4 w-4 text-app-groww-text-secondary" />
+            </div>
+            
+            <div className="flex items-center border border-app-groww-border-dark rounded-md px-2 py-1.5">
+              <span className="text-xs text-app-groww-text-secondary mr-1">Sort By</span>
+              <ChevronRight className="h-4 w-4 text-app-groww-text-secondary rotate-90" />
+            </div>
+            
+            <div className="flex items-center border border-app-groww-border-dark rounded-md px-2 py-1.5">
+              <span className="text-xs text-app-groww-text-secondary mr-1">Index only</span>
+              <ToggleRight className="h-4 w-4 text-app-groww-text-secondary" />
+            </div>
+            
+            <div className="flex items-center border border-app-groww-border-dark rounded-md px-2 py-1.5">
+              <span className="text-xs text-app-groww-text-primary">Flexi Cap</span>
+            </div>
+            
+            <div className="flex items-center border border-app-groww-border-dark rounded-md px-2 py-1.5">
+              <span className="text-xs text-app-groww-text-primary">Sector</span>
             </div>
           </div>
           
-          <PortfolioChart timeRange={timeRange} />
-        </CardContent>
-      </Card>
-      
-      {/* Quick Actions */}
-      <QuickActions />
-      
-      {/* Asset Allocation & Market Insights */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <AssetAllocation data={assetAllocation} />
-        <MarketInsights data={marketInsights} />
-      </div>
-      
-      {/* Tabs for different sections */}
-      <Tabs defaultValue="recommended" className="mb-6">
-        <TabsList className="w-full mb-4 bg-gray-100 p-1 rounded-lg">
-          <TabsTrigger value="recommended" className="rounded-md">Recommended</TabsTrigger>
-          <TabsTrigger value="trending" className="rounded-md">Trending</TabsTrigger>
-          <TabsTrigger value="new" className="rounded-md">New Launches</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="recommended">
+          <div className="flex justify-between items-center text-xs text-app-groww-text-secondary mb-2">
+            <span>1,482 funds</span>
+            <div className="flex items-center">
+              <span className="mr-1">3Y Returns</span>
+              <ChevronRight className="h-3 w-3 rotate-90" />
+            </div>
+          </div>
+          
+          {/* Fund list */}
           <div className="space-y-3">
-            {recommendedFunds.map((fund) => (
-              <Link to={`/funds/${fund.id}`} key={fund.id}>
-                <Card className="hover:shadow-md transition-all duration-200">
-                  <CardContent className="py-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h3 className="font-medium text-gray-900">{fund.name}</h3>
-                        <div className="flex items-center">
-                          <span className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded mr-2">
-                            {fund.category}
-                          </span>
-                          <span className="text-xs text-gray-500">{fund.aum}</span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-emerald-600 font-semibold">{fund.returnPercentage}%</p>
-                        <p className="text-xs text-gray-500">1Y Returns</p>
-                        <div className="flex mt-1">
-                          {[...Array(5)].map((_, i) => (
-                            <div 
-                              key={i} 
-                              className={`h-1.5 w-5 rounded-sm mr-0.5 ${
-                                i < fund.rating ? 'bg-amber-400' : 'bg-gray-200'
-                              }`}
-                            />
-                          ))}
-                        </div>
+            {allMutualFunds.map((fund) => (
+              <Link key={fund.id} to={`/funds/${fund.id}`}>
+                <div className="groww-fund-card">
+                  <div className="flex items-start space-x-2">
+                    <FundLogo fundName={fund.name} />
+                    <div>
+                      <p className="text-sm font-medium text-app-groww-text-primary mb-1">
+                        {fund.name}
+                      </p>
+                      <div className="flex items-center">
+                        <p className="text-xs text-app-groww-text-secondary">
+                          {fund.category}
+                        </p>
+                        <div className="mx-1 text-app-groww-text-secondary">•</div>
+                        <StarRating rating={fund.rating} />
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-app-groww-positive font-medium">
+                      {fund.returnPercentage}%
+                    </p>
+                    <p className="text-xs text-app-groww-text-secondary mt-1">
+                      {fund.period}
+                    </p>
+                  </div>
+                </div>
               </Link>
             ))}
             
-            <Button variant="outline" className="w-full border-dashed border-gray-300 hover:border-gray-400">
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Explore More Funds
-            </Button>
+            <Link to="/explore" className="flex items-center justify-between p-3">
+              <span className="text-sm text-app-groww-text-primary">View all</span>
+              <ChevronRight className="h-4 w-4 text-app-groww-text-secondary" />
+            </Link>
           </div>
-        </TabsContent>
-        
-        <TabsContent value="trending">
-          <Card className="p-4 border-dashed border-2 border-gray-200 bg-gray-50">
-            <div className="text-center py-6">
-              <BarChart3 className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-              <h3 className="text-lg font-medium text-gray-700 mb-1">Trending Funds</h3>
-              <p className="text-sm text-gray-500 mb-4">
-                Discover what other investors are adding to their portfolio
-              </p>
-              <Button className="bg-finance-primary hover:bg-finance-primary/90">
-                View Trending Funds
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </div>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="new">
-          <Card className="p-4 border-dashed border-2 border-gray-200 bg-gray-50">
-            <div className="text-center py-6">
-              <PlusCircle className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-              <h3 className="text-lg font-medium text-gray-700 mb-1">New Fund Launches</h3>
-              <p className="text-sm text-gray-500 mb-4">
-                Stay updated with the latest mutual fund offerings
-              </p>
-              <Button className="bg-finance-primary hover:bg-finance-primary/90">
-                Explore New Funds
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </div>
-          </Card>
-        </TabsContent>
-      </Tabs>
-      
-      {/* Upcoming SIPs & Recent Transactions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <UpcomingSips data={upcomingSips} />
-        <RecentTransactions />
-      </div>
-      
-      {/* Investment Goals Card */}
-      <Card className="p-4 mb-6 border-dashed border-2 border-gray-300 bg-gray-50/80">
-        <div className="text-center py-4">
-          <div className="bg-emerald-100 h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-3">
-            <CircleDollarSign className="h-6 w-6 text-emerald-600" />
+          
+          {/* Footer */}
+          <div className="mt-6 mb-6 text-center">
+            <p className="text-xs text-app-groww-text-secondary">Groww Invest Tech Pvt. Ltd.</p>
+            <p className="text-xs text-app-groww-text-secondary mt-1">(Formerly known as Nextbillion Technology Pvt. Ltd.)</p>
+            <p className="text-xs text-app-groww-text-secondary mt-1">SEBI Stock Broker • INZ000301838</p>
           </div>
-          <h3 className="text-lg font-medium text-gray-800 mb-2">Create Investment Goal</h3>
-          <p className="text-sm text-gray-600 mb-4 max-w-md mx-auto">
-            Set financial goals like retirement, education, or home purchase and track your progress
-          </p>
-          <Button className="bg-finance-primary hover:bg-finance-primary/90">
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Create Goal
-          </Button>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
