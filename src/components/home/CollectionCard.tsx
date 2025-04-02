@@ -16,9 +16,29 @@ interface CollectionCardProps {
 }
 
 const CollectionCard: React.FC<CollectionCardProps> = ({ collection }) => {
+  // Map color classes to our new theme colors
+  const getColorClass = (color: string) => {
+    switch(color) {
+      case 'bg-blue-500':
+        return 'bg-app-button-green';
+      case 'bg-purple-500':
+        return 'bg-app-black';
+      case 'bg-orange-500':
+        return 'bg-app-button-green';
+      case 'bg-green-500':
+        return 'bg-app-button-green';
+      case 'bg-red-500':
+        return 'bg-app-black';
+      case 'bg-indigo-500':
+        return 'bg-app-button-green';
+      default:
+        return collection.color;
+    }
+  };
+
   return (
     <Link to={collection.link}>
-      <Card className={`border-0 overflow-hidden rounded-xl mb-3 h-28 relative ${collection.color}`}>
+      <Card className={`border-0 overflow-hidden rounded-xl mb-3 h-28 relative ${getColorClass(collection.color)}`}>
         <CardContent className="p-4 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <h3 className="font-bold text-white text-lg">{collection.name}</h3>

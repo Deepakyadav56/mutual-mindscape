@@ -14,7 +14,7 @@
   }
 }
 
-/* Groww App-inspired Styles */
+/* Updated App Styles with new color theme */
 .fixed-bottom {
   position: fixed;
   bottom: 0;
@@ -27,11 +27,11 @@
 }
 
 .input-modern {
-  @apply h-12 rounded-lg bg-gray-50 border-gray-200 focus:border-app-primary-blue focus:ring-app-primary-blue text-gray-900;
+  @apply h-12 rounded-xl bg-white border-app-mint focus:border-app-button-green focus:ring-app-button-green text-app-black;
 }
 
 .card-modern {
-  @apply rounded-lg shadow-card hover:shadow-card-hover transition-all duration-200;
+  @apply rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-app-mint;
 }
 
 /* Animation utilities */
@@ -77,4 +77,24 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Mint theme additions */
+.bg-gradient-mint {
+  background: linear-gradient(to bottom, #e3f3e7, #f9fcfa);
+}
+
+.button-green {
+  background-color: #22ad78;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.button-green:hover {
+  background-color: #1c9567;
+  box-shadow: 0 2px 8px rgba(34, 173, 120, 0.2);
+}
+
+.border-mint {
+  border-color: #deebc7;
 }

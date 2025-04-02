@@ -70,24 +70,22 @@ export default {
 					'gray-700': '#374151',
 					'gray-800': '#1F2937',
 					'gray-900': '#111827',
-					'navy': '#121212',
+					'navy': '#232323',
 					'dark-blue': '#1e1e1e',
 					'card-hover': '#2d2d2d',
 					'light-blue': '#E6F3FF',
 					'primary-blue': '#2C5CF6',
 					'secondary-blue': '#3B82F6',
-					'light-green': '#E6FFF7',
-					'primary-green': '#00D09C',
-					'secondary-green': '#10B981',
-					'light-purple': '#F2EBFF',
-					'primary-purple': '#8250DF',
-					'light-amber': '#FEF3C7',
-					'amber': '#F59E0B',
-					'light-red': '#FEE2E2',
-					'red': '#EF4444',
-					mint: '#CEEDE3',
+					// New colors based on the design reference
+					'primary-green': '#22ad78',  // #22ad78
+					'light-green': '#deebc7',    // #deebc7
+					'bg-mint': '#e3f3e7',        // Soft mint background
+					'button-green': '#22ad78',   // Button green
+					'black': '#232323',          // Black
+					'white': '#f2f2f2',          // Off-white
+					'mint': '#deebc7',
 					'light-mint': '#EBF1EE',
-					charcoal: '#282C2A',
+					charcoal: '#232323',
 					green: '#22ad78'
 				},
 				sidebar: {
@@ -101,11 +99,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				finance: {
-					primary: '#00D09C',
-					secondary: '#2C5CF6',
-					accent: '#8250DF',
+					primary: '#22ad78',
+					secondary: '#232323',
+					accent: '#deebc7',
 					muted: '#6B7280',
-					light: '#F9FAFB',
+					light: '#e3f3e7',
 				}
 			},
 			borderRadius: {

@@ -8,83 +8,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;  /* White background */
-    --foreground: 220 10% 15%;   /* Dark text for readability */
+    --background: 140 45% 92%;  /* #e3f3e7 - Light mint background */
+    --foreground: 0 0% 14%;     /* #232323 - Dark text */
 
-    --card: 0 0% 100%;  /* White cards */
-    --card-foreground: 220 10% 15%;  /* Dark text */
+    --card: 0 0% 100%;          /* White cards */
+    --card-foreground: 0 0% 14%;  /* #232323 - Dark text */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 10% 15%;
+    --popover: 0 0% 100%;       /* White popovers */
+    --popover-foreground: 0 0% 14%;  /* #232323 - Dark text */
 
-    --primary: 212 96% 57%;   /* App primary blue #2C5CF6 */
+    --primary: 153 67% 41%;     /* #22ad78 - Primary green */
     --primary-foreground: 0 0% 100%;  /* White text on primary */
 
-    --secondary: 162 100% 41%;  /* App green #00D09C */
-    --secondary-foreground: 0 0% 100%;  /* White text on secondary */
+    --secondary: 75 35% 84%;    /* #deebc7 - Light mint */
+    --secondary-foreground: 0 0% 14%;  /* #232323 - Dark text */
 
-    --muted: 220 10% 96%;  /* Light gray for muted areas */
-    --muted-foreground: 220 10% 40%;  /* Darker text for muted areas */
+    --muted: 0 0% 96%;          /* Light gray for muted areas */
+    --muted-foreground: 0 0% 40%;  /* Darker text for muted areas */
 
-    --accent: 272 59% 53%;  /* Purple accent color #8250DF */
+    --accent: 153 67% 41%;      /* #22ad78 - Primary green */
     --accent-foreground: 0 0% 100%;  /* White text on accent */
 
-    --destructive: 0 84% 60%;  /* Red for errors/warnings */
+    --destructive: 0 84% 60%;   /* Red for errors/warnings */
     --destructive-foreground: 0 0% 100%;  /* White text on destructive */
 
-    --border: 220 10% 92%;  /* Light border color */
-    --input: 220 10% 92%;  /* Light input borders */
-    --ring: 212 96% 57%;  /* Primary blue for focus rings */
+    --border: 75 35% 84%;       /* #deebc7 - Light mint borders */
+    --input: 0 0% 90%;          /* Light input borders */
+    --ring: 153 67% 41%;        /* Primary green for focus rings */
 
-    --radius: 0.75rem;  /* Slightly reduced for more modern feel */
+    --radius: 1rem;             /* Rounded corners */
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 10% 15%;
-    --sidebar-primary: 212 96% 57%;
+    --sidebar-foreground: 0 0% 14%;
+    --sidebar-primary: 153 67% 41%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 10% 96%;
-    --sidebar-accent-foreground: 220 10% 15%;
-    --sidebar-border: 220 10% 92%;
-    --sidebar-ring: 212 96% 57%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 14%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 153 67% 41%;
   }
 
   .dark {
-    --background: 220 10% 8%;  /* Dark mode background */
-    --foreground: 0 0% 95%;  /* Light text for dark mode */
+    --background: 0 0% 14%;     /* #232323 - Dark background */
+    --foreground: 140 45% 92%;  /* #e3f3e7 - Light mint text */
 
-    --card: 220 10% 12%;  /* Slightly lighter cards in dark mode */
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 18%;           /* Slightly lighter dark cards */
+    --card-foreground: 140 45% 92%;  /* #e3f3e7 - Light mint text */
 
-    --popover: 220 10% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 18%;        /* Slightly lighter dark popovers */
+    --popover-foreground: 140 45% 92%;  /* #e3f3e7 - Light mint text */
 
-    --primary: 212 96% 57%;  /* Keep primary color consistent */
-    --primary-foreground: 0 0% 100%;
+    --primary: 153 67% 41%;     /* #22ad78 - Primary green */
+    --primary-foreground: 0 0% 100%;  /* White text on primary */
 
-    --secondary: 162 100% 41%;  /* Keep secondary color consistent */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 75 35% 84%;    /* #deebc7 - Light mint */
+    --secondary-foreground: 0 0% 14%;  /* #232323 - Dark text */
 
-    --muted: 220 10% 20%;  /* Darker muted areas */
+    --muted: 0 0% 20%;          /* Darker muted areas */
     --muted-foreground: 0 0% 70%;  /* Lighter text on muted areas */
 
-    --accent: 272 59% 53%;  /* Keep accent color consistent */
-    --accent-foreground: 0 0% 100%;
+    --accent: 153 67% 41%;      /* #22ad78 - Primary green */
+    --accent-foreground: 0 0% 100%;  /* White text on accent */
 
-    --destructive: 0 62% 50%;  /* Slightly darker red for dark mode */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 50%;   /* Slightly darker red for dark mode */
+    --destructive-foreground: 0 0% 100%;  /* White text on destructive */
 
-    --border: 220 10% 20%;  /* Darker borders for dark mode */
-    --input: 220 10% 20%;
-    --ring: 212 96% 57%;
+    --border: 0 0% 20%;         /* Darker borders for dark mode */
+    --input: 0 0% 20%;          /* Darker input borders */
+    --ring: 153 67% 41%;        /* Primary green for focus rings */
     
-    --sidebar-background: 220 10% 8%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 212 96% 57%;
+    --sidebar-background: 0 0% 14%;
+    --sidebar-foreground: 140 45% 92%;
+    --sidebar-primary: 153 67% 41%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 10% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 10% 20%;
-    --sidebar-ring: 212 96% 57%;
+    --sidebar-accent: 0 0% 18%;
+    --sidebar-accent-foreground: 140 45% 92%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 153 67% 41%;
   }
 }
 
@@ -94,7 +94,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sf-pro;
+    @apply bg-app-bg-mint text-foreground font-sf-pro;
     font-family: 'SF Pro Display', 'Inter', sans-serif;
   }
 
@@ -117,35 +117,35 @@
 
 @layer components {
   .finance-card {
-    @apply bg-white rounded-lg shadow-card border border-gray-100 p-4 transition-all hover:shadow-card-hover;
+    @apply bg-white rounded-xl shadow-sm border border-app-mint p-4 transition-all hover:shadow-md;
   }
   
   .fund-card {
-    @apply flex flex-col bg-white rounded-lg shadow-card border border-gray-100 p-5 transition-all hover:shadow-card-hover;
+    @apply flex flex-col bg-white rounded-xl shadow-sm border border-app-mint p-5 transition-all hover:shadow-md;
   }
   
   .btn-primary {
-    @apply bg-app-primary-blue text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
+    @apply bg-app-button-green text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-secondary {
-    @apply bg-app-primary-green text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
+    @apply bg-app-black text-white rounded-full px-6 py-3 hover:bg-opacity-90 transition-colors text-base font-medium;
   }
   
   .btn-outline {
-    @apply border-2 border-gray-300 text-gray-800 rounded-full px-6 py-3 hover:bg-gray-50 hover:text-app-primary-blue transition-colors text-base font-medium;
+    @apply border-2 border-app-button-green text-app-button-green rounded-full px-6 py-3 hover:bg-app-button-green hover:text-white transition-colors text-base font-medium;
   }
   
   .input-field {
-    @apply w-full border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-app-primary-blue focus:border-transparent bg-white;
+    @apply w-full border border-app-mint rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-app-button-green focus:border-transparent bg-white;
   }
   
   .app-container {
-    @apply max-w-lg mx-auto bg-white min-h-screen;
+    @apply max-w-lg mx-auto bg-app-bg-mint min-h-screen;
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-app-primary-blue to-app-primary-green text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-app-black to-app-button-green text-transparent bg-clip-text;
   }
   
   .onboarding-container {
@@ -157,7 +157,7 @@
   }
   
   .page-title {
-    @apply text-2xl font-bold mb-6 text-gray-900;
+    @apply text-2xl font-bold mb-6 text-app-black;
   }
   
   .fixed-bottom {
@@ -181,7 +181,7 @@
   }
 
   .stat-card {
-    @apply bg-white rounded-lg p-4 shadow-card border border-gray-100;
+    @apply bg-white rounded-xl p-4 shadow-sm border border-app-mint;
   }
 
   .tab-button {
@@ -189,43 +189,73 @@
   }
 
   .tab-button-active {
-    @apply bg-app-primary-blue text-white;
+    @apply bg-app-button-green text-white;
   }
 
   .tab-button-inactive {
-    @apply text-gray-700 hover:bg-gray-100;
+    @apply text-app-black hover:bg-app-mint;
   }
   
-  /* Modern components inspired by Groww */
+  /* Modern components */
   .card-modern {
-    @apply bg-white rounded-lg shadow-card p-5 border border-gray-100 transition-all duration-200 hover:shadow-card-hover;
+    @apply bg-white rounded-xl shadow-sm p-5 border border-app-mint transition-all duration-200 hover:shadow-md;
   }
   
   .card-accent {
-    @apply bg-gradient-to-br from-app-primary-blue to-app-primary-purple/90 text-white rounded-lg shadow-card p-5 border-0;
+    @apply bg-app-button-green text-white rounded-xl shadow-sm p-5 border-0;
   }
   
-  .card-green {
-    @apply bg-gradient-to-br from-app-primary-green to-app-secondary-green/90 text-white rounded-lg shadow-card p-5 border-0;
+  .card-secondary {
+    @apply bg-app-black text-white rounded-xl shadow-sm p-5 border-0;
   }
   
   .glassmorphism {
-    @apply bg-white/70 backdrop-blur-md border border-gray-100 rounded-lg shadow-card;
+    @apply bg-white/70 backdrop-blur-md border border-app-mint rounded-xl shadow-sm;
   }
   
   .btn-primary-modern {
-    @apply bg-app-primary-blue text-white font-medium py-3 px-6 rounded-lg shadow-button hover:shadow-none transition-all duration-200;
+    @apply bg-app-button-green text-white font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow-none transition-all duration-200;
   }
   
   .btn-secondary-modern {
-    @apply bg-app-primary-green text-white font-medium py-3 px-6 rounded-lg shadow-button hover:shadow-none transition-all duration-200;
+    @apply bg-app-black text-white font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow-none transition-all duration-200;
   }
   
   .btn-outline-modern {
-    @apply border border-gray-300 bg-white text-gray-900 font-medium py-3 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200;
+    @apply border border-app-button-green bg-white text-app-button-green font-medium py-3 px-6 rounded-xl hover:bg-app-mint/20 transition-all duration-200;
   }
   
   .input-modern {
-    @apply w-full bg-gray-50 border border-gray-200 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-app-primary-blue/30 focus:border-app-primary-blue transition-all duration-200;
+    @apply w-full bg-white border border-app-mint rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-app-button-green/30 focus:border-app-button-green transition-all duration-200;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
+  /* Add more utility classes as needed */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
