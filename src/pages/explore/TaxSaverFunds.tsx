@@ -96,13 +96,13 @@ const TaxSaverFunds = () => {
   );
 
   return (
-    <div className="min-h-screen bg-app-gray-50 pb-20">
+    <div className="min-h-screen bg-gradient-mint pb-20">
       <div className="sticky top-0 bg-white z-10 shadow-sm">
         <div className="flex items-center p-4">
           <button onClick={() => navigate("/explore")} className="mr-3">
-            <ArrowLeft className="h-5 w-5 text-app-gray-900" />
+            <ArrowLeft className="h-5 w-5 text-app-black" />
           </button>
-          <h1 className="text-xl font-semibold text-app-gray-900">Tax Saver Funds (ELSS)</h1>
+          <h1 className="text-xl font-semibold text-app-black">Tax Saver Funds (ELSS)</h1>
         </div>
         
         <div className="px-4 pb-4">
@@ -111,7 +111,7 @@ const TaxSaverFunds = () => {
             <Input
               type="text"
               placeholder="Search funds"
-              className="pl-10 py-5 bg-app-gray-50 input-modern"
+              className="pl-10 py-5 input-modern"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -121,12 +121,12 @@ const TaxSaverFunds = () => {
             <div className="flex space-x-1">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="flex items-center text-app-gray-900">
+                  <Button variant="outline" size="sm" className="flex items-center text-app-black border-app-mint">
                     <Filter className="h-4 w-4 mr-1" />
                     Filter
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
+                <DropdownMenuContent align="start" className="bg-white border border-app-mint">
                   <DropdownMenuItem>Minimum Investment</DropdownMenuItem>
                   <DropdownMenuItem>Risk Level</DropdownMenuItem>
                   <DropdownMenuItem>Fund Size</DropdownMenuItem>
@@ -135,12 +135,12 @@ const TaxSaverFunds = () => {
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="flex items-center text-app-gray-900">
+                  <Button variant="outline" size="sm" className="flex items-center text-app-black border-app-mint">
                     <ArrowUpDown className="h-4 w-4 mr-1" />
                     Sort
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
+                <DropdownMenuContent align="start" className="bg-white border border-app-mint">
                   <DropdownMenuItem>1Y Returns: High to Low</DropdownMenuItem>
                   <DropdownMenuItem>1Y Returns: Low to High</DropdownMenuItem>
                   <DropdownMenuItem>Fund Size: High to Low</DropdownMenuItem>
@@ -149,7 +149,7 @@ const TaxSaverFunds = () => {
               </DropdownMenu>
             </div>
             
-            <Button variant="ghost" size="sm" className="text-app-primary-blue" onClick={() => navigate("/tools/tax-calculator")}>
+            <Button variant="ghost" size="sm" className="text-app-button-green" onClick={() => navigate("/tools/tax-calculator")}>
               <InfoIcon className="h-4 w-4 mr-1" />
               Tax Savings Calculator
             </Button>
@@ -165,50 +165,50 @@ const TaxSaverFunds = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
           >
-            <Card className="overflow-hidden" onClick={() => navigate(`/funds/${fund.id}`)}>
+            <Card className="card-modern overflow-hidden" onClick={() => navigate(`/funds/${fund.id}`)}>
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-app-gray-900">{fund.name}</h3>
-                  <div className="bg-app-light-blue text-app-primary-blue text-xs font-medium px-2 py-1 rounded">
+                  <h3 className="font-semibold text-app-black">{fund.name}</h3>
+                  <div className="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded-full">
                     Tax Saver
                   </div>
                 </div>
                 
-                <div className="text-xs text-app-gray-900/70 mb-3 flex items-center">
+                <div className="text-xs text-gray-600 mb-3 flex items-center">
                   <span className="mr-2">{fund.category}</span>
-                  <span className="w-1 h-1 bg-app-gray-300 rounded-full"></span>
+                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
                   <span className="ml-2">{fund.riskLevel}</span>
                 </div>
                 
                 <div className="flex justify-between items-center mb-4">
                   <div>
-                    <p className="text-xs text-app-gray-900/70">NAV</p>
-                    <p className="font-medium">₹{fund.nav.toFixed(2)}</p>
+                    <p className="text-xs text-gray-500">NAV</p>
+                    <p className="font-medium text-app-black">₹{fund.nav.toFixed(2)}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-app-gray-900/70">Min. Investment</p>
-                    <p className="font-medium">₹{fund.minInvestment}</p>
+                    <p className="text-xs text-gray-500">Min. Investment</p>
+                    <p className="font-medium text-app-black">₹{fund.minInvestment}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-app-gray-900/70">Fund Size</p>
-                    <p className="font-medium">{fund.aum}</p>
+                    <p className="text-xs text-gray-500">Fund Size</p>
+                    <p className="font-medium text-app-black">{fund.aum}</p>
                   </div>
                 </div>
                 
-                <div className="flex justify-between items-center pt-3 border-t border-app-gray-200">
+                <div className="flex justify-between items-center pt-3 border-t border-app-mint/30">
                   <div>
-                    <p className="text-xs text-app-gray-900/70">1Y Returns</p>
-                    <p className="font-semibold text-app-primary-green">{fund.returns.oneYear}%</p>
+                    <p className="text-xs text-gray-500">1Y Returns</p>
+                    <p className="font-semibold text-app-button-green">{fund.returns.oneYear}%</p>
                   </div>
                   <div>
-                    <p className="text-xs text-app-gray-900/70">3Y Returns</p>
-                    <p className="font-medium">{fund.returns.threeYear}%</p>
+                    <p className="text-xs text-gray-500">3Y Returns</p>
+                    <p className="font-medium text-app-black">{fund.returns.threeYear}%</p>
                   </div>
                   <div>
-                    <p className="text-xs text-app-gray-900/70">5Y Returns</p>
-                    <p className="font-medium">{fund.returns.fiveYear}%</p>
+                    <p className="text-xs text-gray-500">5Y Returns</p>
+                    <p className="font-medium text-app-black">{fund.returns.fiveYear}%</p>
                   </div>
-                  <Button className="bg-app-primary-green hover:bg-app-primary-green/90 ml-4">
+                  <Button className="button-green ml-4">
                     Invest
                   </Button>
                 </div>
