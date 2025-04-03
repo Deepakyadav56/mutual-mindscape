@@ -140,7 +140,7 @@
   }
   
   .app-container {
-    @apply max-w-lg mx-auto bg-app-bg-mint min-h-screen;
+    @apply max-w-lg mx-auto bg-app-mint min-h-screen;
   }
   
   .text-gradient {
