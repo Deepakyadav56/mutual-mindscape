@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -76,14 +75,12 @@ export default {
 					'light-blue': '#E6F3FF',
 					'primary-blue': '#2C5CF6',
 					'secondary-blue': '#3B82F6',
-					// New colors based on the design reference
-					'primary-green': '#22ad78',  // #22ad78
-					'light-green': '#deebc7',    // #deebc7
-					'bg-mint': '#e3f3e7',        // Soft mint background
-					'button-green': '#22ad78',   // Button green
-					'black': '#232323',          // Black
-					'white': '#f2f2f2',          // Off-white
-					'mint': '#deebc7',
+					'primary-green': '#22ad78',
+					'light-green': '#deebc7',
+					'mint': '#e3f3e7',
+					'button-green': '#22ad78',
+					'black': '#232323',
+					'white': '#f2f2f2',
 					'light-mint': '#EBF1EE',
 					charcoal: '#232323',
 					green: '#22ad78'

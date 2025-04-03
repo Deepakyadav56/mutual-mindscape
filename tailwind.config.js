@@ -67,7 +67,7 @@ module.exports = {
         "app-light-blue": "#EDF8FF",
         "app-primary-blue": "#5367FF",
         "app-charcoal": "#44475b",
-        "app-mint": "#f5fffe",
+        "app-mint": "#e3f3e7",
         "app-light-mint": "#e9f9f7",
         "app-gray-50": "#F9FAFB",
         "app-gray-100": "#F3F4F6",
@@ -86,6 +86,8 @@ module.exports = {
         "app-light-amber": "#FEF3C7",
         "app-red": "#EF4444",
         "app-light-red": "#FEE2E2",
+        "app-button-green": "#22ad78",
+        "app-black": "#232323",
       },
       borderRadius: {
         lg: "var(--radius)",
