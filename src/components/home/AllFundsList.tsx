@@ -1,11 +1,9 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import SectionHeader from "./SectionHeader";
-import { ArrowUpRight, Filter } from "lucide-react";
+import FundCard from "./FundCard";
+import { Filter } from "lucide-react";
 
 const allFunds = [
   {
@@ -49,133 +47,39 @@ const allFunds = [
   },
 ];
 
-const renderRatingStars = (rating: number) => {
-  return (
-    <div className="flex">
-      {[...Array(5)].map((_, i) => (
-        <svg
-          key={i}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill={i < rating ? "#FFB74D" : "none"}
-          stroke={i < rating ? "#FFB74D" : "#9CA3AF"}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-3 h-3 mr-0.5"
-        >
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      ))}
-    </div>
-  );
-};
-
-const getLogo = (fundName: string) => {
-  // Default logos based on fund name keywords
-  if (fundName.includes("Mirae")) return "https://groww.in/images/partners/mirae_groww.svg";
-  if (fundName.includes("ICICI")) return "https://groww.in/images/partners/icici_groww.svg";
-  if (fundName.includes("Aditya Birla")) return "https://groww.in/images/partners/aditya_groww.svg";
-  
-  // Fallback
-  return "https://groww.in/images/partners/default_amc_logo.svg";
-};
-
 const AllFundsList = () => {
   const [sortBy, setSortBy] = useState("returns");
   
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-3">
-        <SectionHeader title="All Mutual Funds" viewMoreLink="/explore" />
+        <select 
+          className="bg-white text-app-black border border-gray-200 rounded-full text-sm px-4 py-2"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="returns">Best Returns</option>
+          <option value="rating">Top Rated</option>
+          <option value="popular">Most Popular</option>
+        </select>
+        
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="rounded-full border-gray-200 text-app-black hover:bg-gray-50"
+        >
+          <Filter className="w-4 h-4 mr-2" /> Filters
+        </Button>
       </div>
       
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-2">
-          <select 
-            className="bg-white text-app-black border border-app-mint rounded-lg text-sm px-3 py-1.5"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="returns">Best Returns</option>
-            <option value="rating">Top Rated</option>
-            <option value="popular">Most Popular</option>
-          </select>
-          
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="border-app-mint text-app-black hover:bg-app-mint/10"
-          >
-            <Filter className="w-4 h-4 mr-2" /> Filters
-          </Button>
-        </div>
-        
-        <Badge variant="mint" className="text-app-button-green">1Y / 3Y / 5Y</Badge>
+      <div className="text-right text-xs text-app-button-green font-medium mb-2">
+        1Y / 3Y / 5Y
       </div>
       
       <div className="space-y-3">
         {allFunds.map((fund) => (
-          <Card 
-            key={fund.id} 
-            className="card-modern border border-app-mint/70 mb-3"
-          >
-            <CardContent className="p-4">
-              <div className="flex items-start gap-3">
-                <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-app-mint">
-                  <img src={getLogo(fund.name)} alt={fund.amc} className="w-7 h-7 object-contain" />
-                </div>
-                
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-1">
-                    <h3 className="font-medium text-app-black text-sm line-clamp-2">{fund.name}</h3>
-                    <Badge variant={
-                      fund.riskLevel === "Low" ? "success" : 
-                      fund.riskLevel === "Moderate" ? "info" : 
-                      "warning"
-                    } className="ml-2 flex-shrink-0 text-xs px-2 py-0 h-5">
-                      {fund.riskLevel}
-                    </Badge>
-                  </div>
-                  
-                  <p className="text-xs text-gray-500 mb-3">{fund.category} • {fund.amc}</p>
-                  
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">1Y</span>
-                        <span className="font-semibold text-app-button-green">{fund.returns["1Y"]}%</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">3Y</span>
-                        <span className="font-semibold text-app-button-green">{fund.returns["3Y"]}%</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">5Y</span>
-                        <span className="font-semibold text-app-button-green">{fund.returns["5Y"]}%</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      {renderRatingStars(fund.rating)}
-                      <Link to={`/funds/${fund.id}`} className="ml-3">
-                        <ArrowUpRight className="w-4 h-4 text-app-button-green" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <FundCard key={fund.id} fund={fund} />
         ))}
-      </div>
-      
-      <div className="mt-4 text-center">
-        <Link to="/explore">
-          <Button className="button-green">
-            View All Funds
-          </Button>
-        </Link>
       </div>
     </div>
   );

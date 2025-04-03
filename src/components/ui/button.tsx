@@ -14,11 +14,12 @@ const buttonVariants = cva(
         destructive:
           "bg-app-red text-white hover:bg-app-red/90",
         outline:
-          "border border-app-button-green bg-white text-app-button-green hover:bg-app-mint/20",
+          "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
         secondary:
           "bg-app-black text-white hover:bg-app-black/90 shadow-sm",
-        ghost: "hover:bg-app-mint hover:text-app-black",
+        ghost: "hover:bg-gray-50 hover:text-app-black",
         link: "text-app-button-green underline-offset-4 hover:underline",
+        mint: "bg-green-50 text-app-button-green hover:bg-green-100"
       },
       size: {
         default: "h-10 px-4 py-2",

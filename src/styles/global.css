@@ -14,7 +14,7 @@
   }
 }
 
-/* Updated App Styles with new color theme */
+/* Updated App Styles with new clean theme */
 .fixed-bottom {
   position: fixed;
   bottom: 0;
@@ -27,11 +27,11 @@
 }
 
 .input-modern {
-  @apply h-12 rounded-xl bg-white border-app-mint focus:border-app-button-green focus:ring-app-button-green text-app-black;
+  @apply h-12 rounded-xl bg-white border-gray-200 focus:border-app-button-green focus:ring-app-button-green text-app-black;
 }
 
 .card-modern {
-  @apply rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200 border border-app-mint;
+  @apply rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200;
 }
 
 /* Animation utilities */
@@ -79,11 +79,7 @@
   background: #a8a8a8;
 }
 
-/* Mint theme additions */
-.bg-gradient-mint {
-  background: linear-gradient(to bottom, #e3f3e7, #f9fcfa);
-}
-
+/* Utility classes for the modern UI */
 .button-green {
   @apply bg-app-button-green text-white py-2.5 px-4 rounded-xl transition-all duration-200 hover:shadow-md font-medium;
 }
@@ -93,25 +89,29 @@
   box-shadow: 0 2px 8px rgba(34, 173, 120, 0.2);
 }
 
-.border-mint {
-  border-color: #deebc7;
+/* Gradient colors for cards */
+.bg-gradient-green {
+  @apply bg-gradient-to-br from-green-600 to-teal-600;
 }
 
-/* New utility classes for the modern UI */
-.card-gradient-green {
-  @apply bg-gradient-to-r from-app-button-green to-teal-600 text-white;
+.bg-gradient-blue {
+  @apply bg-gradient-to-br from-blue-600 to-indigo-600;
 }
 
-.card-gradient-blue {
-  @apply bg-gradient-to-r from-blue-500 to-indigo-600 text-white;
+.bg-gradient-purple {
+  @apply bg-gradient-to-br from-purple-600 to-indigo-700;
 }
 
-.card-gradient-purple {
-  @apply bg-gradient-to-r from-purple-500 to-purple-600 text-white;
+.bg-gradient-orange {
+  @apply bg-gradient-to-br from-orange-500 to-red-500;
 }
 
-.card-gradient-orange {
-  @apply bg-gradient-to-r from-amber-500 to-orange-500 text-white;
+.bg-gradient-red {
+  @apply bg-gradient-to-br from-red-600 to-rose-700;
+}
+
+.bg-gradient-pink {
+  @apply bg-gradient-to-br from-pink-600 to-purple-700;
 }
 
 .icon-container {

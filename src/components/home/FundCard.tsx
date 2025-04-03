@@ -63,10 +63,10 @@ const FundCard: React.FC<FundCardProps> = ({ fund }) => {
   };
 
   return (
-    <Card className="border card-modern mb-3 overflow-hidden">
+    <Card className="mb-3 overflow-hidden">
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
-          <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-app-mint">
+          <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-gray-200">
             <img src={getLogo()} alt={fund.amc} className="w-7 h-7 object-contain" />
           </div>
           
@@ -85,17 +85,25 @@ const FundCard: React.FC<FundCardProps> = ({ fund }) => {
             <p className="text-xs text-gray-500 mb-3">{fund.category} • {fund.amc}</p>
             
             <div className="flex justify-between items-center">
-              <div className="flex flex-col">
-                <span className="text-xs text-gray-500">3Y Returns</span>
-                <span className="font-semibold text-app-button-green">{fund.returns["3Y"]}%</span>
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-500">1Y</span>
+                  <span className="font-semibold text-app-button-green">{fund.returns["1Y"]}%</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-500">3Y</span>
+                  <span className="font-semibold text-app-button-green">{fund.returns["3Y"]}%</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-500">5Y</span>
+                  <span className="font-semibold text-app-button-green">{fund.returns["5Y"]}%</span>
+                </div>
               </div>
               
-              <div className="flex flex-col items-end">
-                <div className="flex items-center">
-                  {renderRatingStars(fund.rating)}
-                </div>
-                <Link to={`/funds/${fund.id}`} className="text-app-button-green text-xs flex items-center mt-1">
-                  Details <ArrowUpRight className="w-3 h-3 ml-0.5" />
+              <div className="flex items-center">
+                {renderRatingStars(fund.rating)}
+                <Link to={`/funds/${fund.id}`} className="ml-3">
+                  <ArrowUpRight className="w-4 h-4 text-app-button-green" />
                 </Link>
               </div>
             </div>
