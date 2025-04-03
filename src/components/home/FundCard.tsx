@@ -1,9 +1,10 @@
 
-import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowUpRight, Eye, EyeOff, TrendingUp, TrendingDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Toggle } from "@/components/ui/toggle";
 
 interface FundCardProps {
   fund: {
@@ -12,6 +13,9 @@ interface FundCardProps {
     category: string;
     riskLevel: string;
     returns: {
+      "1D": number;
+      "1W": number;
+      "1M": number;
       "1Y": number;
       "3Y": number;
       "5Y": number;
@@ -19,10 +23,18 @@ interface FundCardProps {
     rating: number;
     amc: string;
     logo?: string;
+    xirr?: number;
+    value?: number;
+    invested?: number;
+    units?: number;
+    sipActive?: boolean;
   };
+  isPortfolioCard?: boolean;
 }
 
-const FundCard: React.FC<FundCardProps> = ({ fund }) => {
+const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) => {
+  const [hideValue, setHideValue] = useState(false);
+  
   const renderRatingStars = (rating: number) => {
     return (
       <div className="flex">
@@ -62,6 +74,18 @@ const FundCard: React.FC<FundCardProps> = ({ fund }) => {
     return "https://groww.in/images/partners/default_amc_logo.svg";
   };
 
+  const renderReturnValue = (value: number) => {
+    const isPositive = value >= 0;
+    return (
+      <span className={`font-semibold flex items-center ${isPositive ? "text-app-button-green" : "text-red-500"}`}>
+        {isPositive ? 
+          <TrendingUp className="w-3 h-3 mr-0.5" /> : 
+          <TrendingDown className="w-3 h-3 mr-0.5" />}
+        {value}%
+      </span>
+    );
+  };
+
   return (
     <Card className="mb-3 overflow-hidden">
       <CardContent className="p-4">
@@ -73,40 +97,94 @@ const FundCard: React.FC<FundCardProps> = ({ fund }) => {
           <div className="flex-1">
             <div className="flex items-start justify-between mb-1">
               <h3 className="font-medium text-app-black text-sm line-clamp-2">{fund.name}</h3>
-              <Badge variant={
-                fund.riskLevel === "Low" ? "success" : 
-                fund.riskLevel === "Moderate" ? "info" : 
-                "warning"
-              } className="ml-2 flex-shrink-0 text-xs px-2 py-0">
-                {fund.riskLevel}
-              </Badge>
+              {!isPortfolioCard && (
+                <Badge variant={
+                  fund.riskLevel === "Low" ? "success" : 
+                  fund.riskLevel === "Moderate" ? "info" : 
+                  "warning"
+                } className="ml-2 flex-shrink-0 text-xs px-2 py-0">
+                  {fund.riskLevel}
+                </Badge>
+              )}
+              
+              {isPortfolioCard && fund.sipActive && (
+                <Badge variant="success" className="ml-2 flex-shrink-0 text-xs px-2 py-0">
+                  SIP Active
+                </Badge>
+              )}
             </div>
             
             <p className="text-xs text-gray-500 mb-3">{fund.category} • {fund.amc}</p>
             
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-500">1Y</span>
-                  <span className="font-semibold text-app-button-green">{fund.returns["1Y"]}%</span>
+            {isPortfolioCard ? (
+              <>
+                <div className="flex justify-between items-center mb-2">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-gray-500">Current Value</span>
+                    <div className="flex items-center">
+                      <span className="font-semibold text-app-black">
+                        {hideValue ? "••••••" : `₹${fund.value?.toLocaleString() || 0}`}
+                      </span>
+                      <Toggle 
+                        className="h-6 w-6 p-0 ml-1 data-[state=on]:bg-transparent" 
+                        onClick={() => setHideValue(!hideValue)}
+                        aria-label="Toggle visibility"
+                      >
+                        {hideValue ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                      </Toggle>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs text-gray-500">Invested</span>
+                    <span className="font-medium text-app-black">
+                      {hideValue ? "••••••" : `₹${fund.invested?.toLocaleString() || 0}`}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-500">3Y</span>
-                  <span className="font-semibold text-app-button-green">{fund.returns["3Y"]}%</span>
+                
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="text-xs text-gray-500">Today</span>
+                    {renderReturnValue(fund.returns["1D"] || 0)}
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">1Y Return</span>
+                    {renderReturnValue(fund.returns["1Y"] || 0)}
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">XIRR</span>
+                    {renderReturnValue(fund.xirr || 0)}
+                  </div>
+                  <Link to={`/funds/${fund.id}`} className="ml-3">
+                    <ArrowUpRight className="w-4 h-4 text-app-button-green" />
+                  </Link>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-500">5Y</span>
-                  <span className="font-semibold text-app-button-green">{fund.returns["5Y"]}%</span>
+              </>
+            ) : (
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-gray-500">1D</span>
+                    {renderReturnValue(fund.returns["1D"] || 0)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-gray-500">1Y</span>
+                    {renderReturnValue(fund.returns["1Y"] || 0)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-gray-500">3Y</span>
+                    {renderReturnValue(fund.returns["3Y"] || 0)}
+                  </div>
+                </div>
+                
+                <div className="flex items-center">
+                  {renderRatingStars(fund.rating)}
+                  <Link to={`/funds/${fund.id}`} className="ml-3">
+                    <ArrowUpRight className="w-4 h-4 text-app-button-green" />
+                  </Link>
                 </div>
               </div>
-              
-              <div className="flex items-center">
-                {renderRatingStars(fund.rating)}
-                <Link to={`/funds/${fund.id}`} className="ml-3">
-                  <ArrowUpRight className="w-4 h-4 text-app-button-green" />
-                </Link>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </CardContent>

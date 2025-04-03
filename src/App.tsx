@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -33,8 +32,9 @@ import SipCalculator from "./pages/tools/SipCalculator";
 import TaxCalculator from "./pages/tools/TaxCalculator";
 import NotificationCenter from "./pages/notifications/NotificationCenter";
 import Search from "./pages/search/Search";
+import SipTracker from "./pages/portfolio/SipTracker";
+import Holdings from "./pages/portfolio/Holdings";
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -53,7 +53,6 @@ const App = () => {
           <Sonner position="top-right" closeButton />
           <BrowserRouter>
             <Routes>
-              {/* Onboarding & Auth Flow */}
               <Route path="/" element={<Navigate to="/splash" replace />} />
               <Route path="/splash" element={<SplashScreen />} />
               <Route path="/onboarding" element={<OnboardingScreen />} />
@@ -62,7 +61,6 @@ const App = () => {
               <Route path="/auth/forgot-password" element={<ForgotPassword />} />
               <Route path="/kyc" element={<KycVerification />} />
               
-              {/* Main App Routes */}
               <Route path="/" element={<AppLayout />}>
                 <Route path="/dashboard" element={<Home />} />
                 <Route path="/explore" element={<FundsExplore />} />
@@ -72,34 +70,28 @@ const App = () => {
                 <Route path="/search" element={<Search />} />
               </Route>
               
-              {/* Explore Routes */}
               <Route path="/explore/tax-saver-funds" element={<TaxSaverFunds />} />
               
-              {/* Fund Details & Investment Flow */}
               <Route path="/funds/:fundId" element={<FundDetails />} />
               <Route path="/invest/:fundId" element={<InvestFund />} />
               <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               
-              {/* Portfolio Management Routes */}
               <Route path="/portfolio/analysis" element={<PortfolioAnalysis />} />
               <Route path="/portfolio/redeem/:fundId" element={<RedeemFund />} />
               <Route path="/portfolio/manage-sip/:fundId" element={<ManageSIP />} />
+              <Route path="/portfolio/sip-tracker" element={<SipTracker />} />
+              <Route path="/portfolio/holdings" element={<Holdings />} />
               
-              {/* Notifications */}
               <Route path="/notifications" element={<NotificationCenter />} />
               
-              {/* Tools */}
               <Route path="/tools/sip-calculator" element={<SipCalculator />} />
               <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
               
-              {/* Investment Goals */}
               <Route path="/goals" element={<InvestmentGoals />} />
               
-              {/* Profile Subroutes */}
               <Route path="/profile/bank-accounts" element={<BankAccounts />} />
               
-              {/* 404 Route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
