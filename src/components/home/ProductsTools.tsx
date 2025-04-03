@@ -1,57 +1,56 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import SectionHeader from "./SectionHeader";
+import { Card } from "@/components/ui/card";
 import { Calculator, ArrowLeftRight, ClipboardList, BarChart } from "lucide-react";
 
 const tools = [
   {
     id: "sip-calculator",
     name: "SIP Calculator",
-    icon: <Calculator className="h-6 w-6 text-app-green" />,
+    icon: <Calculator className="h-6 w-6 text-white" />,
     link: "/tools/sip-calculator",
+    color: "bg-indigo-600"
   },
   {
     id: "compare-funds",
     name: "Compare Funds",
-    icon: <ArrowLeftRight className="h-6 w-6 text-app-green" />,
+    icon: <ArrowLeftRight className="h-6 w-6 text-white" />,
     link: "/tools/compare-funds",
+    color: "bg-teal-600"
   },
   {
     id: "import-funds",
     name: "Import Portfolio",
-    icon: <ClipboardList className="h-6 w-6 text-app-green" />,
+    icon: <ClipboardList className="h-6 w-6 text-white" />,
     link: "/tools/import-portfolio",
+    color: "bg-amber-600"
   },
   {
     id: "tax-calculator",
     name: "Tax Calculator",
-    icon: <BarChart className="h-6 w-6 text-app-green" />,
+    icon: <BarChart className="h-6 w-6 text-white" />,
     link: "/tools/tax-calculator",
+    color: "bg-cyan-600"
   },
 ];
 
 const ProductsTools = () => {
   return (
-    <div className="mb-8">
-      <SectionHeader title="Products & Tools" />
-      
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {tools.map((tool) => (
-          <Link to={tool.link} key={tool.id}>
-            <Card className="border-0 bg-app-dark-blue hover:bg-app-card-hover transition-all duration-200 rounded-xl shadow-md overflow-hidden h-full">
-              <CardContent className="p-4 flex flex-col items-center justify-center text-center h-24">
-                <div className="mb-2">
-                  {tool.icon}
-                </div>
-                <p className="text-sm font-medium text-white">{tool.name}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <>
+      {tools.map((tool) => (
+        <Link to={tool.link} key={tool.id}>
+          <Card className={`border-0 ${tool.color} text-white transition-all duration-200 rounded-xl shadow-md overflow-hidden h-full`}>
+            <div className="p-5 flex flex-col items-center justify-center text-center h-full">
+              <div className="mb-2">
+                {tool.icon}
+              </div>
+              <p className="text-sm font-medium">{tool.name}</p>
+            </div>
+          </Card>
+        </Link>
+      ))}
+    </>
   );
 };
 
