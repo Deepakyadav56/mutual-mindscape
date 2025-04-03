@@ -77,7 +77,7 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
   const renderReturnValue = (value: number) => {
     const isPositive = value >= 0;
     return (
-      <span className={`font-semibold flex items-center ${isPositive ? "text-app-button-green" : "text-red-500"}`}>
+      <span className={`font-semibold flex items-center ${isPositive ? "text-app-primary-green" : "text-red-500"}`}>
         {isPositive ? 
           <TrendingUp className="w-3 h-3 mr-0.5" /> : 
           <TrendingDown className="w-3 h-3 mr-0.5" />}
@@ -87,7 +87,7 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
   };
 
   return (
-    <Card className="mb-3 overflow-hidden">
+    <Card className="mb-3 overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100">
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-gray-200">
@@ -120,19 +120,19 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
               <>
                 <div className="flex justify-between items-center mb-2">
                   <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">Current Value</span>
                     <div className="flex items-center">
-                      <span className="font-semibold text-app-black">
-                        {hideValue ? "••••••" : `₹${fund.value?.toLocaleString() || 0}`}
-                      </span>
+                      <span className="text-xs text-gray-500 mr-1">Current Value</span>
                       <Toggle 
-                        className="h-6 w-6 p-0 ml-1 data-[state=on]:bg-transparent" 
+                        className="h-5 w-5 p-0 data-[state=on]:bg-transparent" 
                         onClick={() => setHideValue(!hideValue)}
                         aria-label="Toggle visibility"
                       >
-                        {hideValue ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                        {hideValue ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
                       </Toggle>
                     </div>
+                    <span className="font-semibold text-app-black">
+                      {hideValue ? "••••••" : `₹${fund.value?.toLocaleString() || 0}`}
+                    </span>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="text-xs text-gray-500">Invested</span>
@@ -156,7 +156,7 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
                     {renderReturnValue(fund.xirr || 0)}
                   </div>
                   <Link to={`/funds/${fund.id}`} className="ml-3">
-                    <ArrowUpRight className="w-4 h-4 text-app-button-green" />
+                    <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
                   </Link>
                 </div>
               </>
@@ -180,7 +180,7 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
                 <div className="flex items-center">
                   {renderRatingStars(fund.rating)}
                   <Link to={`/funds/${fund.id}`} className="ml-3">
-                    <ArrowUpRight className="w-4 h-4 text-app-button-green" />
+                    <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
                   </Link>
                 </div>
               </div>

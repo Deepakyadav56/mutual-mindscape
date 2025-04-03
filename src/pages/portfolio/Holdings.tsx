@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, EyeOff, Filter, PieChart, Search, TrendingUp, TrendingDown } from "lucide-react";
@@ -105,33 +106,33 @@ const Holdings = () => {
     });
 
   return (
-    <div className="pb-20">
+    <div className="pb-20 bg-app-white">
       <div className="sticky top-0 bg-white z-10 shadow-sm">
         <div className="flex items-center p-4 border-b">
-          <button onClick={() => navigate("/portfolio")} className="text-app-gray-900">
+          <button onClick={() => navigate("/portfolio")} className="text-app-black">
             <ArrowLeft className="h-5 w-5" />
           </button>
-          <h1 className="text-lg font-semibold text-app-gray-900 ml-4">
+          <h1 className="text-lg font-semibold text-app-black ml-4">
             Holdings
           </h1>
         </div>
       </div>
 
       <div className="p-4">
-        <Card className="border-0 shadow-sm mb-5">
+        <Card className="border border-gray-100 shadow-sm mb-5 overflow-hidden">
           <CardContent className="p-4">
             <div className="flex justify-between items-center mb-4">
               <div>
                 <div className="flex items-center">
-                  <h2 className="text-xl font-bold">
+                  <h2 className="text-xl font-bold mr-2">
                     {hideValues ? "••••••" : `₹${portfolioData.totalValue.toLocaleString()}`}
                   </h2>
                   <Toggle 
-                    className="h-8 w-8 p-0 ml-1 data-[state=on]:bg-transparent" 
+                    className="h-6 w-6 p-0 bg-transparent hover:bg-gray-100 data-[state=on]:bg-transparent" 
                     onClick={() => setHideValues(!hideValues)}
                     aria-label="Toggle values visibility"
                   >
-                    {hideValues ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {hideValues ? <EyeOff className="h-4 w-4 text-app-black" /> : <Eye className="h-4 w-4 text-app-black" />}
                   </Toggle>
                 </div>
                 <p className="text-sm text-app-gray-500">Current Value</p>
@@ -145,38 +146,38 @@ const Holdings = () => {
               </div>
             </div>
             
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-gray-50 p-3 rounded-lg">
                 <div className="flex items-center">
-                  <span className={`font-semibold ${portfolioData.todayPercentage >= 0 ? "text-app-button-green" : "text-red-500"}`}>
+                  <span className={`font-semibold ${portfolioData.todayPercentage >= 0 ? "text-app-primary-green" : "text-red-500"}`}>
                     {portfolioData.todayPercentage >= 0 ? "+" : ""}
                     {hideValues ? "•••" : `${portfolioData.todayPercentage}%`}
                   </span>
                   {portfolioData.todayPercentage >= 0 ? 
-                    <TrendingUp className="w-4 h-4 ml-1 text-app-button-green" /> : 
+                    <TrendingUp className="w-4 h-4 ml-1 text-app-primary-green" /> : 
                     <TrendingDown className="w-4 h-4 ml-1 text-red-500" />}
                 </div>
                 <span className="text-xs text-app-gray-500">Today's Change</span>
               </div>
               
-              <div className="flex flex-col items-center">
-                <span className={`font-semibold ${portfolioData.returns.absolute >= 0 ? "text-app-button-green" : "text-red-500"}`}>
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <span className={`font-semibold ${portfolioData.returns.absolute >= 0 ? "text-app-primary-green" : "text-red-500"}`}>
                   {hideValues ? "•••" : `${portfolioData.returns.absolute}%`}
                 </span>
-                <span className="text-xs text-app-gray-500">Total Returns</span>
+                <span className="block text-xs text-app-gray-500">Total Returns</span>
               </div>
               
-              <div className="flex flex-col items-end">
-                <span className={`font-semibold ${portfolioData.returns.xirr >= 0 ? "text-app-button-green" : "text-red-500"}`}>
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <span className={`font-semibold ${portfolioData.returns.xirr >= 0 ? "text-app-primary-green" : "text-red-500"}`}>
                   {hideValues ? "•••" : `${portfolioData.returns.xirr}%`}
                 </span>
-                <span className="text-xs text-app-gray-500">XIRR</span>
+                <span className="block text-xs text-app-gray-500">XIRR</span>
               </div>
             </div>
             
             <div className="mt-4 pt-3 border-t border-app-gray-100 flex justify-between">
               <button 
-                className="text-sm text-app-button-green font-medium flex items-center"
+                className="text-sm text-app-primary-green font-medium flex items-center"
                 onClick={() => navigate("/portfolio/analysis")}
               >
                 <PieChart className="h-4 w-4 mr-1" />
@@ -184,7 +185,7 @@ const Holdings = () => {
               </button>
               
               <button 
-                className="text-sm text-app-button-green font-medium flex items-center"
+                className="text-sm text-app-primary-green font-medium flex items-center"
                 onClick={() => navigate("/portfolio/sip-tracker")}
               >
                 <TrendingUp className="h-4 w-4 mr-1" />
@@ -195,20 +196,23 @@ const Holdings = () => {
         </Card>
 
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold">Your Mutual Funds</h3>
+          <h3 className="text-lg font-semibold text-app-black relative">
+            Your Mutual Funds
+            <span className="absolute -bottom-1 left-0 w-12 h-[3px] bg-app-primary-green rounded-full"></span>
+          </h3>
           <div className="flex space-x-2">
-            <button className="p-2 rounded-full bg-app-gray-100">
-              <Search className="h-4 w-4 text-app-gray-900" />
+            <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors">
+              <Search className="h-4 w-4 text-app-black" />
             </button>
-            <button className="p-2 rounded-full bg-app-gray-100">
-              <Filter className="h-4 w-4 text-app-gray-900" />
+            <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-100 transition-colors">
+              <Filter className="h-4 w-4 text-app-black" />
             </button>
           </div>
         </div>
 
         <div className="mb-4">
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="w-full grid grid-cols-4 bg-app-gray-100 p-1 rounded-lg">
+            <TabsList className="w-full grid grid-cols-4 bg-gray-50 p-1 rounded-lg">
               <TabsTrigger value="all" className="rounded-md">All</TabsTrigger>
               <TabsTrigger value="equity" className="rounded-md">Equity</TabsTrigger>
               <TabsTrigger value="debt" className="rounded-md">Debt</TabsTrigger>
@@ -219,7 +223,7 @@ const Holdings = () => {
 
         <div className="mb-4">
           <select 
-            className="w-full p-2 border border-app-gray-200 rounded-lg bg-white"
+            className="w-full p-2 border border-gray-200 rounded-lg bg-white focus:border-app-primary-green focus:ring focus:ring-app-primary-green/20 transition-all"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >

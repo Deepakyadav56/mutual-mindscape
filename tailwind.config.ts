@@ -70,7 +70,7 @@ export default {
 					'gray-800': '#1F2937',
 					'gray-900': '#111827',
 					'navy': '#232323',
-					'dark-blue': '#1e1e1e',
+					'dark-blue': '#232323',
 					'card-hover': '#2d2d2d',
 					'light-blue': '#E6F3FF',
 					'primary-blue': '#2C5CF6',
@@ -100,7 +100,7 @@ export default {
 					secondary: '#232323',
 					accent: '#deebc7',
 					muted: '#6B7280',
-					light: '#e3f3e7',
+					light: '#f2f2f2',
 				}
 			},
 			borderRadius: {
