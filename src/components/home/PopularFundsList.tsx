@@ -11,6 +11,9 @@ const popularFunds = [
     category: "Equity - Mid Cap",
     riskLevel: "Moderate",
     returns: {
+      "1D": 0.4,
+      "1W": 1.2,
+      "1M": 3.5,
       "1Y": 15.8,
       "3Y": 22.4,
       "5Y": 18.6,
@@ -24,6 +27,9 @@ const popularFunds = [
     category: "Equity - Large Cap",
     riskLevel: "Moderate",
     returns: {
+      "1D": 0.2,
+      "1W": 0.9,
+      "1M": 2.1,
       "1Y": 12.3,
       "3Y": 16.8,
       "5Y": 14.2,
@@ -37,6 +43,9 @@ const popularFunds = [
     category: "ELSS",
     riskLevel: "Moderate to High",
     returns: {
+      "1D": 0.3,
+      "1W": 1.0,
+      "1M": 2.5,
       "1Y": 14.5,
       "3Y": 18.9,
       "5Y": 16.1,
@@ -50,6 +59,9 @@ const popularFunds = [
     category: "Equity - Flexi Cap",
     riskLevel: "High",
     returns: {
+      "1D": 0.5,
+      "1W": 1.5,
+      "1M": 4.2,
       "1Y": 19.5,
       "3Y": 26.2,
       "5Y": 21.4,

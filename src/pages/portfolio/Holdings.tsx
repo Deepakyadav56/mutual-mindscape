@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, EyeOff, Filter, PieChart, Search, TrendingUp, TrendingDown } from "lucide-react";
@@ -28,6 +27,7 @@ const Holdings = () => {
         id: 1,
         name: "HDFC Mid-Cap Opportunities Fund",
         category: "Equity - Mid Cap",
+        riskLevel: "Moderate",
         amc: "HDFC Mutual Fund",
         value: 45000,
         invested: 40000,
@@ -48,6 +48,7 @@ const Holdings = () => {
         id: 2,
         name: "Axis Bluechip Fund",
         category: "Equity - Large Cap",
+        riskLevel: "Moderate",
         amc: "Axis Mutual Fund",
         value: 30750.75,
         invested: 25000,
@@ -68,6 +69,7 @@ const Holdings = () => {
         id: 3,
         name: "Parag Parikh Flexi Cap Fund",
         category: "Equity - Flexi Cap",
+        riskLevel: "High",
         amc: "PPFAS Mutual Fund",
         value: 50000,
         invested: 35000,
@@ -88,18 +90,19 @@ const Holdings = () => {
   };
 
   // Sort holdings based on selected criteria
-  const sortedHoldings = [...portfolioData.holdings].sort((a, b) => {
-    switch (sortBy) {
-      case "value":
-        return b.value - a.value;
-      case "returns":
-        return b.xirr - a.xirr;
-      case "gains":
-        return (b.value - b.invested) - (a.value - a.invested);
-      default:
-        return a.name.localeCompare(b.name);
-    }
-  });
+  const sortedHoldings = portfolioData.holdings
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "value":
+          return b.value - a.value;
+        case "returns":
+          return b.xirr - a.xirr;
+        case "gains":
+          return (b.value - b.invested) - (a.value - a.invested);
+        default:
+          return a.name.localeCompare(b.name);
+      }
+    });
 
   return (
     <div className="pb-20">

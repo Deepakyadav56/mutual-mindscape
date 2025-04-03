@@ -12,6 +12,9 @@ const allFunds = [
     category: "Equity - Large Cap",
     riskLevel: "Moderate",
     returns: {
+      "1D": 0.2,
+      "1W": 0.8,
+      "1M": 2.5,
       "1Y": 14.2,
       "3Y": 19.3,
       "5Y": 16.8,
@@ -25,6 +28,9 @@ const allFunds = [
     category: "Debt - Liquid",
     riskLevel: "Low",
     returns: {
+      "1D": 0.01,
+      "1W": 0.12,
+      "1M": 0.5,
       "1Y": 6.5,
       "3Y": 6.2,
       "5Y": 6.7,
@@ -38,6 +44,9 @@ const allFunds = [
     category: "ELSS",
     riskLevel: "Moderate to High",
     returns: {
+      "1D": 0.3,
+      "1W": 1.1,
+      "1M": 2.8,
       "1Y": 13.8,
       "3Y": 17.6,
       "5Y": 15.3,
