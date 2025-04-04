@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -34,6 +35,10 @@ import NotificationCenter from "./pages/notifications/NotificationCenter";
 import Search from "./pages/search/Search";
 import SipTracker from "./pages/portfolio/SipTracker";
 import Holdings from "./pages/portfolio/Holdings";
+import FundDetail from "./pages/portfolio/FundDetail";
+import FundCompare from "./pages/explore/FundCompare";
+import FundCategories from "./pages/explore/FundCategories";
+import Watchlist from "./pages/portfolio/Watchlist";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,6 +76,9 @@ const App = () => {
               </Route>
               
               <Route path="/explore/tax-saver-funds" element={<TaxSaverFunds />} />
+              <Route path="/explore/fund-compare" element={<FundCompare />} />
+              <Route path="/explore/categories" element={<FundCategories />} />
+              <Route path="/explore/category/:categoryId" element={<FundsExplore />} />
               
               <Route path="/funds/:fundId" element={<FundDetails />} />
               <Route path="/invest/:fundId" element={<InvestFund />} />
@@ -78,10 +86,12 @@ const App = () => {
               <Route path="/payment-success" element={<PaymentSuccess />} />
               
               <Route path="/portfolio/analysis" element={<PortfolioAnalysis />} />
+              <Route path="/portfolio/fund/:fundId" element={<FundDetail />} />
               <Route path="/portfolio/redeem/:fundId" element={<RedeemFund />} />
               <Route path="/portfolio/manage-sip/:fundId" element={<ManageSIP />} />
               <Route path="/portfolio/sip-tracker" element={<SipTracker />} />
               <Route path="/portfolio/holdings" element={<Holdings />} />
+              <Route path="/portfolio/watchlist" element={<Watchlist />} />
               
               <Route path="/notifications" element={<NotificationCenter />} />
               
