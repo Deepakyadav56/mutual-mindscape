@@ -1,91 +1,112 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft, 
+  Calculator, 
+  Info, 
+  ChevronRight, 
+  HelpCircle,
+  Share2
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, HelpCircle, TrendingUp } from "lucide-react";
 import {
-  Area,
-  AreaChart,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
   ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+  ReferenceLine 
 } from "recharts";
+import { useToast } from "@/hooks/use-toast";
 
 const SipCalculator = () => {
   const navigate = useNavigate();
-  const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
-  const [years, setYears] = useState(10);
-  const [expectedReturn, setExpectedReturn] = useState(12);
-  const [totalInvestment, setTotalInvestment] = useState(0);
-  const [estimatedReturns, setEstimatedReturns] = useState(0);
-  const [futureValue, setFutureValue] = useState(0);
+  const { toast } = useToast();
+  
+  // SIP parameters
+  const [monthlyInvestment, setMonthlyInvestment] = useState<number>(5000);
+  const [years, setYears] = useState<number>(10);
+  const [expectedReturn, setExpectedReturn] = useState<number>(12);
+  const [investmentFrequency, setInvestmentFrequency] = useState<string>("monthly");
+  
+  // Calculated results
+  const [totalInvestment, setTotalInvestment] = useState<number>(0);
+  const [estimatedReturns, setEstimatedReturns] = useState<number>(0);
+  const [totalValue, setTotalValue] = useState<number>(0);
   const [chartData, setChartData] = useState<any[]>([]);
 
-  const calculateSIP = () => {
-    const monthlyRate = expectedReturn / 100 / 12;
-    const months = years * 12;
-    const totalInvested = monthlyInvestment * months;
-    
-    const futureValue = monthlyInvestment * 
-      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * 
-      (1 + monthlyRate);
-    
-    const wealthGained = futureValue - totalInvested;
-    
-    setTotalInvestment(totalInvested);
-    setEstimatedReturns(wealthGained);
-    setFutureValue(futureValue);
-    
-    generateChartData(monthlyInvestment, monthlyRate, months);
-  };
-
-  const generateChartData = (monthlyInvestment: number, monthlyRate: number, totalMonths: number) => {
-    const data = [];
-    let yearlyData = [];
-    
-    let currentInvestment = 0;
-    let currentValue = 0;
-    
-    for (let month = 1; month <= totalMonths; month++) {
-      currentInvestment += monthlyInvestment;
-      currentValue = currentValue * (1 + monthlyRate) + monthlyInvestment;
-      
-      if (month % 12 === 0 || month === totalMonths) {
-        const year = Math.ceil(month / 12);
-        yearlyData.push({
-          year,
-          investment: Math.round(currentInvestment),
-          expectedValue: Math.round(currentValue),
-        });
-      }
-    }
-    
-    setChartData(yearlyData);
-  };
-
-  const handleMonthlyInvestmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value.replace(/,/g, ''));
-    if (!isNaN(value)) {
-      setMonthlyInvestment(value);
-    } else {
-      setMonthlyInvestment(0);
-    }
-  };
-  
+  // Calculate SIP returns
   useEffect(() => {
-    calculateSIP();
-  }, [monthlyInvestment, years, expectedReturn]);
+    // Convert yearly rate to monthly rate
+    const monthlyRate = expectedReturn / 12 / 100;
+    const totalMonths = years * 12;
+    
+    // Adjust investment amount based on frequency
+    let adjustedMonthlyInvestment = monthlyInvestment;
+    if (investmentFrequency === "quarterly") {
+      adjustedMonthlyInvestment = monthlyInvestment * 3 / 12;
+    } else if (investmentFrequency === "yearly") {
+      adjustedMonthlyInvestment = monthlyInvestment * 12 / 12;
+    }
+    
+    // Formula: A = P × ({[1 + i]^n – 1} / i) × (1 + i)
+    // A is final amount, P is investment amount, i is interest rate, n is number of periods
+    const invested = adjustedMonthlyInvestment * totalMonths;
+    const futureValue = adjustedMonthlyInvestment * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+    
+    setTotalInvestment(invested);
+    setEstimatedReturns(futureValue - invested);
+    setTotalValue(futureValue);
+    
+    // Generate chart data
+    const data = [];
+    for (let year = 0; year <= years; year++) {
+      const months = year * 12;
+      const yearlyInvested = adjustedMonthlyInvestment * months;
+      const yearlyFutureValue = months === 0 ? 0 : adjustedMonthlyInvestment * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+      
+      data.push({
+        year: `Year ${year}`,
+        invested: Math.round(yearlyInvested),
+        projectedValue: Math.round(yearlyFutureValue),
+      });
+    }
+    setChartData(data);
+  }, [monthlyInvestment, years, expectedReturn, investmentFrequency]);
+
+  const handleShareResults = () => {
+    toast({
+      title: "Share Feature",
+      description: "This feature will allow sharing SIP calculation results with others",
+      duration: 3000,
+    });
+  };
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(value);
   };
 
@@ -99,166 +120,228 @@ const SipCalculator = () => {
           <h1 className="text-lg font-semibold text-app-gray-900 ml-4">
             SIP Calculator
           </h1>
+          <div className="flex-1"></div>
+          <button onClick={handleShareResults} className="text-app-gray-900">
+            <Share2 className="h-5 w-5" />
+          </button>
         </div>
       </div>
 
       <div className="p-4 space-y-6">
-        <Card className="bg-gradient-to-br from-app-primary-blue/5 to-app-primary-purple/5 border-0 shadow-none">
-          <CardContent className="p-6">
-            <div className="flex justify-between items-center mb-4">
-              <div className="text-app-gray-900">
-                <h2 className="text-2xl font-bold">{formatCurrency(futureValue)}</h2>
-                <p className="text-sm text-app-gray-900/70">Future Value</p>
-              </div>
-              <TrendingUp size={24} className="text-app-primary-blue" />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div className="bg-white rounded-xl p-3 shadow-sm">
-                <p className="text-sm text-app-gray-900/70">Total Investment</p>
-                <p className="text-lg font-semibold text-app-gray-900">{formatCurrency(totalInvestment)}</p>
-              </div>
-              <div className="bg-white rounded-xl p-3 shadow-sm">
-                <p className="text-sm text-app-gray-900/70">Est. Returns</p>
-                <p className="text-lg font-semibold text-app-primary-green">{formatCurrency(estimatedReturns)}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <Label htmlFor="monthly-investment" className="text-app-gray-900">
-                Monthly Investment
-              </Label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-app-gray-900">₹</span>
-                <Input
-                  id="monthly-investment"
-                  className="pl-8 w-32 text-right bg-white input-modern"
-                  value={monthlyInvestment.toLocaleString()}
-                  onChange={handleMonthlyInvestmentChange}
-                />
-              </div>
-            </div>
-            <Slider
-              value={[monthlyInvestment]}
-              min={500}
-              max={100000}
-              step={500}
-              onValueChange={(values) => setMonthlyInvestment(values[0])}
-              className="bg-app-light-blue rounded-full"
-            />
-            <div className="flex justify-between text-xs text-app-gray-900/70">
-              <span>₹500</span>
-              <span>₹50,000</span>
-              <span>₹1,00,000</span>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <Label htmlFor="time-period" className="text-app-gray-900">
-                Time Period (Years)
-              </Label>
-              <Input
-                id="time-period"
-                className="w-16 text-right bg-white input-modern"
-                value={years}
-                onChange={(e) => setYears(parseInt(e.target.value) || 1)}
-              />
-            </div>
-            <Slider
-              value={[years]}
-              min={1}
-              max={30}
-              step={1}
-              onValueChange={(values) => setYears(values[0])}
-              className="bg-app-light-blue rounded-full"
-            />
-            <div className="flex justify-between text-xs text-app-gray-900/70">
-              <span>1 Yr</span>
-              <span>15 Yrs</span>
-              <span>30 Yrs</span>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <Label htmlFor="expected-return" className="text-app-gray-900 flex items-center gap-1">
-                Expected Return (% p.a.)
-                <HelpCircle size={15} className="text-app-gray-300" />
-              </Label>
-              <Input
-                id="expected-return"
-                className="w-16 text-right bg-white input-modern"
-                value={expectedReturn}
-                onChange={(e) => setExpectedReturn(parseFloat(e.target.value) || 1)}
-              />
-            </div>
-            <Slider
-              value={[expectedReturn]}
-              min={1}
-              max={30}
-              step={0.5}
-              onValueChange={(values) => setExpectedReturn(values[0])}
-              className="bg-app-light-blue rounded-full"
-            />
-            <div className="flex justify-between text-xs text-app-gray-900/70">
-              <span>1%</span>
-              <span>15%</span>
-              <span>30%</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="h-64 mt-6">
-          <h3 className="text-lg font-semibold mb-4">Growth Projection</h3>
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <XAxis dataKey="year" tickFormatter={(value) => `${value}Y`} />
-              <YAxis tickFormatter={(value) => `₹${(value / 1000)}K`} />
-              <Tooltip 
-                formatter={(value) => formatCurrency(Number(value))}
-                labelFormatter={(label) => `Year ${label}`}
-              />
-              <Area
-                type="monotone"
-                dataKey="investment"
-                stackId="1"
-                stroke="#8884d8"
-                fill="#8884d840"
-                name="Investment"
-              />
-              <Area
-                type="monotone"
-                dataKey="expectedValue"
-                stackId="2"
-                stroke="#00D09C"
-                fill="#00D09C40"
-                name="Expected Value"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="space-y-2 mt-4">
-          <p className="text-xs text-app-gray-900/70">
-            * The calculated values are indicative and for illustration purposes only. 
-            Actual returns may vary based on market conditions.
-          </p>
-          <p className="text-xs text-app-gray-900/70">
-            * The calculator assumes that the investment is made at the beginning of each month.
-          </p>
-        </div>
-
-        <Button 
-          className="w-full btn-primary-modern"
-          onClick={() => navigate('/explore')}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-app-light-mint p-4 rounded-xl"
         >
-          Start Investing
-        </Button>
+          <div className="flex items-start">
+            <Calculator className="h-6 w-6 text-app-primary-green mr-3 mt-0.5" />
+            <div>
+              <h2 className="font-medium text-gray-800">SIP Calculator</h2>
+              <p className="text-sm text-gray-600">
+                Plan your investments and visualize future returns with our SIP Calculator
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Monthly Investment
+          </label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">₹</span>
+            <Input
+              type="number"
+              min="500"
+              max="500000"
+              value={monthlyInvestment}
+              onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
+              className="pl-8"
+            />
+          </div>
+          <Slider
+            value={[monthlyInvestment]}
+            min={500}
+            max={100000}
+            step={500}
+            onValueChange={(value) => setMonthlyInvestment(value[0])}
+            className="mt-4"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Investment Period (Years)
+          </label>
+          <Input
+            type="number"
+            min="1"
+            max="40"
+            value={years}
+            onChange={(e) => setYears(Number(e.target.value))}
+          />
+          <Slider
+            value={[years]}
+            min={1}
+            max={40}
+            step={1}
+            onValueChange={(value) => setYears(value[0])}
+            className="mt-4"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Expected Return (% p.a.)
+          </label>
+          <Input
+            type="number"
+            min="1"
+            max="30"
+            value={expectedReturn}
+            onChange={(e) => setExpectedReturn(Number(e.target.value))}
+          />
+          <Slider
+            value={[expectedReturn]}
+            min={1}
+            max={30}
+            step={0.5}
+            onValueChange={(value) => setExpectedReturn(value[0])}
+            className="mt-4"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Investment Frequency
+          </label>
+          <Select
+            value={investmentFrequency}
+            onValueChange={setInvestmentFrequency}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select frequency" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="monthly">Monthly</SelectItem>
+              <SelectItem value="quarterly">Quarterly</SelectItem>
+              <SelectItem value="yearly">Yearly</SelectItem>
+            </SelectContent>
+          </Select>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="bg-white rounded-xl border overflow-hidden"
+        >
+          <div className="p-4 bg-app-gray-50 flex justify-between items-center">
+            <h2 className="font-semibold text-gray-800">Calculation Results</h2>
+            <button className="text-app-gray-500">
+              <HelpCircle className="h-4 w-4" />
+            </button>
+          </div>
+          
+          <div className="p-4 border-b">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-600">Total Investment</span>
+              <span className="font-semibold">{formatCurrency(totalInvestment)}</span>
+            </div>
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-600">Estimated Returns</span>
+              <span className="font-semibold text-app-primary-green">{formatCurrency(estimatedReturns)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Total Value</span>
+              <span className="font-bold text-lg">{formatCurrency(totalValue)}</span>
+            </div>
+          </div>
+          
+          <div className="p-4">
+            <h3 className="font-medium mb-4 text-gray-800">Growth Projection</h3>
+            <div className="h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={chartData}
+                  margin={{ top: 5, right: 5, left: 5, bottom: 15 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis 
+                    dataKey="year" 
+                    tick={{ fontSize: 10 }} 
+                    interval={Math.ceil(years / 5)}
+                  />
+                  <YAxis 
+                    tickFormatter={(value) => `₹${value/1000}K`}
+                    tick={{ fontSize: 10 }}
+                  />
+                  <Tooltip 
+                    formatter={(value) => [`₹${value.toLocaleString('en-IN')}`, ``]}
+                    labelFormatter={(label) => `${label}`}
+                  />
+                  <ReferenceLine 
+                    y={totalInvestment} 
+                    stroke="#888" 
+                    strokeDasharray="3 3" 
+                    label={{ value: "Investment", position: "insideBottomLeft", fontSize: 10 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="invested"
+                    stroke="#8884d8"
+                    strokeWidth={2}
+                    dot={false}
+                    name="Total Investment"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="projectedValue"
+                    stroke="#00D09C"
+                    strokeWidth={2}
+                    dot={false}
+                    name="Projected Value"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="mt-6 flex flex-col gap-3">
+          <Button 
+            className="w-full bg-app-primary-green hover:bg-app-green/90" 
+            onClick={() => navigate('/explore')}
+          >
+            Explore Mutual Funds to Invest
+          </Button>
+        </div>
+
+        <div className="mt-4 p-4 bg-app-light-blue rounded-xl">
+          <div className="flex items-start">
+            <Info className="h-5 w-5 text-app-primary-blue mr-3 mt-0.5" />
+            <p className="text-sm text-gray-600">
+              The above calculation is an estimate based on a fixed rate of return. 
+              Actual returns may vary based on market conditions.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

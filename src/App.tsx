@@ -39,6 +39,9 @@ import FundDetail from "./pages/portfolio/FundDetail";
 import FundCompare from "./pages/explore/FundCompare";
 import FundCategories from "./pages/explore/FundCategories";
 import Watchlist from "./pages/portfolio/Watchlist";
+import LearnSection from "./pages/learn/LearnSection";
+import ArticleDetail from "./pages/learn/ArticleDetail";
+import FundHouseInfo from "./pages/explore/FundHouseInfo";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,6 +82,7 @@ const App = () => {
               <Route path="/explore/fund-compare" element={<FundCompare />} />
               <Route path="/explore/categories" element={<FundCategories />} />
               <Route path="/explore/category/:categoryId" element={<FundsExplore />} />
+              <Route path="/explore/fund-house/:id" element={<FundHouseInfo />} />
               
               <Route path="/funds/:fundId" element={<FundDetails />} />
               <Route path="/invest/:fundId" element={<InvestFund />} />
@@ -101,6 +105,10 @@ const App = () => {
               <Route path="/goals" element={<InvestmentGoals />} />
               
               <Route path="/profile/bank-accounts" element={<BankAccounts />} />
+              
+              {/* Learn section routes */}
+              <Route path="/learn" element={<LearnSection />} />
+              <Route path="/learn/article/:id" element={<ArticleDetail />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
