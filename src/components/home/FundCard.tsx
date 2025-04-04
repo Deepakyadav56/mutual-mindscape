@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Toggle } from "@/components/ui/toggle";
+import { motion } from "framer-motion";
 
 interface FundCardProps {
   fund: {
@@ -87,108 +88,115 @@ const FundCard: React.FC<FundCardProps> = ({ fund, isPortfolioCard = false }) =>
   };
 
   return (
-    <Card className="mb-3 overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100">
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-gray-200">
-            <img src={getLogo()} alt={fund.amc} className="w-7 h-7 object-contain" />
-          </div>
-          
-          <div className="flex-1">
-            <div className="flex items-start justify-between mb-1">
-              <h3 className="font-medium text-app-black text-sm line-clamp-2">{fund.name}</h3>
-              {!isPortfolioCard && (
-                <Badge variant={
-                  fund.riskLevel === "Low" ? "success" : 
-                  fund.riskLevel === "Moderate" ? "info" : 
-                  "warning"
-                } className="ml-2 flex-shrink-0 text-xs px-2 py-0">
-                  {fund.riskLevel}
-                </Badge>
-              )}
-              
-              {isPortfolioCard && fund.sipActive && (
-                <Badge variant="success" className="ml-2 flex-shrink-0 text-xs px-2 py-0">
-                  SIP Active
-                </Badge>
-              )}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+    >
+      <Card className="mb-3 overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <div className="h-10 w-10 bg-white rounded-full p-1 flex items-center justify-center overflow-hidden flex-shrink-0 border border-gray-200">
+              <img src={getLogo()} alt={fund.amc} className="w-7 h-7 object-contain" />
             </div>
             
-            <p className="text-xs text-gray-500 mb-3">{fund.category} • {fund.amc}</p>
-            
-            {isPortfolioCard ? (
-              <>
-                <div className="flex justify-between items-center mb-2">
-                  <div className="flex flex-col">
-                    <div className="flex items-center">
-                      <span className="text-xs text-gray-500 mr-1">Current Value</span>
-                      <Toggle 
-                        className="h-5 w-5 p-0 data-[state=on]:bg-transparent" 
-                        onClick={() => setHideValue(!hideValue)}
-                        aria-label="Toggle visibility"
-                      >
-                        {hideValue ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-                      </Toggle>
-                    </div>
-                    <span className="font-semibold text-app-black">
-                      {hideValue ? "••••••" : `₹${fund.value?.toLocaleString() || 0}`}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-xs text-gray-500">Invested</span>
-                    <span className="font-medium text-app-black">
-                      {hideValue ? "••••••" : `₹${fund.invested?.toLocaleString() || 0}`}
-                    </span>
-                  </div>
-                </div>
+            <div className="flex-1">
+              <div className="flex items-start justify-between mb-1">
+                <h3 className="font-medium text-app-black text-sm line-clamp-2">{fund.name}</h3>
+                {!isPortfolioCard && (
+                  <Badge variant={
+                    fund.riskLevel === "Low" ? "success" : 
+                    fund.riskLevel === "Moderate" ? "info" : 
+                    "warning"
+                  } className="ml-2 flex-shrink-0 text-xs px-2 py-0">
+                    {fund.riskLevel}
+                  </Badge>
+                )}
                 
-                <div className="flex justify-between items-center">
-                  <div>
-                    <span className="text-xs text-gray-500">Today</span>
-                    {renderReturnValue(fund.returns["1D"] || 0)}
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">1Y Return</span>
-                    {renderReturnValue(fund.returns["1Y"] || 0)}
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">XIRR</span>
-                    {renderReturnValue(fund.xirr || 0)}
-                  </div>
-                  <Link to={`/funds/${fund.id}`} className="ml-3">
-                    <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
-                  </Link>
-                </div>
-              </>
-            ) : (
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-4">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">1D</span>
-                    {renderReturnValue(fund.returns["1D"] || 0)}
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">1Y</span>
-                    {renderReturnValue(fund.returns["1Y"] || 0)}
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-gray-500">3Y</span>
-                    {renderReturnValue(fund.returns["3Y"] || 0)}
-                  </div>
-                </div>
-                
-                <div className="flex items-center">
-                  {renderRatingStars(fund.rating)}
-                  <Link to={`/funds/${fund.id}`} className="ml-3">
-                    <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
-                  </Link>
-                </div>
+                {isPortfolioCard && fund.sipActive && (
+                  <Badge variant="success" className="ml-2 flex-shrink-0 text-xs px-2 py-0">
+                    SIP Active
+                  </Badge>
+                )}
               </div>
-            )}
+              
+              <p className="text-xs text-gray-500 mb-3">{fund.category} • {fund.amc}</p>
+              
+              {isPortfolioCard ? (
+                <>
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex flex-col">
+                      <div className="flex items-center">
+                        <span className="text-xs text-gray-500 mr-1">Current Value</span>
+                        <Toggle 
+                          className="h-5 w-5 p-0 data-[state=on]:bg-transparent" 
+                          onClick={() => setHideValue(!hideValue)}
+                          aria-label="Toggle visibility"
+                        >
+                          {hideValue ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                        </Toggle>
+                      </div>
+                      <span className="font-semibold text-app-black">
+                        {hideValue ? "••••••" : `₹${fund.value?.toLocaleString() || 0}`}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <span className="text-xs text-gray-500">Invested</span>
+                      <span className="font-medium text-app-black">
+                        {hideValue ? "••••••" : `₹${fund.invested?.toLocaleString() || 0}`}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="text-xs text-gray-500">Today</span>
+                      {renderReturnValue(fund.returns["1D"] || 0)}
+                    </div>
+                    <div>
+                      <span className="text-xs text-gray-500">1Y Return</span>
+                      {renderReturnValue(fund.returns["1Y"] || 0)}
+                    </div>
+                    <div>
+                      <span className="text-xs text-gray-500">XIRR</span>
+                      {renderReturnValue(fund.xirr || 0)}
+                    </div>
+                    <Link to={`/funds/${fund.id}`} className="ml-3">
+                      <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs text-gray-500">1D</span>
+                      {renderReturnValue(fund.returns["1D"] || 0)}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs text-gray-500">1Y</span>
+                      {renderReturnValue(fund.returns["1Y"] || 0)}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs text-gray-500">3Y</span>
+                      {renderReturnValue(fund.returns["3Y"] || 0)}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    {renderRatingStars(fund.rating)}
+                    <Link to={`/funds/${fund.id}`} className="ml-3">
+                      <ArrowUpRight className="w-4 h-4 text-app-primary-green" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

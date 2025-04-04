@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
@@ -18,7 +17,10 @@ import {
   TrendingDown,
   ChevronDown,
   X,
-  ChevronUp
+  ChevronUp,
+  ChevronLeft,
+  SlidersHorizontal,
+  Check
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -36,6 +38,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 
 const FundsExplore = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,6 +52,8 @@ const FundsExplore = () => {
     ratings: [],
     fundHouses: []
   });
+  const [activeFilterTab, setActiveFilterTab] = useState("categories");
+  const [indexOnly, setIndexOnly] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -230,15 +235,12 @@ const FundsExplore = () => {
     },
   ];
 
-  // Create unique filter options
   const categoryOptions = [...new Set(allFunds.map(fund => fund.category))];
   const riskLevelOptions = [...new Set(allFunds.map(fund => fund.riskLevel))];
   const fundHouseOptions = [...new Set(allFunds.map(fund => fund.fundHouse))];
   const ratingOptions = [5, 4, 3, 2, 1];
 
-  // Apply filters
   const applyFilters = (fund) => {
-    // If no filters are selected in a category, consider it as "all selected"
     const categoriesFilter = filters.categories.length === 0 || filters.categories.includes(fund.category);
     const riskLevelsFilter = filters.riskLevels.length === 0 || filters.riskLevels.includes(fund.riskLevel);
     const ratingsFilter = filters.ratings.length === 0 || filters.ratings.includes(fund.rating);
@@ -247,7 +249,6 @@ const FundsExplore = () => {
     return categoriesFilter && riskLevelsFilter && ratingsFilter && fundHousesFilter;
   };
 
-  // Apply search
   const applySearch = (fund) => {
     return (
       fund.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -256,7 +257,6 @@ const FundsExplore = () => {
     );
   };
   
-  // Apply sorting
   const applySorting = (a, b) => {
     switch (sortBy) {
       case "highReturns":
@@ -274,7 +274,6 @@ const FundsExplore = () => {
     }
   };
 
-  // Combine all filters
   const filteredFunds = allFunds
     .filter(fund => applySearch(fund) && applyFilters(fund))
     .sort(applySorting);
@@ -298,6 +297,7 @@ const FundsExplore = () => {
       ratings: [],
       fundHouses: []
     });
+    setIndexOnly(false);
   };
 
   const categories = [
@@ -316,14 +316,15 @@ const FundsExplore = () => {
   ];
 
   const sortOptions = [
-    { id: "popular", name: "Most Popular" },
-    { id: "highReturns", name: "Highest Returns" },
-    { id: "topRated", name: "Top Rated" },
-    { id: "lowRisk", name: "Lowest Risk" },
+    { id: "popular", name: "Popularity" },
+    { id: "1yReturns", name: "1Y Returns" },
+    { id: "3yReturns", name: "3Y Returns" },
+    { id: "5yReturns", name: "5Y Returns" },
+    { id: "rating", name: "Rating" },
   ];
 
   const getActiveFilterCount = () => {
-    return filters.categories.length + filters.riskLevels.length + filters.ratings.length + filters.fundHouses.length;
+    return filters.categories.length + filters.riskLevels.length + filters.ratings.length + filters.fundHouses.length + (indexOnly ? 1 : 0);
   };
 
   const renderRatingStars = (rating) => {
@@ -369,89 +370,34 @@ const FundsExplore = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
         key={fund.id}
+        whileHover={{ y: -3, transition: { duration: 0.2 } }}
       >
         <Card 
           key={fund.id} 
-          className="card-modern border-0 hover:border-app-primary-blue/20 transition-all duration-200 cursor-pointer overflow-hidden mb-4"
+          className="overflow-hidden mb-4 border-0 border-b border-gray-200 shadow-none hover:bg-gray-50 transition-all duration-200 cursor-pointer"
           onClick={() => handleFundClick(fund.id)}
         >
-          <CardContent className="p-5">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-medium text-app-gray-900">{fund.name}</h3>
-                <p className="text-sm text-app-gray-900/70">{fund.category} • {fund.fundHouse}</p>
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="h-12 w-12 bg-white rounded-md overflow-hidden flex-shrink-0 border border-gray-200 p-1">
+                <img 
+                  src={fund.logo || `https://ui-avatars.com/api/?name=${fund.fundHouse}&background=random`} 
+                  alt={fund.fundHouse} 
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <Badge variant={
-                fund.riskLevel === "Low" ? "success" :
-                fund.riskLevel === "Moderate" ? "outline" :
-                "secondary"
-              }
-              className={
-                fund.riskLevel === "Low" ? "bg-green-100 text-green-800 hover:bg-green-200" :
-                fund.riskLevel === "Moderate" ? "bg-blue-100 text-blue-800 hover:bg-blue-200" :
-                "bg-orange-100 text-orange-800 hover:bg-orange-200"
-              }
-              >
-                {fund.riskLevel}
-              </Badge>
-            </div>
-            
-            <div className="flex justify-between items-center text-sm mb-3 mt-4">
-              <div className="flex flex-col">
-                <span className="text-xs text-app-gray-900/60">AUM</span>
-                <span className="font-medium">{fund.aum}</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-xs text-app-gray-900/60">Expense Ratio</span>
-                <span className="font-medium">{fund.expenseRatio}%</span>
-              </div>
-              <div className="flex flex-col items-end">
-                <span className="text-xs text-app-gray-900/60">Min. Investment</span>
-                <span className="font-medium">₹{fund.minInvestment}</span>
-              </div>
-            </div>
-            
-            <div className="bg-gray-50 rounded-xl p-3 mb-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-xs text-app-gray-900/60 mb-1">1Y Returns</p>
-                  <p className="text-green-600 font-semibold text-lg">{fund.returnPercentage}%</p>
-                </div>
-                <div>
-                  <p className="text-xs text-app-gray-900/60 mb-1">3Y Returns</p>
-                  <p className="text-green-600 font-semibold text-lg">{fund.returns["3Y"]}%</p>
-                </div>
-                <div>
-                  <p className="text-xs text-app-gray-900/60 mb-1">Rating</p>
-                  {renderRatingStars(fund.rating)}
+              
+              <div className="flex-grow">
+                <h3 className="font-medium text-gray-900 mb-1">{fund.name}</h3>
+                <div className="flex items-center text-sm text-gray-500 mb-1">
+                  {fund.category} • {renderRatingStars(fund.rating)}
                 </div>
               </div>
-            </div>
-            
-            <div className="flex gap-2 mt-3">
-              {fund.tags.map((tag, index) => (
-                <Badge key={index} variant="outline" className="bg-app-light-blue text-app-primary-blue border-0">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            
-            <div className="flex space-x-3 mt-4">
-              <Button 
-                className="bg-app-primary-blue hover:bg-app-primary-blue/90 text-white flex-1 shadow-sm rounded-xl"
-                onClick={(e) => handleInvest(e, fund.id)}
-              >
-                Invest Now
-              </Button>
-              <Button 
-                className="bg-transparent border border-app-primary-blue text-app-primary-blue hover:bg-app-primary-blue/5 flex-1 rounded-xl"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFundClick(fund.id);
-                }}
-              >
-                Details <ArrowUpRight className="ml-1 w-4 h-4" />
-              </Button>
+              
+              <div className="text-right">
+                <div className="text-app-primary-green font-bold text-lg">{fund.returnPercentage}%</div>
+                <div className="text-gray-500 text-xs">3Y</div>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -459,344 +405,394 @@ const FundsExplore = () => {
     );
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
+  const filterTabs = [
+    { id: "sortBy", label: "Sort by" },
+    { id: "categories", label: "Categories" },
+    { id: "riskLevels", label: "Risk" },
+    { id: "ratings", label: "Ratings" },
+    { id: "fundHouses", label: "Fund House" },
+  ];
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
+  const renderFilterContent = () => {
+    switch (activeFilterTab) {
+      case "sortBy":
+        return (
+          <div className="space-y-4">
+            {sortOptions.map(option => (
+              <div key={option.id} className="flex items-center gap-3">
+                <div 
+                  className={`w-6 h-6 rounded-full border ${sortBy === option.id ? 'border-app-primary-green' : 'border-gray-300'} flex items-center justify-center`}
+                  onClick={() => setSortBy(option.id)}
+                >
+                  {sortBy === option.id && (
+                    <div className="w-4 h-4 rounded-full bg-app-primary-green"></div>
+                  )}
+                </div>
+                <span className="text-gray-800">{option.name}</span>
+              </div>
+            ))}
+          </div>
+        );
+      case "categories":
+        return (
+          <div className="space-y-4">
+            <div className="rounded-2xl bg-gray-50 p-4 mb-4">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-700">Index Funds only</span>
+                <Switch 
+                  checked={indexOnly} 
+                  onCheckedChange={setIndexOnly} 
+                  className="data-[state=checked]:bg-app-primary-green"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              {categoryOptions.map(category => (
+                <div key={category} className="flex items-center gap-3">
+                  <Checkbox 
+                    id={`category-${category}`} 
+                    checked={filters.categories.includes(category)}
+                    onCheckedChange={() => handleFilterToggle('categories', category)}
+                    className="border-gray-300 data-[state=checked]:bg-app-primary-green data-[state=checked]:border-app-primary-green"
+                  />
+                  <label htmlFor={`category-${category}`} className="text-gray-800 flex items-center justify-between w-full">
+                    <span>{category}</span>
+                    <ChevronDown className="w-4 h-4 text-gray-500" />
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "riskLevels":
+        return (
+          <div className="space-y-3">
+            {riskLevelOptions.map(risk => (
+              <div key={risk} className="flex items-center gap-3">
+                <Checkbox 
+                  id={`risk-${risk}`} 
+                  checked={filters.riskLevels.includes(risk)}
+                  onCheckedChange={() => handleFilterToggle('riskLevels', risk)}
+                  className="border-gray-300 data-[state=checked]:bg-app-primary-green data-[state=checked]:border-app-primary-green"
+                />
+                <label htmlFor={`risk-${risk}`} className="text-gray-800">
+                  {risk}
+                </label>
+              </div>
+            ))}
+          </div>
+        );
+      case "ratings":
+        return (
+          <div className="space-y-3">
+            {ratingOptions.map(rating => (
+              <div key={rating} className="flex items-center gap-3">
+                <Checkbox 
+                  id={`rating-${rating}`} 
+                  checked={filters.ratings.includes(rating)}
+                  onCheckedChange={() => handleFilterToggle('ratings', rating)}
+                  className="border-gray-300 data-[state=checked]:bg-app-primary-green data-[state=checked]:border-app-primary-green"
+                />
+                <label htmlFor={`rating-${rating}`} className="text-gray-800 flex items-center">
+                  {rating} <Star className="w-3 h-3 ml-1 text-amber-500 fill-amber-500" />
+                  {rating === 5 ? "" : "+"}
+                </label>
+              </div>
+            ))}
+          </div>
+        );
+      case "fundHouses":
+        return (
+          <div className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input 
+                placeholder="Search fund house" 
+                className="pl-9 py-2 border-gray-200 rounded-xl"
+              />
+            </div>
+            
+            <div className="space-y-3 max-h-[60vh] overflow-y-auto">
+              {fundHouseOptions.map(house => (
+                <div key={house} className="flex items-center gap-3">
+                  <Checkbox 
+                    id={`house-${house}`} 
+                    checked={filters.fundHouses.includes(house)}
+                    onCheckedChange={() => handleFilterToggle('fundHouses', house)}
+                    className="border-gray-300 data-[state=checked]:bg-app-primary-green data-[state=checked]:border-app-primary-green"
+                  />
+                  <label htmlFor={`house-${house}`} className="text-gray-800">
+                    {house}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
   return (
     <div className="pb-24 bg-white">
-      <div className="sticky top-0 bg-white z-10 pt-2 pb-3 px-1 shadow-sm">
-        <h1 className="text-2xl font-bold text-app-gray-900 mb-4">Explore Funds</h1>
+      <div className="sticky top-0 bg-white z-10 pt-2 pb-2 px-4 border-b border-gray-100">
+        <div className="flex items-center mb-4">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="mr-2" 
+            onClick={() => navigate(-1)}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-xl font-bold text-app-gray-900">All Mutual Funds</h1>
+        </div>
         
         <div className="mb-4">
           <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input
               type="text"
               placeholder="Search by fund name, category or fund house"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10 input-modern pl-10 py-3 font-medium"
+              className="pl-10 py-3 font-medium border-gray-200 rounded-xl"
             />
-            <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
         </div>
       </div>
       
-      <Tabs defaultValue="all" className="mb-6">
-        <TabsList className="w-full flex overflow-x-auto space-x-2 pb-2 no-scrollbar bg-transparent">
-          {categories.map((category) => (
-            <TabsTrigger
-              key={category.id}
-              value={category.id}
-              className="px-4 py-2 rounded-full flex-shrink-0 data-[state=active]:bg-app-primary-blue data-[state=active]:text-white"
-            >
-              {category.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <div className="flex items-center justify-between px-4 mb-3 overflow-x-auto no-scrollbar">
+        <Button 
+          variant="outline" 
+          className="rounded-xl flex items-center gap-2 flex-shrink-0 border bg-gray-50 text-gray-800 border-gray-200 hover:bg-gray-100"
+          onClick={() => setShowFilterSheet(true)}
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          Filters {getActiveFilterCount() > 0 && `(${getActiveFilterCount()})`}
+        </Button>
         
-        <div className="mb-6 mt-4 px-1">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className="rounded-full flex items-center gap-2 flex-shrink-0 border relative bg-app-light-blue text-app-primary-blue border-0"
-                  >
-                    <Filter className="w-4 h-4" /> 
-                    Filters
-                    {getActiveFilterCount() > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-app-primary-blue text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                        {getActiveFilterCount()}
-                      </span>
-                    )}
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl">
-                  <SheetHeader className="mb-4">
-                    <div className="flex justify-between items-center">
-                      <SheetTitle>Filter Funds</SheetTitle>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={clearFilters}
-                        className="text-app-primary-blue"
-                      >
-                        Reset All
-                      </Button>
-                    </div>
-                  </SheetHeader>
-                  
-                  <div className="space-y-6 overflow-y-auto max-h-[calc(85vh-80px)] pb-20">
-                    {/* Category Filter */}
-                    <div>
-                      <h3 className="text-lg font-medium mb-3">Category</h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {categoryOptions.map((category) => (
-                          <div key={category} className="flex items-center space-x-2">
-                            <Checkbox 
-                              id={`category-${category}`} 
-                              checked={filters.categories.includes(category)}
-                              onCheckedChange={() => handleFilterToggle('categories', category)}
-                              className="border-app-gray-300"
-                            />
-                            <label htmlFor={`category-${category}`} className="text-sm font-medium">
-                              {category}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Risk Level Filter */}
-                    <div>
-                      <h3 className="text-lg font-medium mb-3">Risk Level</h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {riskLevelOptions.map((risk) => (
-                          <div key={risk} className="flex items-center space-x-2">
-                            <Checkbox 
-                              id={`risk-${risk}`} 
-                              checked={filters.riskLevels.includes(risk)}
-                              onCheckedChange={() => handleFilterToggle('riskLevels', risk)}
-                              className="border-app-gray-300"
-                            />
-                            <label htmlFor={`risk-${risk}`} className="text-sm font-medium">
-                              {risk}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Rating Filter */}
-                    <div>
-                      <h3 className="text-lg font-medium mb-3">Rating</h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {ratingOptions.map((rating) => (
-                          <div key={rating} className="flex items-center space-x-2">
-                            <Checkbox 
-                              id={`rating-${rating}`} 
-                              checked={filters.ratings.includes(rating)}
-                              onCheckedChange={() => handleFilterToggle('ratings', rating)}
-                              className="border-app-gray-300"
-                            />
-                            <label htmlFor={`rating-${rating}`} className="text-sm font-medium flex items-center">
-                              {renderRatingStars(rating)}
-                              {rating === 5 && <span className="ml-1">(Only)</span>}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Fund Houses Filter */}
-                    <div>
-                      <h3 className="text-lg font-medium mb-3">Fund House</h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {fundHouseOptions.map((house) => (
-                          <div key={house} className="flex items-center space-x-2">
-                            <Checkbox 
-                              id={`house-${house}`} 
-                              checked={filters.fundHouses.includes(house)}
-                              onCheckedChange={() => handleFilterToggle('fundHouses', house)}
-                              className="border-app-gray-300"
-                            />
-                            <label htmlFor={`house-${house}`} className="text-sm font-medium">
-                              {house}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t">
-                    <SheetClose asChild>
-                      <Button className="w-full bg-app-primary-blue">Apply Filters</Button>
-                    </SheetClose>
-                  </div>
-                </SheetContent>
-              </Sheet>
-              
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className="rounded-full flex items-center gap-2 flex-shrink-0 border bg-app-light-blue text-app-primary-blue border-0"
-                  >
-                    <ChevronDown className="w-4 h-4" /> 
-                    Sort By: {sortOptions.find(option => option.id === sortBy)?.name}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
-                  {sortOptions.map(option => (
-                    <DropdownMenuItem 
-                      key={option.id}
-                      onClick={() => setSortBy(option.id)}
-                      className={sortBy === option.id ? "bg-app-light-blue text-app-primary-blue" : ""}
-                    >
-                      {option.name}
-                      {sortBy === option.id && <ChevronUp className="ml-auto h-4 w-4" />}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            
-            {getActiveFilterCount() > 0 && (
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={clearFilters}
-                className="text-app-primary-blue"
-              >
-                Clear All <X className="ml-1 w-3 h-3" />
-              </Button>
-            )}
-          </div>
-          
-          {/* Active filters display */}
-          {getActiveFilterCount() > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {filters.categories.map(category => (
-                <Badge key={`cat-${category}`} variant="outline" className="bg-app-light-blue text-app-primary-blue flex items-center gap-1">
-                  {category}
-                  <X className="w-3 h-3 cursor-pointer" onClick={() => handleFilterToggle('categories', category)} />
-                </Badge>
-              ))}
-              
-              {filters.riskLevels.map(risk => (
-                <Badge key={`risk-${risk}`} variant="outline" className="bg-app-light-blue text-app-primary-blue flex items-center gap-1">
-                  {risk}
-                  <X className="w-3 h-3 cursor-pointer" onClick={() => handleFilterToggle('riskLevels', risk)} />
-                </Badge>
-              ))}
-              
-              {filters.ratings.map(rating => (
-                <Badge key={`rating-${rating}`} variant="outline" className="bg-app-light-blue text-app-primary-blue flex items-center gap-1">
-                  {rating}★
-                  <X className="w-3 h-3 cursor-pointer" onClick={() => handleFilterToggle('ratings', rating)} />
-                </Badge>
-              ))}
-              
-              {filters.fundHouses.map(house => (
-                <Badge key={`house-${house}`} variant="outline" className="bg-app-light-blue text-app-primary-blue flex items-center gap-1">
-                  {house}
-                  <X className="w-3 h-3 cursor-pointer" onClick={() => handleFilterToggle('fundHouses', house)} />
-                </Badge>
-              ))}
-            </div>
+        <div className="flex gap-2 overflow-x-auto no-scrollbar">
+          {filterOptions.map((option) => (
+            <Button
+              key={option.id}
+              variant={sortBy === option.id ? "default" : "outline"}
+              className={`rounded-xl flex items-center gap-1 text-sm flex-shrink-0 ${
+                sortBy === option.id 
+                  ? "bg-app-primary-green hover:bg-app-primary-green/90" 
+                  : "bg-gray-50 text-gray-800 border-gray-200 hover:bg-gray-100"
+              }`}
+              onClick={() => setSortBy(option.id)}
+            >
+              {option.icon}
+              {option.name}
+            </Button>
+          ))}
+        </div>
+      </div>
+      
+      {getActiveFilterCount() > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4 px-4">
+          {indexOnly && (
+            <Badge 
+              variant="outline" 
+              className="bg-app-light-blue text-app-primary-blue flex items-center gap-1 rounded-xl"
+            >
+              Index only
+              <X 
+                className="w-3 h-3 cursor-pointer ml-1" 
+                onClick={() => setIndexOnly(false)} 
+              />
+            </Badge>
           )}
+          
+          {filters.categories.map(category => (
+            <Badge 
+              key={`cat-${category}`} 
+              variant="outline" 
+              className="bg-app-light-blue text-app-primary-blue flex items-center gap-1 rounded-xl"
+            >
+              {category}
+              <X 
+                className="w-3 h-3 cursor-pointer ml-1" 
+                onClick={() => handleFilterToggle('categories', category)} 
+              />
+            </Badge>
+          ))}
+          
+          {filters.riskLevels.map(risk => (
+            <Badge 
+              key={`risk-${risk}`} 
+              variant="outline" 
+              className="bg-app-light-blue text-app-primary-blue flex items-center gap-1 rounded-xl"
+            >
+              {risk}
+              <X 
+                className="w-3 h-3 cursor-pointer ml-1" 
+                onClick={() => handleFilterToggle('riskLevels', risk)} 
+              />
+            </Badge>
+          ))}
+          
+          {filters.ratings.map(rating => (
+            <Badge 
+              key={`rating-${rating}`} 
+              variant="outline" 
+              className="bg-app-light-blue text-app-primary-blue flex items-center gap-1 rounded-xl"
+            >
+              {rating}★
+              <X 
+                className="w-3 h-3 cursor-pointer ml-1" 
+                onClick={() => handleFilterToggle('ratings', rating)} 
+              />
+            </Badge>
+          ))}
+          
+          {filters.fundHouses.map(house => (
+            <Badge 
+              key={`house-${house}`} 
+              variant="outline" 
+              className="bg-app-light-blue text-app-primary-blue flex items-center gap-1 rounded-xl"
+            >
+              {house}
+              <X 
+                className="w-3 h-3 cursor-pointer ml-1" 
+                onClick={() => handleFilterToggle('fundHouses', house)} 
+              />
+            </Badge>
+          ))}
+        </div>
+      )}
+      
+      <div className="px-4">
+        <div className="flex justify-between items-center mb-2">
+          <p className="text-gray-700 font-medium">{filteredFunds.length} funds</p>
+          <div className="text-sm flex items-center gap-1">
+            <ChevronLeft className="w-4 h-4" />
+            <span className="text-app-primary-green font-medium">3Y Returns</span>
+            <ChevronRight className="w-4 h-4" />
+          </div>
         </div>
         
-        {categories.map((category) => (
-          <TabsContent key={category.id} value={category.id} className="mt-2 px-1">
-            {isLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <Card key={i} className="border-0 shadow-sm">
-                    <CardContent className="p-5">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="w-2/3">
-                          <div className="h-5 bg-gray-200 rounded-md animate-pulse mb-2 w-full"></div>
-                          <div className="h-4 bg-gray-200 rounded-md animate-pulse w-1/2"></div>
+        <div className="space-y-0">
+          {isLoading ? (
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="border-0 shadow-sm">
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-12 w-12 bg-gray-200 rounded-md animate-pulse"></div>
+                        <div>
+                          <div className="h-5 bg-gray-200 rounded-md animate-pulse mb-2 w-40"></div>
+                          <div className="h-4 bg-gray-200 rounded-md animate-pulse w-24"></div>
                         </div>
-                        <div className="h-6 w-20 bg-gray-200 rounded-full animate-pulse"></div>
                       </div>
-                      
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="h-10 w-20 bg-gray-200 rounded-md animate-pulse"></div>
-                        <div className="h-10 w-20 bg-gray-200 rounded-md animate-pulse"></div>
-                        <div className="h-10 w-20 bg-gray-200 rounded-md animate-pulse"></div>
-                      </div>
-                      
-                      <div className="flex gap-3 mt-6">
-                        <div className="h-10 bg-gray-200 rounded-xl animate-pulse w-1/2"></div>
-                        <div className="h-10 bg-gray-200 rounded-xl animate-pulse w-1/2"></div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      <div className="h-6 w-16 bg-gray-200 rounded-md animate-pulse"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            filteredFunds.length > 0 ? (
+              <motion.div 
+                className="space-y-0"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {filteredFunds.map((fund) => renderFundCard(fund))}
+              </motion.div>
             ) : (
-              category.id === "all" ? (
-                filteredFunds.length > 0 ? (
-                  <motion.div 
-                    className="space-y-4"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
+              <div className="text-center py-12 bg-white rounded-xl shadow-sm">
+                <Search className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+                <p className="text-app-gray-900 font-medium mb-2">No funds found</p>
+                <p className="text-app-gray-900/70 text-sm">Try adjusting your search or filters</p>
+                {(searchQuery || getActiveFilterCount() > 0) && (
+                  <Button 
+                    variant="link" 
+                    className="text-app-primary-green mt-2" 
+                    onClick={() => {
+                      setSearchQuery("");
+                      clearFilters();
+                    }}
                   >
-                    {filteredFunds.map((fund) => (
-                      <motion.div key={fund.id} variants={itemVariants}>
-                        {renderFundCard(fund)}
-                      </motion.div>
-                    ))}
-                    
-                    {filteredFunds.length < 3 && (
-                      <div className="text-center py-4">
-                        <p className="text-app-gray-900/70">
-                          {filteredFunds.length === 0 
-                            ? "No funds match your filters"
-                            : "No more funds match your filters"}
-                        </p>
-                        {getActiveFilterCount() > 0 && (
-                          <Button 
-                            variant="link" 
-                            className="text-app-primary-blue" 
-                            onClick={clearFilters}
-                          >
-                            Clear all filters
-                          </Button>
-                        )}
-                      </div>
+                    Clear all filters & search
+                  </Button>
+                )}
+              </div>
+            )
+          )}
+        </div>
+      </div>
+      
+      <Sheet open={showFilterSheet} onOpenChange={setShowFilterSheet}>
+        <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl p-0">
+          <div className="h-full flex flex-col">
+            <div className="py-4 px-4 border-b border-gray-200 flex items-center justify-between">
+              <Button variant="ghost" onClick={() => setShowFilterSheet(false)}>
+                <X className="w-5 h-5" />
+              </Button>
+              <h2 className="text-lg font-bold">Filters</h2>
+              <Button 
+                variant="ghost" 
+                className="text-app-primary-green" 
+                onClick={clearFilters}
+              >
+                Clear all
+              </Button>
+            </div>
+            
+            <div className="flex h-full">
+              <div className="w-1/3 border-r border-gray-200">
+                {filterTabs.map(tab => (
+                  <div 
+                    key={tab.id} 
+                    className={`py-4 px-4 border-l-4 ${
+                      activeFilterTab === tab.id 
+                        ? "border-app-primary-green bg-gray-50" 
+                        : "border-transparent"
+                    } cursor-pointer`}
+                    onClick={() => setActiveFilterTab(tab.id)}
+                  >
+                    <span className={activeFilterTab === tab.id ? "text-app-primary-green font-medium" : "text-gray-700"}>
+                      {tab.label}
+                    </span>
+                    {tab.id === "categories" && filters.categories.length > 0 && (
+                      <span className="w-2 h-2 bg-app-primary-green rounded-full inline-block ml-2"></span>
                     )}
-                  </motion.div>
-                ) : (
-                  <div className="text-center py-12 bg-white rounded-xl shadow-sm">
-                    <Search className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                    <p className="text-app-gray-900 font-medium mb-2">No funds found</p>
-                    <p className="text-app-gray-900/70 text-sm">Try adjusting your search or filters</p>
-                    {(searchQuery || getActiveFilterCount() > 0) && (
-                      <Button 
-                        variant="link" 
-                        className="text-app-primary-blue mt-2" 
-                        onClick={() => {
-                          setSearchQuery("");
-                          clearFilters();
-                        }}
-                      >
-                        Clear all filters & search
-                      </Button>
+                    {tab.id === "riskLevels" && filters.riskLevels.length > 0 && (
+                      <span className="w-2 h-2 bg-app-primary-green rounded-full inline-block ml-2"></span>
+                    )}
+                    {tab.id === "ratings" && filters.ratings.length > 0 && (
+                      <span className="w-2 h-2 bg-app-primary-green rounded-full inline-block ml-2"></span>
+                    )}
+                    {tab.id === "fundHouses" && filters.fundHouses.length > 0 && (
+                      <span className="w-2 h-2 bg-app-primary-green rounded-full inline-block ml-2"></span>
                     )}
                   </div>
-                )
-              ) : (
-                <div className="text-center py-12 bg-white rounded-xl shadow-sm">
-                  <PieChart className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-                  <p className="text-app-gray-900 font-medium mb-2">{category.name} funds</p>
-                  <p className="text-app-gray-900/70 text-sm">Coming soon...</p>
-                </div>
-              )
-            )}
-          </TabsContent>
-        ))}
-      </Tabs>
+                ))}
+              </div>
+              
+              <div className="w-2/3 p-4 overflow-y-auto">
+                {renderFilterContent()}
+              </div>
+            </div>
+            
+            <div className="p-4 border-t border-gray-200">
+              <Button 
+                className="w-full bg-app-primary-green hover:bg-app-primary-green/90"
+                onClick={() => setShowFilterSheet(false)}
+              >
+                View {filteredFunds.length} funds
+              </Button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
