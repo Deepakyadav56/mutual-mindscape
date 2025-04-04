@@ -2,7 +2,7 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import CollectionCard from "./CollectionCard";
-import { TrendingUp, PiggyBank, Calculator, BarChart2, BarChartHorizontal, PieChart } from "lucide-react";
+import { TrendingUp, PiggyBank, Calculator, BarChart2, BarChartHorizontal, PieChart, ZoomIn, Wallet, BarLineChart } from "lucide-react";
 
 const collections = [
   {
@@ -53,6 +53,30 @@ const collections = [
     link: "/explore?filter=small-cap",
     color: "bg-pink-600",
   },
+  {
+    id: "focused-funds",
+    name: "Focused Funds",
+    description: "Concentrated portfolios with limited stocks",
+    icon: <ZoomIn className="text-white" />,
+    link: "/explore?filter=focused-funds",
+    color: "bg-indigo-600",
+  },
+  {
+    id: "debt-funds",
+    name: "Debt Funds",
+    description: "Low-risk investments in bonds and securities",
+    icon: <Wallet className="text-white" />,
+    link: "/explore?filter=debt-funds", 
+    color: "bg-teal-600",
+  },
+  {
+    id: "hybrid-funds",
+    name: "Hybrid Funds",
+    description: "Mix of equity and debt for balanced returns",
+    icon: <BarLineChart className="text-white" />,
+    link: "/explore?filter=hybrid-funds",
+    color: "bg-emerald-600",
+  }
 ];
 
 const Collections = () => {
@@ -60,7 +84,7 @@ const Collections = () => {
     <div className="mb-8">
       <SectionHeader title="Collections" viewMoreLink="/explore" />
       
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {collections.map((collection) => (
           <CollectionCard key={collection.id} collection={collection} />
         ))}

@@ -28,7 +28,7 @@ export const AppHeader: React.FC = () => {
               <Input
                 type="text"
                 placeholder="Search mutual funds..."
-                className="pl-10 py-2 bg-gray-50 border-gray-200 text-gray-900 rounded-full focus:border-app-primary-blue focus:ring-app-primary-blue"
+                className="pl-10 py-2 bg-gray-50 border-gray-200 text-gray-900 rounded-full focus:border-app-primary-green focus:ring-app-primary-green"
                 autoFocus
               />
               <Search className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
