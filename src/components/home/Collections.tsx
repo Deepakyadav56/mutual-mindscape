@@ -2,7 +2,7 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import CollectionCard from "./CollectionCard";
-import { TrendingUp, PiggyBank, Calculator, BarChart2, BarChartHorizontal, PieChart, ZoomIn, Wallet, BarLineChart } from "lucide-react";
+import { TrendingUp, PiggyBank, Calculator, BarChart2, BarChartHorizontal, PieChart, ZoomIn, Wallet, LineChart } from "lucide-react";
 
 const collections = [
   {
@@ -73,7 +73,7 @@ const collections = [
     id: "hybrid-funds",
     name: "Hybrid Funds",
     description: "Mix of equity and debt for balanced returns",
-    icon: <BarLineChart className="text-white" />,
+    icon: <LineChart className="text-white" />,
     link: "/explore?filter=hybrid-funds",
     color: "bg-emerald-600",
   }
