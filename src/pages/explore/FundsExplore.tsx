@@ -20,7 +20,8 @@ import {
   ChevronUp,
   ChevronLeft,
   SlidersHorizontal,
-  Check
+  Check,
+  ChevronRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -271,6 +272,16 @@ const FundsExplore = () => {
       case "popular":
       default:
         return 0; // Keep original order for popular
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
     }
   };
 

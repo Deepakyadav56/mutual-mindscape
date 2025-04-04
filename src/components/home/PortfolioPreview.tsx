@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ChevronRight, Eye, EyeOff, TrendingUp, TrendingDown, BarChart2 } from "lucide-react";
+import { ChevronRight, Eye, EyeOff, TrendingUp, TrendingDown, BarChart2, ChevronLeft } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
