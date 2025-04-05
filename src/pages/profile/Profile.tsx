@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { 
-  User, Star, Bank, HelpCircle, ChevronRight, LogOut,
+  User, Star, CreditCard, HelpCircle, ChevronRight, LogOut,
   Settings, Info, Shield, Bell
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
@@ -58,7 +58,7 @@ const Profile = () => {
           <div className="flex justify-between items-center py-2">
             <div className="flex items-center">
               <div className="icon-container-amber mr-3">
-                <Bank className="w-5 h-5" />
+                <CreditCard className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-medium text-teal-800">Bank Account</h3>
