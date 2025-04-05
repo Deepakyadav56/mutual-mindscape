@@ -14,7 +14,7 @@
   }
 }
 
-/* Updated App Styles with new teal theme */
+/* Updated App Styles with teal theme */
 .fixed-bottom {
   position: fixed;
   bottom: 0;
@@ -23,7 +23,7 @@
 }
 
 .shadow-nav {
-  box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.06);
 }
 
 .input-modern {
@@ -66,17 +66,17 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f0fdfa;
+  background: #f0fdfa; /* teal-50 */
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #99f6e4;
+  background: #99f6e4; /* teal-200 */
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #2dd4bf;
+  background: #2dd4bf; /* teal-400 */
 }
 
 /* Utility classes for the modern UI */
@@ -85,8 +85,8 @@
 }
 
 .button-teal:hover {
-  background-color: #0d9488;
-  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2);
+  background-color: #0d9488; /* teal-700 */
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.2); /* teal-500 with opacity */
 }
 
 /* Gradient colors for cards */
@@ -154,4 +154,45 @@
 /* Modern buttons */
 .btn-3d {
   @apply bg-teal-600 text-white py-3 px-6 rounded-xl shadow-md transition-all duration-200 transform hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:shadow-md;
+}
+
+/* Modern teal UI elements */
+.nav-item {
+  @apply flex flex-col items-center justify-center py-1 px-3 text-teal-800;
+}
+
+.nav-item-active {
+  @apply text-teal-600 font-medium;
+}
+
+.tab-button {
+  @apply rounded-full px-4 py-1.5 text-sm font-medium transition-colors;
+}
+
+.tab-active {
+  @apply bg-teal-600 text-white;
+}
+
+.tab-inactive {
+  @apply text-teal-700 bg-teal-50;
+}
+
+.stat-card {
+  @apply rounded-xl bg-white p-4 border border-teal-100 shadow-sm;
+}
+
+.info-badge {
+  @apply inline-flex items-center rounded-full bg-teal-50 px-2 py-1 text-xs font-medium text-teal-700;
+}
+
+.info-badge-success {
+  @apply bg-green-50 text-green-700;
+}
+
+.info-badge-warning {
+  @apply bg-amber-50 text-amber-700;
+}
+
+.info-badge-error {
+  @apply bg-red-50 text-red-700;
 }
