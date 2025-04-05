@@ -10,16 +10,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-app-button-green text-white hover:bg-app-button-green/90 shadow-sm",
+        default: "bg-teal-600 text-white hover:bg-teal-700 shadow-sm",
         destructive:
           "bg-app-red text-white hover:bg-app-red/90",
         outline:
-          "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
+          "border border-teal-200 bg-white text-teal-800 hover:bg-teal-50",
         secondary:
-          "bg-app-black text-white hover:bg-app-black/90 shadow-sm",
-        ghost: "hover:bg-gray-50 hover:text-app-black",
-        link: "text-app-button-green underline-offset-4 hover:underline",
-        mint: "bg-green-50 text-app-button-green hover:bg-green-100"
+          "bg-teal-800 text-white hover:bg-teal-900 shadow-sm",
+        ghost: "hover:bg-teal-50 hover:text-teal-800",
+        link: "text-teal-600 underline-offset-4 hover:underline",
+        mint: "bg-teal-50 text-teal-600 hover:bg-teal-100"
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -69,21 +70,21 @@ export default {
 					'gray-700': '#374151',
 					'gray-800': '#1F2937',
 					'gray-900': '#111827',
-					'navy': '#232323',
-					'dark-blue': '#232323',
-					'card-hover': '#2d2d2d',
-					'light-blue': '#E6F3FF',
-					'primary-blue': '#2C5CF6',
-					'secondary-blue': '#3B82F6',
-					'primary-green': '#22ad78',
-					'light-green': '#deebc7',
-					'mint': '#e3f3e7',
-					'button-green': '#22ad78',
-					'black': '#232323',
+					'navy': '#115e59',
+					'dark-blue': '#115e59',
+					'card-hover': '#0f766e',
+					'light-blue': '#ccfbf1',
+					'primary-blue': '#14b8a6',
+					'secondary-blue': '#0d9488',
+					'primary-green': '#14b8a6',
+					'light-green': '#ccfbf1',
+					'mint': '#ccfbf1',
+					'button-green': '#0d9488',
+					'black': '#115e59',
 					'white': '#f2f2f2',
-					'light-mint': '#EBF1EE',
-					charcoal: '#232323',
-					green: '#22ad78'
+					'light-mint': '#f0fdfa',
+					charcoal: '#115e59',
+					green: '#14b8a6'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -96,11 +97,25 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				finance: {
-					primary: '#22ad78',
-					secondary: '#232323',
-					accent: '#deebc7',
+					primary: '#14b8a6',
+					secondary: '#115e59',
+					accent: '#ccfbf1',
 					muted: '#6B7280',
-					light: '#f2f2f2',
+					light: '#f0fdfa',
+				},
+				// Teal color palette
+				teal: {
+					'50': '#f0fdfa',
+					'100': '#ccfbf1',
+					'200': '#99f6e4',
+					'300': '#5eead4',
+					'400': '#2dd4bf',
+					'500': '#14b8a6',
+					'600': '#0d9488',
+					'700': '#0f766e',
+					'800': '#115e59',
+					'900': '#134e4a',
+					'950': '#042f2e',
 				}
 			},
 			borderRadius: {
