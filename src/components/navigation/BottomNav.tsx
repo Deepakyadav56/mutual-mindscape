@@ -40,7 +40,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="fixed-bottom bg-white dark:bg-teal-900 border-t border-gray-100 dark:border-teal-800 py-1 pt-1 px-4 shadow-nav z-50 transition-colors duration-300">
+    <div className="fixed-bottom bg-white/80 backdrop-blur-lg dark:bg-teal-900/90 dark:backdrop-blur-lg border-t border-gray-100 dark:border-teal-800/50 py-1 pt-2 px-4 shadow-nav z-50 transition-colors duration-300">
       <div className="flex justify-between items-center">
         {navItems.map((item) => {
           const active = isActive(item.path);
@@ -50,42 +50,40 @@ const BottomNav = () => {
               to={item.path}
               className="relative flex flex-col items-center py-2 px-3"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{
-                    scale: active ? 1.1 : 1,
-                    opacity: 1,
-                    y: active ? -4 : 0,
-                  }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 500, 
-                    damping: 30,
-                    bounce: 0.3
-                  }}
-                  className={`flex items-center justify-center ${
-                    active ? "text-teal-500 dark:text-teal-300" : "text-teal-800 dark:text-teal-100"
-                  }`}
-                >
-                  {item.icon}
-                  {active && (
-                    <motion.div
-                      layoutId="navIndicator"
-                      className="absolute -bottom-1 w-6 h-1.5 bg-teal-500 dark:bg-teal-300 rounded-full"
-                      initial={false}
-                      transition={{ 
-                        type: "spring", 
-                        stiffness: 500, 
-                        damping: 30 
-                      }}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
+              <div className="relative">
+                {active && (
+                  <motion.div
+                    layoutId="navBackground"
+                    className="absolute inset-0 -m-1 bg-teal-500/10 dark:bg-teal-500/20 rounded-full w-12 h-12 z-0"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  />
+                )}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{
+                      scale: active ? 1.1 : 1,
+                      opacity: 1,
+                      y: active ? -4 : 0,
+                    }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 500, 
+                      damping: 30,
+                      bounce: 0.3
+                    }}
+                    className={`flex items-center justify-center relative z-10 ${
+                      active ? "text-teal-600 dark:text-teal-300" : "text-teal-800/70 dark:text-teal-100/70"
+                    }`}
+                  >
+                    {item.icon}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
               <span className={`text-xs mt-1 transition-colors ${
-                active ? "font-medium text-teal-500 dark:text-teal-300" : "text-teal-800 dark:text-teal-100"
+                active ? "font-medium text-teal-600 dark:text-teal-300" : "text-teal-800/70 dark:text-teal-100/70"
               }`}>
                 {item.name}
               </span>
