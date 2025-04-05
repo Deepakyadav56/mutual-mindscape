@@ -94,7 +94,7 @@
   }
 
   body {
-    @apply bg-white text-foreground font-sf-pro;
+    @apply bg-background text-foreground font-sf-pro;
     font-family: 'SF Pro Display', 'Inter', sans-serif;
   }
 
@@ -117,15 +117,15 @@
 
 @layer components {
   .finance-card {
-    @apply bg-white rounded-xl shadow-sm p-4 transition-all hover:shadow-md border border-teal-100;
+    @apply bg-white dark:bg-teal-800/50 rounded-xl shadow-sm p-4 transition-all hover:shadow-md border border-teal-100 dark:border-teal-700;
   }
   
   .fund-card {
-    @apply flex flex-col bg-white rounded-xl shadow-sm p-5 transition-all hover:shadow-md border border-teal-50 hover:border-teal-200;
+    @apply flex flex-col bg-white dark:bg-teal-800/50 rounded-xl shadow-sm p-5 transition-all hover:shadow-md border border-teal-50 dark:border-teal-700 hover:border-teal-200 dark:hover:border-teal-600;
   }
   
   .btn-primary {
-    @apply bg-teal-600 text-white rounded-full px-6 py-3 hover:bg-teal-700 transition-colors text-base font-medium shadow-sm;
+    @apply bg-teal-600 dark:bg-teal-500 text-white rounded-full px-6 py-3 hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors text-base font-medium shadow-sm;
   }
   
   .btn-secondary {
@@ -133,19 +133,19 @@
   }
   
   .btn-outline {
-    @apply border-2 border-teal-500 text-teal-600 rounded-full px-6 py-3 hover:bg-teal-500 hover:text-white transition-colors text-base font-medium;
+    @apply border-2 border-teal-500 text-teal-600 dark:border-teal-400 dark:text-teal-300 rounded-full px-6 py-3 hover:bg-teal-500 dark:hover:bg-teal-600 hover:text-white transition-colors text-base font-medium;
   }
   
   .input-field {
-    @apply w-full border border-teal-100 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white;
+    @apply w-full border border-teal-100 dark:border-teal-700 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white dark:bg-teal-800/40 dark:text-white;
   }
   
   .app-container {
-    @apply max-w-lg mx-auto bg-white min-h-screen;
+    @apply max-w-lg mx-auto bg-white dark:bg-teal-900 min-h-screen;
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-teal-800 to-teal-500 text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-teal-800 to-teal-500 dark:from-teal-300 dark:to-teal-500 text-transparent bg-clip-text;
   }
   
   .onboarding-container {
@@ -157,7 +157,7 @@
   }
   
   .page-title {
-    @apply text-2xl font-bold mb-6 text-teal-800;
+    @apply text-2xl font-bold mb-6 text-teal-800 dark:text-white;
   }
   
   .fixed-bottom {
@@ -169,19 +169,19 @@
   }
 
   .status-badge-success {
-    @apply status-badge bg-teal-100 text-teal-800;
+    @apply status-badge bg-teal-100 dark:bg-teal-800 text-teal-800 dark:text-teal-200;
   }
 
   .status-badge-pending {
-    @apply status-badge bg-yellow-100 text-yellow-800;
+    @apply status-badge bg-yellow-100 dark:bg-yellow-800/40 text-yellow-800 dark:text-yellow-200;
   }
 
   .status-badge-error {
-    @apply status-badge bg-red-100 text-red-800;
+    @apply status-badge bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200;
   }
 
   .stat-card {
-    @apply bg-white rounded-xl p-4 shadow-sm border border-teal-50;
+    @apply bg-white dark:bg-teal-800/50 rounded-xl p-4 shadow-sm border border-teal-50 dark:border-teal-700;
   }
 
   .tab-button {
@@ -189,16 +189,16 @@
   }
 
   .tab-button-active {
-    @apply bg-teal-600 text-white shadow-sm;
+    @apply bg-teal-600 dark:bg-teal-500 text-white shadow-sm;
   }
 
   .tab-button-inactive {
-    @apply text-teal-800 hover:bg-teal-50;
+    @apply text-teal-800 dark:text-teal-100 hover:bg-teal-50 dark:hover:bg-teal-800;
   }
   
   /* Modern components */
   .card-modern {
-    @apply bg-white rounded-xl shadow-sm p-5 transition-all duration-200 hover:shadow-md border border-teal-50 hover:border-teal-100;
+    @apply bg-white dark:bg-teal-800/50 rounded-xl shadow-sm p-5 transition-all duration-200 hover:shadow-md border border-teal-50 dark:border-teal-700 hover:border-teal-100 dark:hover:border-teal-600;
   }
   
   .card-accent {
@@ -210,11 +210,11 @@
   }
   
   .glassmorphism {
-    @apply bg-white/70 backdrop-blur-md rounded-xl shadow-sm;
+    @apply bg-white/70 dark:bg-teal-900/70 backdrop-blur-md rounded-xl shadow-sm;
   }
   
   .btn-primary-modern {
-    @apply bg-teal-600 text-white font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow-none transition-all duration-200 hover:bg-teal-700;
+    @apply bg-teal-600 dark:bg-teal-500 text-white font-medium py-3 px-6 rounded-xl shadow-sm hover:shadow-none transition-all duration-200 hover:bg-teal-700 dark:hover:bg-teal-600;
   }
   
   .btn-secondary-modern {
@@ -222,11 +222,11 @@
   }
   
   .btn-outline-modern {
-    @apply border border-teal-500 bg-white text-teal-600 font-medium py-3 px-6 rounded-xl hover:bg-teal-50 transition-all duration-200;
+    @apply border border-teal-500 dark:border-teal-400 bg-white dark:bg-transparent text-teal-600 dark:text-teal-300 font-medium py-3 px-6 rounded-xl hover:bg-teal-50 dark:hover:bg-teal-800/50 transition-all duration-200;
   }
   
   .input-modern {
-    @apply w-full bg-white border border-teal-100 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all duration-200;
+    @apply w-full bg-white dark:bg-teal-800/40 border border-teal-100 dark:border-teal-700 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all duration-200 dark:text-white;
   }
   
   .category-card {
@@ -242,11 +242,11 @@
   }
   
   .tool-card {
-    @apply bg-teal-800 text-white rounded-xl p-5 flex flex-col items-center justify-center gap-3 hover:bg-teal-900 transition-all duration-200 shadow-sm;
+    @apply bg-teal-800 dark:bg-teal-700 text-white rounded-xl p-5 flex flex-col items-center justify-center gap-3 hover:bg-teal-900 dark:hover:bg-teal-800 transition-all duration-200 shadow-sm;
   }
   
   .view-all-link {
-    @apply text-teal-600 flex items-center gap-1 font-medium text-sm hover:text-teal-700;
+    @apply text-teal-600 dark:text-teal-300 flex items-center gap-1 font-medium text-sm hover:text-teal-700 dark:hover:text-teal-200;
   }
 
   /* Custom scrollbar */
@@ -256,17 +256,17 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f0fdfa;
+    @apply bg-teal-50 dark:bg-teal-900;
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #99f6e4;
+    @apply bg-teal-200 dark:bg-teal-700;
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #2dd4bf;
+    @apply bg-teal-400 dark:bg-teal-600;
   }
 
   /* Add more utility classes as needed */
@@ -281,11 +281,7 @@
   
   /* Dark mode toggle switch */
   .theme-toggle {
-    @apply bg-teal-200 hover:bg-teal-300 text-teal-700 hover:text-teal-800;
-  }
-  
-  .theme-toggle[data-state="checked"] {
-    @apply bg-teal-700 hover:bg-teal-800 text-teal-50;
+    @apply bg-teal-200 hover:bg-teal-300 text-teal-700 hover:text-teal-800 dark:bg-teal-700 dark:hover:bg-teal-600 dark:text-teal-50;
   }
   
   /* New Gradient styles */
@@ -303,7 +299,7 @@
   
   /* Glass cards */
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-teal-50/80 rounded-xl shadow-sm;
+    @apply bg-white/80 dark:bg-teal-900/80 backdrop-blur-md border border-teal-50/80 dark:border-teal-700/80 rounded-xl shadow-sm;
   }
   
   .glass-card-dark {

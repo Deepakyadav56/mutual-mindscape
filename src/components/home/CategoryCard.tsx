@@ -19,7 +19,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, icon, l
       <Card className={cn(
         "border-0 p-5 relative overflow-hidden transition-transform duration-200 hover:scale-[1.02]", 
         color, 
-        "text-white"
+        "text-white dark:shadow-md dark:shadow-teal-900/20"
       )}>
         <div className="absolute top-3 right-3 opacity-70">{icon}</div>
         <h3 className="text-xl font-bold mb-1">{title}</h3>
