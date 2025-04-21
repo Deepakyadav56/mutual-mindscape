@@ -16,57 +16,45 @@ const SplashScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900 dark:to-teal-950 p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-teal-100 to-white p-6">
       <motion.div 
         className="flex flex-col items-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.div 
-          className="w-32 h-32 rounded-3xl bg-gradient-to-br from-teal-600 to-teal-800 dark:from-teal-500 dark:to-teal-700 flex items-center justify-center mb-10 shadow-xl overflow-hidden relative"
-          initial={{ y: 20, scale: 0.8 }}
-          animate={{ y: 0, scale: 1 }}
+          className="w-28 h-28 rounded-full bg-gradient-to-br from-teal-700 to-teal-800 flex items-center justify-center mb-8 shadow-xl"
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
           transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
         >
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="w-14 h-14 text-teal-100"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="w-16 h-16 text-white"
-            >
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-            </svg>
-          </motion.div>
-          
-          {/* Decorative elements */}
-          <div className="absolute -right-6 -bottom-6 w-12 h-12 rounded-full bg-white/20"></div>
-          <div className="absolute -left-4 -top-4 w-8 h-8 rounded-full bg-white/10"></div>
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
         </motion.div>
-        
         <motion.h1 
-          className="text-6xl font-bold text-teal-800 dark:text-teal-200 mb-1 font-sf-pro tracking-tight"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
+          className="text-5xl font-bold text-teal-800 mb-2 font-sf-pro"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
         >
           WealthWise
         </motion.h1>
-        
         <motion.p 
-          className="text-teal-600 dark:text-teal-400 opacity-90 font-medium text-lg"
+          className="text-teal-700 opacity-80 font-medium"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
         >
           Your smart investment partner
         </motion.p>
@@ -77,45 +65,10 @@ const SplashScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
         >
-          <div className="flex gap-3">
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7],
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5, 
-                ease: "easeInOut" 
-              }}
-              className="h-2.5 w-2.5 bg-teal-500 dark:bg-teal-400 rounded-full"
-            ></motion.div>
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7],
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5, 
-                delay: 0.2,
-                ease: "easeInOut" 
-              }}
-              className="h-2.5 w-2.5 bg-teal-500 dark:bg-teal-400 rounded-full"
-            ></motion.div>
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7], 
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5, 
-                delay: 0.4,
-                ease: "easeInOut" 
-              }}
-              className="h-2.5 w-2.5 bg-teal-500 dark:bg-teal-400 rounded-full"
-            ></motion.div>
+          <div className="flex gap-2">
+            <div className="h-2 w-2 bg-teal-500 rounded-full animate-pulse"></div>
+            <div className="h-2 w-2 bg-teal-500 rounded-full animate-pulse" style={{ animationDelay: "300ms" }}></div>
+            <div className="h-2 w-2 bg-teal-500 rounded-full animate-pulse" style={{ animationDelay: "600ms" }}></div>
           </div>
         </motion.div>
       </motion.div>

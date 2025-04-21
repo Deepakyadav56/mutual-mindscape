@@ -10,16 +10,16 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-teal-600 text-white hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600",
+          "border-transparent bg-app-button-green text-white hover:bg-app-button-green/80",
         secondary:
-          "border-transparent bg-teal-800 text-white hover:bg-teal-900 dark:bg-teal-700 dark:hover:bg-teal-800",
+          "border-transparent bg-app-black text-white hover:bg-app-black/80",
         destructive:
-          "border-transparent bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700",
-        outline: "text-teal-800 dark:text-teal-100 border-teal-200 dark:border-teal-700",
-        success: "border-transparent bg-green-100 text-green-800 hover:bg-green-200/80 dark:bg-green-800/30 dark:text-green-200 dark:hover:bg-green-800/40",
-        warning: "border-transparent bg-orange-100 text-orange-800 hover:bg-orange-200/80 dark:bg-orange-800/30 dark:text-orange-200 dark:hover:bg-orange-800/40",
-        info: "border-transparent bg-blue-100 text-blue-800 hover:bg-blue-200/80 dark:bg-blue-800/30 dark:text-blue-200 dark:hover:bg-blue-800/40",
-        mint: "border-transparent bg-teal-100 text-teal-800 hover:bg-teal-200/80 dark:bg-teal-800/30 dark:text-teal-200 dark:hover:bg-teal-800/40",
+          "border-transparent bg-app-red text-white hover:bg-app-red/80",
+        outline: "text-foreground",
+        success: "border-transparent bg-green-100 text-green-800 hover:bg-green-200/80",
+        warning: "border-transparent bg-orange-100 text-orange-800 hover:bg-orange-200/80",
+        info: "border-transparent bg-blue-100 text-blue-800 hover:bg-blue-200/80",
+        mint: "border-transparent bg-app-mint text-app-button-green hover:bg-app-mint/80",
       },
     },
     defaultVariants: {
