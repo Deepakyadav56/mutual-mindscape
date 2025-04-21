@@ -16,7 +16,7 @@ const OnboardingScreen = () => {
       description: "Explore top-performing mutual funds with detailed analytics and insights.",
       icon: (
         <motion.div 
-          className="rounded-full bg-teal-100 p-6"
+          className="rounded-full bg-app-green/10 p-6"
           whileHover={{ scale: 1.05 }}
         >
           <svg
@@ -27,7 +27,7 @@ const OnboardingScreen = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-16 h-16 text-teal-600"
+            className="w-16 h-16 text-app-green"
           >
             <line x1="12" y1="20" x2="12" y2="10" />
             <line x1="18" y1="20" x2="18" y2="4" />
@@ -41,7 +41,7 @@ const OnboardingScreen = () => {
       description: "Plan your investments with specific goals and track your progress over time.",
       icon: (
         <motion.div 
-          className="rounded-full bg-teal-100 p-6"
+          className="rounded-full bg-app-blue/10 p-6"
           whileHover={{ scale: 1.05 }}
         >
           <svg
@@ -52,7 +52,7 @@ const OnboardingScreen = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-16 h-16 text-teal-600"
+            className="w-16 h-16 text-app-blue"
           >
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
@@ -65,7 +65,7 @@ const OnboardingScreen = () => {
       description: "Real-time tracking and intelligent recommendations for optimizing your investments.",
       icon: (
         <motion.div 
-          className="rounded-full bg-teal-100 p-6"
+          className="rounded-full bg-yellow-100 p-6"
           whileHover={{ scale: 1.05 }}
         >
           <svg
@@ -76,7 +76,7 @@ const OnboardingScreen = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-16 h-16 text-teal-600"
+            className="w-16 h-16 text-yellow-600"
           >
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
             <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
@@ -90,7 +90,7 @@ const OnboardingScreen = () => {
       description: "Begin your investment journey today with WealthWise and achieve your financial goals.",
       icon: (
         <motion.div 
-          className="rounded-full bg-teal-100 p-6"
+          className="rounded-full bg-green-100 p-6"
           whileHover={{ scale: 1.05 }}
         >
           <svg
@@ -101,7 +101,7 @@ const OnboardingScreen = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-16 h-16 text-teal-600"
+            className="w-16 h-16 text-green-600"
           >
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
             <polyline points="22 4 12 14.01 9 11.01" />
@@ -145,15 +145,15 @@ const OnboardingScreen = () => {
   };
 
   return (
-    <div className="onboarding-container bg-gradient-to-b from-teal-100 to-white">
+    <div className="onboarding-container bg-gradient-to-b from-app-mint to-white">
       <div className="max-w-md w-full">
         {currentSlide > 0 && (
           <motion.button
-            className="absolute top-8 left-8 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md border border-teal-100"
+            className="absolute top-8 left-8 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md"
             whileTap={{ scale: 0.95 }}
             onClick={handleBack}
           >
-            <ArrowLeft className="h-5 w-5 text-teal-700" />
+            <ArrowLeft className="h-5 w-5 text-app-charcoal" />
           </motion.button>
         )}
         
@@ -170,7 +170,7 @@ const OnboardingScreen = () => {
               opacity: { duration: 0.2 }
             }}
           >
-            <Card className="p-8 rounded-3xl shadow-lg border border-teal-100 bg-white/90 backdrop-blur-sm">
+            <Card className="p-8 rounded-3xl shadow-lg border-0 bg-white/90 backdrop-blur-sm">
               <div className="flex flex-col items-center">
                 <motion.div 
                   className="flex justify-center mb-10"
@@ -182,7 +182,7 @@ const OnboardingScreen = () => {
                 </motion.div>
                 
                 <motion.h1 
-                  className="text-2xl font-bold text-teal-800 mb-4 text-center"
+                  className="text-2xl font-bold text-app-charcoal mb-4 text-center"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
@@ -191,7 +191,7 @@ const OnboardingScreen = () => {
                 </motion.h1>
                 
                 <motion.p 
-                  className="text-teal-700/80 mb-10 text-center"
+                  className="text-app-charcoal/80 mb-10 text-center"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
@@ -210,8 +210,8 @@ const OnboardingScreen = () => {
                       key={index}
                       className={`w-3 h-3 mx-1.5 rounded-full transition-all duration-300 ${
                         index === currentSlide
-                          ? "bg-teal-500 scale-110"
-                          : "bg-teal-200"
+                          ? "bg-app-green scale-110"
+                          : "bg-gray-300"
                       }`}
                     />
                   ))}
@@ -225,7 +225,7 @@ const OnboardingScreen = () => {
                 >
                   <Button 
                     onClick={handleNext}
-                    className="bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white py-6 rounded-xl flex items-center justify-center gap-2 shadow-md"
+                    className="bg-app-green hover:bg-app-green/90 text-white py-6 rounded-xl flex items-center justify-center gap-2"
                   >
                     {currentSlide < slides.length - 1 ? (
                       <>Next <ChevronRight className="h-5 w-5" /></>
@@ -238,7 +238,7 @@ const OnboardingScreen = () => {
                     <Button
                       variant="ghost"
                       onClick={handleSkip}
-                      className="text-teal-700 hover:text-teal-800 hover:bg-teal-50 py-3"
+                      className="text-app-charcoal hover:text-app-primary py-3"
                     >
                       Skip
                     </Button>

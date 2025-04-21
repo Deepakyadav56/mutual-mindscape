@@ -42,7 +42,6 @@ import Watchlist from "./pages/portfolio/Watchlist";
 import LearnSection from "./pages/learn/LearnSection";
 import ArticleDetail from "./pages/learn/ArticleDetail";
 import FundHouseInfo from "./pages/explore/FundHouseInfo";
-import { ThemeProvider } from "./components/theme/ThemeProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,66 +56,64 @@ const App = () => {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="system" storageKey="wealthwise-theme">
-          <TooltipProvider>
-            <Toaster />
-            <Sonner position="top-right" closeButton />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Navigate to="/splash" replace />} />
-                <Route path="/splash" element={<SplashScreen />} />
-                <Route path="/onboarding" element={<OnboardingScreen />} />
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/signup" element={<Signup />} />
-                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-                <Route path="/kyc" element={<KycVerification />} />
-                
-                <Route path="/" element={<AppLayout />}>
-                  <Route path="/dashboard" element={<Home />} />
-                  <Route path="/explore" element={<FundsExplore />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/transactions" element={<Transactions />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/search" element={<Search />} />
-                </Route>
-                
-                <Route path="/explore/tax-saver-funds" element={<TaxSaverFunds />} />
-                <Route path="/explore/fund-compare" element={<FundCompare />} />
-                <Route path="/explore/categories" element={<FundCategories />} />
-                <Route path="/explore/category/:categoryId" element={<FundsExplore />} />
-                <Route path="/explore/fund-house/:id" element={<FundHouseInfo />} />
-                
-                <Route path="/funds/:fundId" element={<FundDetails />} />
-                <Route path="/invest/:fundId" element={<InvestFund />} />
-                <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
-                <Route path="/payment-success" element={<PaymentSuccess />} />
-                
-                <Route path="/portfolio/analysis" element={<PortfolioAnalysis />} />
-                <Route path="/portfolio/fund/:fundId" element={<FundDetail />} />
-                <Route path="/portfolio/redeem/:fundId" element={<RedeemFund />} />
-                <Route path="/portfolio/manage-sip/:fundId" element={<ManageSIP />} />
-                <Route path="/portfolio/sip-tracker" element={<SipTracker />} />
-                <Route path="/portfolio/holdings" element={<Holdings />} />
-                <Route path="/portfolio/watchlist" element={<Watchlist />} />
-                
-                <Route path="/notifications" element={<NotificationCenter />} />
-                
-                <Route path="/tools/sip-calculator" element={<SipCalculator />} />
-                <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
-                
-                <Route path="/goals" element={<InvestmentGoals />} />
-                
-                <Route path="/profile/bank-accounts" element={<BankAccounts />} />
-                
-                {/* Learn section routes */}
-                <Route path="/learn" element={<LearnSection />} />
-                <Route path="/learn/article/:id" element={<ArticleDetail />} />
-                
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner position="top-right" closeButton />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Navigate to="/splash" replace />} />
+              <Route path="/splash" element={<SplashScreen />} />
+              <Route path="/onboarding" element={<OnboardingScreen />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/signup" element={<Signup />} />
+              <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+              <Route path="/kyc" element={<KycVerification />} />
+              
+              <Route path="/" element={<AppLayout />}>
+                <Route path="/dashboard" element={<Home />} />
+                <Route path="/explore" element={<FundsExplore />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/search" element={<Search />} />
+              </Route>
+              
+              <Route path="/explore/tax-saver-funds" element={<TaxSaverFunds />} />
+              <Route path="/explore/fund-compare" element={<FundCompare />} />
+              <Route path="/explore/categories" element={<FundCategories />} />
+              <Route path="/explore/category/:categoryId" element={<FundsExplore />} />
+              <Route path="/explore/fund-house/:id" element={<FundHouseInfo />} />
+              
+              <Route path="/funds/:fundId" element={<FundDetails />} />
+              <Route path="/invest/:fundId" element={<InvestFund />} />
+              <Route path="/invest/:fundId/payment" element={<PaymentConfirmation />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              
+              <Route path="/portfolio/analysis" element={<PortfolioAnalysis />} />
+              <Route path="/portfolio/fund/:fundId" element={<FundDetail />} />
+              <Route path="/portfolio/redeem/:fundId" element={<RedeemFund />} />
+              <Route path="/portfolio/manage-sip/:fundId" element={<ManageSIP />} />
+              <Route path="/portfolio/sip-tracker" element={<SipTracker />} />
+              <Route path="/portfolio/holdings" element={<Holdings />} />
+              <Route path="/portfolio/watchlist" element={<Watchlist />} />
+              
+              <Route path="/notifications" element={<NotificationCenter />} />
+              
+              <Route path="/tools/sip-calculator" element={<SipCalculator />} />
+              <Route path="/tools/tax-calculator" element={<TaxCalculator />} />
+              
+              <Route path="/goals" element={<InvestmentGoals />} />
+              
+              <Route path="/profile/bank-accounts" element={<BankAccounts />} />
+              
+              {/* Learn section routes */}
+              <Route path="/learn" element={<LearnSection />} />
+              <Route path="/learn/article/:id" element={<ArticleDetail />} />
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );

@@ -10,16 +10,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-teal-600 text-white hover:bg-teal-700 shadow-sm dark:bg-teal-500 dark:hover:bg-teal-600",
+        default: "bg-app-button-green text-white hover:bg-app-button-green/90 shadow-sm",
         destructive:
-          "bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700",
+          "bg-app-red text-white hover:bg-app-red/90",
         outline:
-          "border border-teal-200 bg-white text-teal-800 hover:bg-teal-50 dark:border-teal-700 dark:bg-transparent dark:text-teal-100 dark:hover:bg-teal-800/50",
+          "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
         secondary:
-          "bg-teal-800 text-white hover:bg-teal-900 shadow-sm dark:bg-teal-700 dark:hover:bg-teal-800",
-        ghost: "hover:bg-teal-50 hover:text-teal-800 dark:hover:bg-teal-800 dark:hover:text-teal-200",
-        link: "text-teal-600 underline-offset-4 hover:underline dark:text-teal-400",
-        mint: "bg-teal-50 text-teal-600 hover:bg-teal-100 dark:bg-teal-800/50 dark:text-teal-200 dark:hover:bg-teal-800"
+          "bg-app-black text-white hover:bg-app-black/90 shadow-sm",
+        ghost: "hover:bg-gray-50 hover:text-app-black",
+        link: "text-app-button-green underline-offset-4 hover:underline",
+        mint: "bg-green-50 text-app-button-green hover:bg-green-100"
       },
       size: {
         default: "h-10 px-4 py-2",
